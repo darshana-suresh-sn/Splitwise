@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="c7463a357f220210d94a0cd10d866507" label="Expense" max_length="40" name="sn_splitwise_expense" type="collection">
+        <element default="javascript:getNextObjNumber();" dynamic_default_value="8acb83a85f220100a9ad2572f2b47741" label="Expense id" mandatory="true" max_length="40" name="expense_id" primary="true" read_only="true" type="auto_number" unique="true" use_dynamic_default="true"/>
+        <element label="Expense name" max_length="150" name="expense_name" type="string"/>
+        <element label="Group ID" mandatory="true" max_length="150" name="group_id" read_only="true" type="string"/>
+        <element attributes="encode_utf8=false" default="javascript:gs.getUserID();&#13;&#10;" dynamic_default_value="90d1921e5f510100a9ad2572f2b477fe" label="Paid by" mandatory="true" max_length="32" name="paid_by" reference="sys_user" type="reference" use_dynamic_default="true"/>
+        <element attributes="omit_sys_original=true,serializer=com.glide.script.PriceXMLSerializer" label="Total amount" mandatory="true" max_length="20" name="total_amount" type="price"/>
+        <index name="index" unique="true">
+            <element name="expense_id"/>
+        </index>
+        <index name="index2">
+            <element name="paid_by"/>
+        </index>
+    </element>
+</database>

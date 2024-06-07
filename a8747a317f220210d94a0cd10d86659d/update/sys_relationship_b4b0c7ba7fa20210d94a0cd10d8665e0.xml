@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_relationship">
+    <sys_relationship action="INSERT_OR_UPDATE">
+        <advanced>false</advanced>
+        <apply_to/>
+        <basic_apply_to>sn_splitwise_expense</basic_apply_to>
+        <basic_query_from>sn_splitwise_expense_distribution</basic_query_from>
+        <insert_callback/>
+        <name>Split between</name>
+        <query_from/>
+        <query_with><![CDATA[(function refineQuery(current, parent) {
+
+	// Add your code here, such as current.addQuery(field, value);
+	current.addActiveQuery();
+	current.addQuery('expense_id',parent.expense_id);
+	current.addQuery('group_id',parent.group_id);
+	
+})(current, parent);]]></query_with>
+        <reference_field/>
+        <related_list/>
+        <simple_reference>false</simple_reference>
+        <sys_class_name>sys_relationship</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-06 14:10:54</sys_created_on>
+        <sys_id>b4b0c7ba7fa20210d94a0cd10d8665e0</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Split between</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sys_relationship_b4b0c7ba7fa20210d94a0cd10d8665e0</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-07 10:15:39</sys_updated_on>
+    </sys_relationship>
+    <sys_translated_text action="delete_multiple" query="documentkey=b4b0c7ba7fa20210d94a0cd10d8665e0"/>
+</record_update>

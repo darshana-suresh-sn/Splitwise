@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function(spModal) {
+	/* widget controller */
+	var c = this;
+	c.CONST_TO_PAY = 'toPay';
+	c.CONST_TO_GET = 'toGet';
+	
+	c.settleBalance = function(index,balanceType)
+	{
+		var balanceList = null, userLabel;
+		switch(balanceType)
+			{
+				case c.CONST_TO_GET:
+					balanceList = c.data.balances_to_get;
+					userLabel = 'user';
+					break;
+				case c.CONST_TO_PAY:
+					balanceList = c.data.balances_to_pay;
+					userLabel = 'owed_to';
+					break;
+			}
+		if(!balanceList || index < 0 || index >= balanceList.length)
+			{
+				spModal.alert('Something went wrong. Please refresh the page and try again.');
+				return;
+			}
+		username = balanceList[index][userLabel];
+		spModal.confirm('Do you want to settle the balance with '+username+'?').then(function(confirmed) {
+            if(confirmed) c.deleteBalance(balanceList[index], balanceType);
+        });
+	};
+	
+	c.deleteBalance = function(balanceObj, balanceType)
+	{
+		c.server.get({
+			data: balanceObj,
+			action: 'markAsSettled',
+			balanceType: balanceType
+		}).then(function(result){
+			if(balanceType==c.CONST_TO_GET)
+			{
+				c.data.balances_to_get = result.data.balances_to_get;
+				c.data.total_am_to_get = result.total_am_to_get;
+			}
+			else if(balanceType==c.CONST_TO_PAY)
+				{
+					c.data.balances_to_pay = result.data.balances_to_pay;
+					c.data.total_am_to_pay = result.data.total_am_to_pay;
+				}
+		});
+	}
+};
+
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>td,th{
+  padding:5px;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>hello_user</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Hello user</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	
+	//method definitions
+	var deleteBalance = function(balanceObj, balanceType){
+		if(balanceObj && balanceObj.sys_id)
+		{
+			var record_to_update = new GlideRecord('sn_splitwise_balance');
+			record_to_update.addQuery('sys_id',balanceObj.sys_id);
+			record_to_update.query();
+			if(record_to_update.next())
+			{
+				record_to_update.setValue('state','settled');
+				record_to_update.update();
+
+				if(balanceType=='toPay')
+					getAmountToPayBalances();
+				else if(balanceType=='toGet')
+					getAmountToGetBalances();
+			}
+		}
+	}
+	var getBalances = function()
+	{
+		getAmountToPayBalances();
+		getAmountToGetBalances();
+	}
+	var getAmountToPayBalances = function()
+	{
+		var balanceObj;
+
+		var am_to_pay_record = new GlideRecord('sn_splitwise_balance');
+		am_to_pay_record.addQuery('user',gs.getUser().getID());
+		am_to_pay_record.addQuery('state','not_settled');
+		am_to_pay_record.query();
+
+		data.balances_to_pay = [];
+		while (am_to_pay_record.next()) {
+			balanceObj = {};
+			$sp.getRecordDisplayValues(balanceObj, am_to_pay_record, 'sys_id,owed_to,amount');
+			data.balances_to_pay.push(balanceObj);
+		}
+
+		var total_am_to_pay_record = new GlideAggregate('sn_splitwise_balance');
+		total_am_to_pay_record.addAggregate('SUM','amount');
+		total_am_to_pay_record.addQuery('user',gs.getUser().getID());
+		total_am_to_pay_record.addQuery('state','not_settled');
+		total_am_to_pay_record.setGroup(false);
+		total_am_to_pay_record.query();
+		if(total_am_to_pay_record.next())
+		{
+			data.total_am_to_pay = total_am_to_pay_record.getAggregate('SUM', 'amount');
+		}
+		if(!data.total_am_to_pay) data.total_am_to_pay = 0;
+	}
+	var getAmountToGetBalances = function()
+	{
+		var am_to_get_record = new GlideRecord('sn_splitwise_balance');
+		am_to_get_record.addQuery('owed_to',gs.getUser().getID());
+		am_to_get_record.addQuery('state','not_settled');
+		am_to_get_record.query();
+
+		data.balances_to_get = [];
+		while (am_to_get_record.next()) {
+			balanceObj = {};
+			$sp.getRecordDisplayValues(balanceObj, am_to_get_record, 'sys_id,user,amount');
+			data.balances_to_get.push(balanceObj);
+			data.total_am_to_get += balanceObj.amount;
+		}
+
+		var total_am_to_get_record = new GlideAggregate('sn_splitwise_balance');
+		total_am_to_get_record.addAggregate('SUM','amount');
+		total_am_to_get_record.addQuery('owed_to',gs.getUser().getID());
+		total_am_to_get_record.addQuery('state','not_settled');
+		total_am_to_get_record.setGroup(false);
+		total_am_to_get_record.query();
+		if(total_am_to_get_record.next())
+		{
+			data.total_am_to_get = total_am_to_get_record.getAggregate('SUM', 'amount');
+		}
+		if(!data.total_am_to_get) data.total_am_to_get = 0;
+	}
+
+	//main section
+	
+	if(input && input.action=='markAsSettled')
+	{
+		deleteBalance(input.data,input.balanceType);
+	}
+	else
+		getBalances();
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-04 09:11:13</sys_created_on>
+        <sys_id>6a29e74e7f260210d94a0cd10d8665b7</sys_id>
+        <sys_mod_count>147</sys_mod_count>
+        <sys_name>Hello user</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sp_widget_6a29e74e7f260210d94a0cd10d8665b7</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-05 10:58:59</sys_updated_on>
+        <template><![CDATA[<div>
+  <!-- your widget template -->
+  <h1>
+    Hello {{user.first_name}},
+  </h1>
+  <br>
+  <p>
+    You owe 
+    <font color="red"><b>
+      Rs.{{data.total_am_to_pay}} 
+      </b>
+    </font>in total
+    <br>
+    You are owed
+    <font color="green" ><b>
+    Rs.{{data.total_am_to_get}} 
+      </b></font>
+    in total
+  </p>
+  <br>
+  <table id="balanceTable">
+    <tr>
+      <th>User</th>
+      <th>Amount</th>
+    </tr>
+        <tr ng-repeat="x in data.balances_to_pay">
+        <td>{{x.owed_to}}</td>
+        <td><font color="red">
+          -{{x.amount}}
+          </font>
+          </td>
+      <td>
+        <button ng-click="c.settleBalance($index,c.CONST_TO_PAY)">
+          settle
+        </button>
+      </td>
+    </tr>
+    <tr ng-repeat="x in data.balances_to_get">
+        <td>{{x.user}}</td>
+        <td><font color="green">
+          +{{x.amount}}
+          </font>
+          </td>
+      <td>
+        <button ng-click="c.settleBalance($index, c.CONST_TO_GET)">
+          settle
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>]]></template>
+    </sp_widget>
+</record_update>

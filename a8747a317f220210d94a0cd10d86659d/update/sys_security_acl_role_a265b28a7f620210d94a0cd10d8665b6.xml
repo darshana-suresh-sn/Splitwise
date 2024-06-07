@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="INSERT_OR_UPDATE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-04 05:25:07</sys_created_on>
+        <sys_id>a265b28a7f620210d94a0cd10d8665b6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sn_splitwise_balance.sn_splitwise.splitwise_user</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_security_acl display_value="sn_splitwise_balance">a665b28a7f620210d94a0cd10d8665b3</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_a265b28a7f620210d94a0cd10d8665b6</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-04 05:25:07</sys_updated_on>
+        <sys_user_role display_value="sn_splitwise.splitwise_user" name="sn_splitwise.splitwise_user">74a4fa317f220210d94a0cd10d8665ba</sys_user_role>
+    </sys_security_acl_role>
+</record_update>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_sg_item_stream">
+    <sys_sg_item_stream action="INSERT_OR_UPDATE">
+        <data_item display_value="Splitwise Expense">a4a5b28a7f620210d94a0cd10d8665a4</data_item>
+        <interleaved_field/>
+        <name>Expense Item Stream</name>
+        <sys_class_name>sys_sg_item_stream</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-04 05:26:04</sys_created_on>
+        <sys_id>a8a5b68a7f620210d94a0cd10d8665c5</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Expense Item Stream</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sys_sg_item_stream_a8a5b68a7f620210d94a0cd10d8665c5</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-04 05:26:04</sys_updated_on>
+        <table/>
+    </sys_sg_item_stream>
+</record_update>

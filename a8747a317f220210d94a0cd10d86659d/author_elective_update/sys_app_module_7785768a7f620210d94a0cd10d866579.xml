@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_app_module">
+    <sys_app_module action="DELETE">
+        <active>true</active>
+        <application display_value="Splitwise">3f85f60a7f620210d94a0cd10d86652c</application>
+        <assessment/>
+        <device_type/>
+        <filter/>
+        <hint/>
+        <homepage/>
+        <image/>
+        <link_type>NEW</link_type>
+        <map_page/>
+        <mobile_title>Create New</mobile_title>
+        <mobile_view_name>Mobile</mobile_view_name>
+        <name>sn_splitwise_expense</name>
+        <order>600</order>
+        <override_menu_roles>false</override_menu_roles>
+        <query/>
+        <report/>
+        <require_confirmation>true</require_confirmation>
+        <roles/>
+        <sys_class_name>sys_app_module</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-04 05:25:45</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>7785768a7f620210d94a0cd10d866579</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Create New Expense</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sys_app_module_7785768a7f620210d94a0cd10d866579</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-07 09:11:13</sys_updated_on>
+        <timeline_page/>
+        <title>Create New Expense</title>
+        <uncancelable>false</uncancelable>
+        <view_name/>
+        <window_name/>
+    </sys_app_module>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</application>
+        <file_path/>
+        <instance_id>909410dc0d120210958b922e05ff61a4</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sys_app_module_7785768a7f620210d94a0cd10d866579</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_app_module"><sys_app_module action="INSERT_OR_UPDATE"><active>true</active><application display_value="Splitwise">3f85f60a7f620210d94a0cd10d86652c</application><assessment/><device_type/><filter/><hint/><homepage/><image/><link_type>NEW</link_type><map_page/><mobile_title>Create New</mobile_title><mobile_view_name>Mobile</mobile_view_name><name>sn_splitwise_expense</name><order>600</order><override_menu_roles>false</override_menu_roles><query/><report/><require_confirmation>true</require_confirmation><roles/><sys_class_name>sys_app_module</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2024-06-04 05:25:45</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>7785768a7f620210d94a0cd10d866579</sys_id><sys_mod_count>3</sys_mod_count><sys_name>Create New Expense</sys_name><sys_overrides/><sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package><sys_policy/><sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope><sys_update_name>sys_app_module_7785768a7f620210d94a0cd10d866579</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2024-06-07 09:11:13</sys_updated_on><timeline_page/><title>Create New Expense</title><uncancelable>false</uncancelable><view_name/><window_name/></sys_app_module></record_update>]]></payload>
+        <payload_hash>-546032884</payload_hash>
+        <record_name>Create New Expense</record_name>
+        <reverted_from/>
+        <source>2c74f2b17f220210d94a0cd10d866553</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-07 09:11:13</sys_created_on>
+        <sys_id>ffe58f8f7f2a0210d94a0cd10d8665a1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18ff1f765720000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-07 09:11:13</sys_updated_on>
+        <type>Module</type>
+        <update_guid>f7e58f8f012a021071527d6d3ea931a1</update_guid>
+        <update_guid_history>f7e58f8f012a021071527d6d3ea931a1:-546032884,f554834f602a02108cd73df53e4f8865:-2008478514,c363c30f402a0210de97c8bde9bfe8da:-1065871472,f785768a13620210113851384ec62f7a:1771276480</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Create New Expense">71c0df0f7f6a0210d94a0cd10d8665a6</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-07 09:58:35</sys_created_on>
+        <sys_db_object display_value="" name="sys_app_module">sys_app_module</sys_db_object>
+        <sys_id>016c8bfbf97445d995164a4106204ab1</sys_id>
+        <sys_metadata>7785768a7f620210d94a0cd10d866579</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Create New Expense</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_scope_delete display_value="">1c30d6fa384846479a6e34b7ef0328a9</sys_scope_delete>
+        <sys_update_name>sys_app_module_7785768a7f620210d94a0cd10d866579</sys_update_name>
+        <sys_update_version display_value="sys_app_module_7785768a7f620210d94a0cd10d866579">ffe58f8f7f2a0210d94a0cd10d8665a1</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-07 09:58:35</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

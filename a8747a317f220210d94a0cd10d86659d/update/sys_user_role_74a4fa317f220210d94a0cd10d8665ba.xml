@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_user_role">
+    <sys_user_role action="INSERT_OR_UPDATE">
+        <assignable_by/>
+        <can_delegate>true</can_delegate>
+        <description/>
+        <elevated_privilege>false</elevated_privilege>
+        <grantable>true</grantable>
+        <includes_roles/>
+        <name>sn_splitwise.splitwise_user</name>
+        <scoped_admin>false</scoped_admin>
+        <suffix>sn_splitwise.splitwise_user</suffix>
+        <sys_class_name>sys_user_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-03 10:43:15</sys_created_on>
+        <sys_id>74a4fa317f220210d94a0cd10d8665ba</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sn_splitwise.splitwise_user</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sys_user_role_74a4fa317f220210d94a0cd10d8665ba</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-03 10:43:15</sys_updated_on>
+    </sys_user_role>
+</record_update>

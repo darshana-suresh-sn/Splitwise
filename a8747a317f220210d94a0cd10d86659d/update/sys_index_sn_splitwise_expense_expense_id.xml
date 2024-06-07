@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_index">
+    <sys_index action="INSERT_OR_UPDATE">
+        <access_method>btree</access_method>
+        <col_name_string>expense_id</col_name_string>
+        <index_col_name element="expense_id" name="sn_splitwise_expense">e504038a7fa20210d94a0cd10d86656d</index_col_name>
+        <logical_table_name>sn_splitwise_expense</logical_table_name>
+        <sys_class_name>sys_index</sys_class_name>
+        <sys_created_by>system</sys_created_by>
+        <sys_created_on>2024-06-04 07:24:53</sys_created_on>
+        <sys_id>81d0974a7fe20210d94a0cd10d866577</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sn_splitwise_expense</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sys_index_sn_splitwise_expense_expense_id</sys_update_name>
+        <sys_updated_by>system</sys_updated_by>
+        <sys_updated_on>2024-06-04 07:24:53</sys_updated_on>
+        <table display_value="Expense" name="sn_splitwise_expense">c7463a357f220210d94a0cd10d866507</table>
+        <unique_index>true</unique_index>
+    </sys_index>
+</record_update>
