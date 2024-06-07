@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_policy_action">
+    <sys_ui_policy_action action="DELETE">
+        <cleared>false</cleared>
+        <disabled>true</disabled>
+        <field>amount</field>
+        <field_message/>
+        <field_message_type>none</field_message_type>
+        <mandatory>ignore</mandatory>
+        <sys_class_name>sys_ui_policy_action</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-07 14:46:56</sys_created_on>
+        <sys_id>e1b29c9f7f2e0210d94a0cd10d86651c</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>amount</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sys_ui_policy_action_e1b29c9f7f2e0210d94a0cd10d86651c</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-07 17:20:00</sys_updated_on>
+        <table>sn_splitwise_balance</table>
+        <ui_policy display_value="Make balance table readonly">c252d49f7f2e0210d94a0cd10d8665a5</ui_policy>
+        <value/>
+        <value_action>ignore</value_action>
+        <visible>ignore</visible>
+    </sys_ui_policy_action>
+    <sys_translated_text action="DELETE" query="documentkey=e1b29c9f7f2e0210d94a0cd10d86651c"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</application>
+        <file_path/>
+        <instance_id>909410dc0d120210958b922e05ff61a4</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sys_ui_policy_action_e1b29c9f7f2e0210d94a0cd10d86651c</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_policy_action"><sys_ui_policy_action action="INSERT_OR_UPDATE"><cleared>false</cleared><disabled>true</disabled><field>amount</field><field_message/><field_message_type>none</field_message_type><mandatory>ignore</mandatory><sys_class_name>sys_ui_policy_action</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2024-06-07 14:46:56</sys_created_on><sys_id>e1b29c9f7f2e0210d94a0cd10d86651c</sys_id><sys_mod_count>1</sys_mod_count><sys_name>amount</sys_name><sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package><sys_policy/><sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope><sys_update_name>sys_ui_policy_action_e1b29c9f7f2e0210d94a0cd10d86651c</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2024-06-07 17:20:00</sys_updated_on><table>sn_splitwise_balance</table><ui_policy display_value="Make balance table readonly">c252d49f7f2e0210d94a0cd10d8665a5</ui_policy><value/><value_action>ignore</value_action><visible>ignore</visible></sys_ui_policy_action><sys_translated_text action="delete_multiple" query="documentkey=e1b29c9f7f2e0210d94a0cd10d86651c"/></record_update>]]></payload>
+        <payload_hash>1359271305</payload_hash>
+        <record_name>amount</record_name>
+        <reverted_from/>
+        <source>36b4ef037fea0210d94a0cd10d8665c5</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-07 17:20:00</sys_created_on>
+        <sys_id>fbc5fc537f6e0210d94a0cd10d866569</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18ff3b6e2dc0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-07 17:20:00</sys_updated_on>
+        <type>UI Policy Action</type>
+        <update_guid>b3c5fc53c36e021078d9cc2b4ddafc69</update_guid>
+        <update_guid_history>b3c5fc53c36e021078d9cc2b4ddafc69:1359271305,edc25c9ffc2e02104e8fed313c128bd1:1277015870</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-07 17:29:53</sys_created_on>
+        <sys_db_object display_value="" name="sys_ui_policy_action">sys_ui_policy_action</sys_db_object>
+        <sys_id>10e9c7a60fe24094a62911fe1888b251</sys_id>
+        <sys_metadata>e1b29c9f7f2e0210d94a0cd10d86651c</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>amount</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_scope_delete display_value="">1c30d6fa384846479a6e34b7ef0328a9</sys_scope_delete>
+        <sys_update_name>sys_ui_policy_action_e1b29c9f7f2e0210d94a0cd10d86651c</sys_update_name>
+        <sys_update_version display_value="sys_ui_policy_action_e1b29c9f7f2e0210d94a0cd10d86651c">fbc5fc537f6e0210d94a0cd10d866569</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-07 17:29:53</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

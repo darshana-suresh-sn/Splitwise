@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl">
+    <sys_security_acl action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <admin_overrides>true</admin_overrides>
+        <advanced>false</advanced>
+        <condition/>
+        <description>Default access control on sn_splitwise_expense_distribution</description>
+        <local_or_existing>Local</local_or_existing>
+        <name>sn_splitwise_expense_distribution</name>
+        <operation display_value="delete">delete</operation>
+        <script/>
+        <security_attribute/>
+        <sys_class_name>sys_security_acl</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-07 18:15:50</sys_created_on>
+        <sys_id>ad9285537fae0210d94a0cd10d86651e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sn_splitwise_expense_distribution</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sys_security_acl_ad9285537fae0210d94a0cd10d86651e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-07 18:15:50</sys_updated_on>
+        <type display_value="record">record</type>
+    </sys_security_acl>
+</record_update>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_section caption="Expense" section_id="f75e301f7f6e0210d94a0cd10d86657c" sys_domain="global" table="sn_splitwise_expense" version="3" view="">
+        <sys_ui_annotation action="INSERT_OR_UPDATE">
+            <is_plain_text>true</is_plain_text>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2024-06-07 17:57:38</sys_created_on>
+            <sys_id>cf6eb01f7f6e0210d94a0cd10d866514</sys_id>
+            <sys_mod_count>3</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2024-06-07 18:03:00</sys_updated_on>
+            <text>Note: To insert/update records in this table, use the Service Portal for Splitwise application.</text>
+            <type display_value="Info Box Red">823f88a80f930000b12e6903cfe01209</type>
+        </sys_ui_annotation>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>cf6eb01f7f6e0210d94a0cd10d866514</element>
+            <position>0</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2024-06-07 17:57:38</sys_created_on>
+            <sys_id>036eb01f7f6e0210d94a0cd10d866517</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Expense" display_value="Expense" name="sn_splitwise_expense" sys_domain="global" view="Default view">f75e301f7f6e0210d94a0cd10d86657c</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2024-06-07 17:57:38</sys_updated_on>
+            <sys_user/>
+            <type>annotation</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.begin_split</element>
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2024-06-07 17:57:38</sys_created_on>
+            <sys_id>0b6eb01f7f6e0210d94a0cd10d866517</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Expense" display_value="Expense" name="sn_splitwise_expense" sys_domain="global" view="Default view">f75e301f7f6e0210d94a0cd10d86657c</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2024-06-07 17:57:38</sys_updated_on>
+            <sys_user/>
+            <type>.begin_split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>paid_by</element>
+            <position>2</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2024-06-07 17:57:38</sys_created_on>
+            <sys_id>036eb01f7f6e0210d94a0cd10d866518</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Expense" display_value="Expense" name="sn_splitwise_expense" sys_domain="global" view="Default view">f75e301f7f6e0210d94a0cd10d86657c</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2024-06-07 17:57:38</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.split</element>
+            <position>3</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2024-06-07 17:57:39</sys_created_on>
+            <sys_id>0b6eb01f7f6e0210d94a0cd10d866518</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Expense" display_value="Expense" name="sn_splitwise_expense" sys_domain="global" view="Default view">f75e301f7f6e0210d94a0cd10d86657c</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2024-06-07 17:57:39</sys_updated_on>
+            <sys_user/>
+            <type>.split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>total_amount</element>
+            <position>4</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2024-06-07 17:57:39</sys_created_on>
+            <sys_id>136eb01f7f6e0210d94a0cd10d866519</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Expense" display_value="Expense" name="sn_splitwise_expense" sys_domain="global" view="Default view">f75e301f7f6e0210d94a0cd10d86657c</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2024-06-07 17:57:39</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.end_split</element>
+            <position>5</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2024-06-07 17:57:39</sys_created_on>
+            <sys_id>1b6eb01f7f6e0210d94a0cd10d866519</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Expense" display_value="Expense" name="sn_splitwise_expense" sys_domain="global" view="Default view">f75e301f7f6e0210d94a0cd10d86657c</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2024-06-07 17:57:39</sys_updated_on>
+            <sys_user/>
+            <type>.end_split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>expense_name</element>
+            <position>6</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2024-06-07 17:57:39</sys_created_on>
+            <sys_id>136eb01f7f6e0210d94a0cd10d86651a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Expense" display_value="Expense" name="sn_splitwise_expense" sys_domain="global" view="Default view">f75e301f7f6e0210d94a0cd10d86657c</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2024-06-07 17:57:39</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>expense_id</element>
+            <position>7</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2024-06-07 17:57:39</sys_created_on>
+            <sys_id>1b6eb01f7f6e0210d94a0cd10d86651a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Expense" display_value="Expense" name="sn_splitwise_expense" sys_domain="global" view="Default view">f75e301f7f6e0210d94a0cd10d86657c</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2024-06-07 17:57:39</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>group_id</element>
+            <position>8</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2024-06-07 17:57:39</sys_created_on>
+            <sys_id>136eb01f7f6e0210d94a0cd10d86651b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Expense" display_value="Expense" name="sn_splitwise_expense" sys_domain="global" view="Default view">f75e301f7f6e0210d94a0cd10d86657c</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2024-06-07 17:57:39</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_section action="INSERT_OR_UPDATE">
+            <caption>Expense</caption>
+            <header>false</header>
+            <name>sn_splitwise_expense</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2024-06-07 17:57:25</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>f75e301f7f6e0210d94a0cd10d86657c</sys_id>
+            <sys_mod_count>1</sys_mod_count>
+            <sys_name>sn_splitwise_expense</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+            <sys_update_name>sys_ui_section_f75e301f7f6e0210d94a0cd10d86657c</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2024-06-07 17:57:38</sys_updated_on>
+            <sys_user/>
+            <title>false</title>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_section>
+    </sys_ui_section>
+</record_update>

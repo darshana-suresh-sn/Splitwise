@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_properties_category_m2m">
+    <sys_properties_category_m2m action="INSERT_OR_UPDATE">
+        <category display_value="Splitwise category">2dd6fb8b7fea0210d94a0cd10d86656b</category>
+        <order>100</order>
+        <property display_value="sn_splitwise.group_size" name="sn_splitwise.group_size">542733cb7fea0210d94a0cd10d8665f1</property>
+        <sys_class_name>sys_properties_category_m2m</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-07 12:49:44</sys_created_on>
+        <sys_id>74f73fcb7fea0210d94a0cd10d866572</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sn_splitwise.group_size.Splitwise category</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sys_properties_category_m2m_74f73fcb7fea0210d94a0cd10d866572</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-07 12:49:44</sys_updated_on>
+    </sys_properties_category_m2m>
+</record_update>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_form_sections form_id="bb5e301f7f6e0210d94a0cd10d866580" sys_domain="global" table="sn_splitwise_expense" version="3">
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>0</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2024-06-07 17:57:25</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>3b5e301f7f6e0210d94a0cd10d866583</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="sn_splitwise_expense" name="sn_splitwise_expense" sys_domain="global" view="Default view">bb5e301f7f6e0210d94a0cd10d866580</sys_ui_form>
+            <sys_ui_section caption="Expense" display_value="Expense" name="sn_splitwise_expense" sys_domain="global" view="Default view">f75e301f7f6e0210d94a0cd10d86657c</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2024-06-07 17:57:25</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form action="INSERT_OR_UPDATE">
+            <name>sn_splitwise_expense</name>
+            <roles/>
+            <sys_class_name>sys_ui_form</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2024-06-07 17:57:25</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>bb5e301f7f6e0210d94a0cd10d866580</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>sn_splitwise_expense</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+            <sys_update_name>sys_ui_form_sections_bb5e301f7f6e0210d94a0cd10d866580</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2024-06-07 17:57:25</sys_updated_on>
+            <sys_user/>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_form>
+    </sys_ui_form_sections>
+</record_update>

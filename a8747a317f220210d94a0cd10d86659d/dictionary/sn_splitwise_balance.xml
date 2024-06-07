@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="f565728a7f620210d94a0cd10d8665fa" label="Balance" max_length="40" name="sn_splitwise_balance" type="collection">
-        <element attributes="omit_sys_original=true,serializer=com.glide.script.PriceXMLSerializer" label="Amount" mandatory="true" max_length="20" name="amount" type="price"/>
-        <element label="Member" max_length="32" name="member" reference="sys_user" type="reference"/>
-        <element attributes="encode_utf8=false" label="Owed to" mandatory="true" max_length="32" name="owed_to" reference="sys_user" type="reference"/>
+        <element attributes="omit_sys_original=true,serializer=com.glide.script.PriceXMLSerializer" label="Amount" mandatory="true" max_length="20" name="amount" read_only="true" type="decimal"/>
+        <element label="Group ID" mandatory="true" max_length="150" name="group_id" read_only="true" type="string"/>
+        <element label="Member" max_length="32" name="member" read_only="true" reference="sys_user" type="reference"/>
+        <element attributes="encode_utf8=false" label="Owed to" mandatory="true" max_length="32" name="owed_to" read_only="true" reference="sys_user" type="reference"/>
         <index name="index">
             <element name="member"/>
         </index>
