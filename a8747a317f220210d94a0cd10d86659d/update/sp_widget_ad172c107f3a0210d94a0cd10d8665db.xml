@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller=function() {  /* widget controller */  var c = this;};]]></client_script>
+        <client_script><![CDATA[api.controller=function($rootScope) {
+	/* widget controller */
+	var c = this;
+	c.groupObj = {};
+
+	$rootScope.$on('$sp.list.click',function(e, response) {
+		if(response && response.sys_id)
+			{
+				c.groupObj.sys_id = response.sys_id;
+				if(response.record && response.record.display_field)
+					c.groupObj.name = response.record.display_field.display_value;
+				c.server.get({
+					data:c.groupObj.sys_id,
+					action:'getGroupExpenses'
+				}).then(function(result){
+					c.groupObj.expenseList = result.data.expenses;
+				});
+			}
+	});
+	
+};]]></client_script>
         <controller_as>c</controller_as>
         <css/>
         <data_table>sp_instance</data_table>
@@ -31,8 +51,23 @@
 			data.expense_groups.push(groupObj);
 		}
 	};
-
-	getGroupList();
+	var getExpenseList = function(group_id)
+	{
+		var gr = new GlideRecord('sn_splitwise_expense');
+		gr.addQuery('group_id',group_id);
+		gr.query();
+		data.expenses = [];
+		while (gr.next()) {
+			var expenseObj = {};
+			$sp.getRecordDisplayValues(expenseObj, gr, 'expense_name,paid_by,total_amount');
+			data.expenses.push(expenseObj);
+		}		
+	}
+	
+	if(input && input.action=='getGroupExpenses')
+	{
+		getExpenseList(input.data);
+	}
 
 })();]]></script>
         <servicenow>false</servicenow>
@@ -40,26 +75,26 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-10 18:49:35</sys_created_on>
         <sys_id>ad172c107f3a0210d94a0cd10d8665db</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>6</sys_mod_count>
         <sys_name>Expense group list</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sp_widget_ad172c107f3a0210d94a0cd10d8665db</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-10 19:03:17</sys_updated_on>
+        <sys_updated_on>2024-06-11 12:36:17</sys_updated_on>
         <template><![CDATA[  <div>
     <!-- your widget template -->
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
         <h3 class="panel-title pull-left">
-          ${Your Groups}
+          {{c.groupObj.name}} Expenses
         </h3>
       </div>
       <div class="list-group">
-        <a class="list-group-item" ng-repeat="grp in data.expense_groups" ng-click="c.selectItem($index)">
+        <a class="list-group-item" ng-repeat="exp in c.groupObj.expenseList" ng-click="c.selectItem($index)">
           <h4 class="list-group-item-heading">
-            {{grp.name}}
+            {{exp.expense_name}}
           </h4>
         </a>
       </div>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="6963cb4a7fa20210d94a0cd10d8665ba" label="Expense distribution" max_length="40" name="sn_splitwise_expense_distribution" type="collection">
-        <element label="Amount owed" mandatory="true" max_length="20" name="amount_owed" read_only="true" type="decimal"/>
-        <element display="true" label="Expense id" mandatory="true" max_length="32" name="expense_id" read_only="true" type="string"/>
+        <element label="Amount owed" mandatory="true" max_length="20" name="amount_owed" type="decimal"/>
+        <element display="true" label="Expense ID" mandatory="true" max_length="32" name="expense_id" read_only="true" type="string"/>
         <element label="Group ID" mandatory="true" max_length="150" name="group_id" read_only="true" type="string"/>
-        <element label="Member" mandatory="true" max_length="32" name="member" read_only="true" reference="sys_user" type="reference"/>
-        <element label="Paid by" mandatory="true" max_length="32" name="paid_by" read_only="true" reference="sys_user" type="reference"/>
+        <element label="Member" mandatory="true" max_length="32" name="member" reference="sys_user" type="reference"/>
+        <element label="Paid by" mandatory="true" max_length="32" name="paid_by" reference="sys_user" type="reference"/>
         <index name="index">
             <element name="expense_id"/>
         </index>

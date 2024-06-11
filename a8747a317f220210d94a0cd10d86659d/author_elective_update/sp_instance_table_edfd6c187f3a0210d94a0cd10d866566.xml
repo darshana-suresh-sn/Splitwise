@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance_table">
+    <sp_instance_table action="DELETE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <display_field/>
+        <field_list>expense_name,paid_by,total_amount</field_list>
+        <filter/>
+        <glyph>glass</glyph>
+        <id/>
+        <maximum_entries>5</maximum_entries>
+        <order>3</order>
+        <order_by>sys_created_on</order_by>
+        <order_direction>desc</order_direction>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="2">f0caa4547f3a0210d94a0cd10d86652f</sp_column>
+        <sp_page display_value="404">3c2c9063cb11020000f8d856634c9c1f</sp_page>
+        <sp_widget display_value="Data Table from Instance Definition">38058ff1cb11020000f8d856634c9c8c</sp_widget>
+        <sys_class_name>sp_instance_table</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-10 19:19:38</sys_created_on>
+        <sys_id>edfd6c187f3a0210d94a0cd10d866566</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>Expenses</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sp_instance_table_edfd6c187f3a0210d94a0cd10d866566</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-11 17:22:14</sys_updated_on>
+        <table>sn_splitwise_expense</table>
+        <title>Expenses</title>
+        <url/>
+        <widget_parameters/>
+    </sp_instance_table>
+    <sys_translated_text action="DELETE" query="documentkey=edfd6c187f3a0210d94a0cd10d866566"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</application>
+        <file_path/>
+        <instance_id>909410dc0d120210958b922e05ff61a4</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sp_instance_table_edfd6c187f3a0210d94a0cd10d866566</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance_table"><sp_instance_table action="INSERT_OR_UPDATE"><active>true</active><class_name/><color>default</color><css/><display_field/><field_list>expense_name,paid_by,total_amount</field_list><filter/><glyph>glass</glyph><id/><maximum_entries>5</maximum_entries><order>3</order><order_by>sys_created_on</order_by><order_direction>desc</order_direction><roles/><short_description/><size>md</size><sp_column display_value="2">f0caa4547f3a0210d94a0cd10d86652f</sp_column><sp_page display_value="404">3c2c9063cb11020000f8d856634c9c1f</sp_page><sp_widget display_value="Data Table from Instance Definition">38058ff1cb11020000f8d856634c9c8c</sp_widget><sys_class_name>sp_instance_table</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2024-06-10 19:19:38</sys_created_on><sys_id>edfd6c187f3a0210d94a0cd10d866566</sys_id><sys_mod_count>6</sys_mod_count><sys_name>Expenses</sys_name><sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package><sys_policy/><sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope><sys_update_name>sp_instance_table_edfd6c187f3a0210d94a0cd10d866566</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2024-06-11 17:22:14</sys_updated_on><table>sn_splitwise_expense</table><title>Expenses</title><url/><widget_parameters/></sp_instance_table><sys_translated_text action="delete_multiple" query="documentkey=edfd6c187f3a0210d94a0cd10d866566"/></record_update>]]></payload>
+        <payload_hash>1008107518</payload_hash>
+        <record_name>Expenses</record_name>
+        <reverted_from/>
+        <source>36b4ef037fea0210d94a0cd10d8665c5</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-11 17:22:14</sys_created_on>
+        <sys_id>dfac19287f320210d94a0cd10d866589</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19008525e440000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-11 17:22:14</sys_updated_on>
+        <type>Instance with Table</type>
+        <update_guid>97ac1928bc3202103d386cb97cdf9a89</update_guid>
+        <update_guid_history>97ac1928bc3202103d386cb97cdf9a89:1008107518,32685124fd320210296c12def1c41c65:266765407,a251f41c6d3a021068deba51ecce3acc:194212588,a9ce2c587e3a0210a638d233afa0daf5:266765407,97ae2858633a021026706438fe014fd3:-392954862,c83eac18793a0210e0e809e9fe66890d:-1982871154,2dfd6c18013a0210e489a841d422f468:-1598134662</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Expenses">bec72d247f720210d94a0cd10d86654f</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-11 18:10:48</sys_created_on>
+        <sys_db_object display_value="" name="sp_instance_table">sp_instance_table</sys_db_object>
+        <sys_id>4265f8224d1f4d589c929ec656c53910</sys_id>
+        <sys_metadata>edfd6c187f3a0210d94a0cd10d866566</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Expenses</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_scope_delete display_value="">1c30d6fa384846479a6e34b7ef0328a9</sys_scope_delete>
+        <sys_update_name>sp_instance_table_edfd6c187f3a0210d94a0cd10d866566</sys_update_name>
+        <sys_update_version display_value="sp_instance_table_edfd6c187f3a0210d94a0cd10d866566">dfac19287f320210d94a0cd10d866589</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-11 18:10:48</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
