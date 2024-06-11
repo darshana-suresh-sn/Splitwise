@@ -18,7 +18,7 @@
         <filter_condition/>
         <is_rest>false</is_rest>
         <message/>
-        <name>Validate if paid by group member</name>
+        <name>Validate if expense paid by group member</name>
         <order>100</order>
         <priority>100</priority>
         <rest_method/>
@@ -28,22 +28,10 @@
         <rest_variables/>
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
-
-	// Add your code here
-	var gr = new GlideRecord('sn_splitwise_group');
-	gr.get('group_id',current.group_id);
-	gs.info(current.group_id);
-	if(gr){
-		var userList = [];
-		userList.push(gr.members.getValue());
-		gs.info(gr.members[1]);
-		gs.info('index = '+userList.indexOf(current.paid_by));
-		if(userList.indexOf(current.paid_by)>=0){
-			gs.info('Now - user found in list');
-			return;
-		}
-		gs.info('sys '+current.paid_by);
-		gs.info('user not found');
+	if(!isGroupMember(current.paid_by,current.group_id))
+	{
+		gs.addErrorMessage("User should be part of the splitwise group");
+		current.setAbortAction(true);
 	}
 
 })(current, previous);]]></script>
@@ -53,15 +41,15 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>d8ec0d977fae0210d94a0cd10d866521</sys_id>
-        <sys_mod_count>12</sys_mod_count>
-        <sys_name>Validate if paid by group member</sys_name>
+        <sys_mod_count>24</sys_mod_count>
+        <sys_name>Validate if expense paid by group member</sys_name>
         <sys_overrides/>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sys_script_d8ec0d977fae0210d94a0cd10d866521</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-07 19:33:41</sys_updated_on>
+        <sys_updated_on>2024-06-10 06:24:45</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

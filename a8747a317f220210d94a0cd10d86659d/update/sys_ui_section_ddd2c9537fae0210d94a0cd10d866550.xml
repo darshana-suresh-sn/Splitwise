@@ -123,6 +123,20 @@
             <sys_user/>
             <type/>
         </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>paid_by</element>
+            <position>8</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2024-06-10 10:57:12</sys_created_on>
+            <sys_id>b9fa7a007f360210d94a0cd10d866506</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Expense Distribution" display_value="Expense Distribution" name="sn_splitwise_expense_distribution" sys_domain="global" view="Default view">ddd2c9537fae0210d94a0cd10d866550</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2024-06-10 10:57:12</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
         <sys_ui_section action="INSERT_OR_UPDATE">
             <caption>Expense Distribution</caption>
             <header>false</header>

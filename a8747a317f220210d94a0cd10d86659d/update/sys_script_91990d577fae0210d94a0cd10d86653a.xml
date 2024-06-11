@@ -19,7 +19,7 @@
         <is_rest>false</is_rest>
         <message/>
         <name>Delete distribution on expense delete</name>
-        <order>100</order>
+        <order>200</order>
         <priority>100</priority>
         <rest_method/>
         <rest_method_text/>
@@ -29,15 +29,18 @@
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
 
-	// Add your code here
-	var gr = new GlideRecord('sn_splitwise_expense_distribution');
-	gr.addQuery('group_id',current.group_id);
-	gr.addQuery('expense_id',current.expense_id);
-	gr.query();
-	while(gr.next())
-	{
-		gr.deleteRecord();
-	}
+	var deleteExpenseDistribution = function(){
+		var gr = new GlideRecord('sn_splitwise_expense_distribution');
+		gr.addQuery('group_id',current.group_id);
+		gr.addQuery('expense_id',current.expense_id);
+		gr.query();
+		while(gr.next())
+		{
+			gr.deleteRecord();
+		}
+	};
+	
+	deleteExpenseDistribution();
 
 })(current, previous);]]></script>
         <sys_class_name>sys_script</sys_class_name>
@@ -46,7 +49,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>91990d577fae0210d94a0cd10d86653a</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>Delete distribution on expense delete</sys_name>
         <sys_overrides/>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
@@ -54,7 +57,7 @@
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sys_script_91990d577fae0210d94a0cd10d86653a</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-07 18:52:02</sys_updated_on>
+        <sys_updated_on>2024-06-10 06:50:16</sys_updated_on>
         <template/>
         <when>after</when>
     </sys_script>

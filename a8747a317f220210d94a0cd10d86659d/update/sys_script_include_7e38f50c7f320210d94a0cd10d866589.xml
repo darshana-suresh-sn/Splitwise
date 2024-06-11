@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>sn_splitwise.isGroupMember</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>Check if given user is member of given splitwise group</description>
+        <mobile_callable>false</mobile_callable>
+        <name>isGroupMember</name>
+        <script><![CDATA[function isGroupMember(memberID, groupID){
+	var gr = new GlideRecord('sn_splitwise_group');
+	gr.get('group_id',groupID);
+	if(gr){
+		var userList = gr.members.getValue().split(',');
+		for(var i=0;i<userList.length;++i)
+		{
+			if(userList[i]==memberID) return true;//user found
+		}
+	}
+	return false;
+} ]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-10 06:11:45</sys_created_on>
+        <sys_id>7e38f50c7f320210d94a0cd10d866589</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>isGroupMember</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sys_script_include_7e38f50c7f320210d94a0cd10d866589</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-10 06:18:13</sys_updated_on>
+    </sys_script_include>
+</record_update>

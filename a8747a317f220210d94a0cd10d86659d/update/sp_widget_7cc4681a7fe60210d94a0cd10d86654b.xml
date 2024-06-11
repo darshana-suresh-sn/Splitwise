@@ -7,96 +7,23 @@
 	var memberIdCounter = 1;
 	c.showExpenseForm = false;
 	c.expenseObj = {};
-	//c.expenseObj.paidBy = scope.user.sys_id;
-	//c.expenseObj.amount = 0;
-	//c.expenseObj.splitEqually = true;
-	c.expenseMembers = {};
 	c.memberList = c.data.memberList;
-	//c.areInputsValid = false;
 
 	c.onAddExpense = function()
 	{
 		c.showExpenseForm = true;
 	}
 
-	c.onAddMember = function()
-	{
-		var table = document.getElementById("splittingTable");
-		if(table)
-		{
-			var member = {};
-			member.name = c.memberList && c.memberList.length>0 ? c.memberList[0].sys_id:'';
-			member.amount = 0;
-			member.id = memberIdCounter++;
-			c.expenseMembers[member.id] = member;
-			var inputRow = document.createElement("tr");
-			inputRow.setAttribute('id','row_'+member.id);
-
-			//member name column
-			var inputCell = document.createElement("td");
-			var input = document.createElement("select");
-			input.setAttribute('ng-model', 'c.expenseMembers['+member.id+'].name');
-			input.setAttribute('id','name_'+member.id);
-			input.innerHTML = "";
-			for(var i=0;i<c.memberList.length;++i)
-			{
-				input.innerHTML +="<option value="+c.memberList[i].sys_id+">"+c.memberList[i].name+"</option>";
-			}
-			input.classList.add('splitInput');
-			inputCell.append(input);
-			inputRow.append(inputCell);
-
-			//member amount column
-			inputCell = document.createElement("td");
-			input = document.createElement("input");
-			input.setAttribute('type','number');
-			input.setAttribute('id','amount_'+member.id);
-			input.setAttribute('ng-model','c.expenseMembers['+member.id+'].amount');
-			input.classList.add('splitInput');
-			input.setAttribute('ng-disabled','c.expenseObj.splitEqually');
-			inputCell.append(input);
-			inputRow.append(inputCell);
-
-			//delete button column
-			inputCell = document.createElement('td');
-			input = document.createElement('button');
-			input.setAttribute('id','close_'+member.id);
-			input.setAttribute('ng-click','c.deleteRow('+member.id+')');
-			input.classList.add('closeBtn');
-			input.innerText = 'x';
-			inputCell.append(input);
-			inputRow.append(inputCell);
-
-			inputRow = $compile(inputRow)(scope); //to bind ng data
-			angular.element(table).append(inputRow);
-			c.splitAmount();
-		}
-	}
-	c.areMembersEmpty = function()
-	{
-		return c.expenseMembers.length == 0;
-	}
-	c.deleteRow = function(rowId){
-		var row = document.getElementById('row_'+rowId);
-		if(row)
-		{
-			row.remove();
-			delete c.expenseMembers[rowId];
-			c.splitAmount();
-		}
-	}
 	c.onSplitEqualChanged = function(){
 		c.splitAmount();
 	}
 	c.splitAmount = function()
 	{
-		if(c.expenseObj.splitEqually) 
+		if(c.expenseObj.splitEqually && c.data.memberList) 
 		{
-			var memberCount = Object.keys(c.expenseMembers).length;
-			var splitAmount = c.expenseObj.amount/memberCount;
-			for (var memberId in c.expenseMembers) {
-				c.expenseMembers[memberId].amount = splitAmount;
-			}
+			var splitAmount = c.expenseObj.amount/c.memberList.length;
+			for(var i=0;i<c.memberList.length;++i)
+				c.memberList[i].amount = splitAmount;
 		}
 		c.checkInputValidity();
 	}
@@ -111,19 +38,45 @@
 	}
 	c.checkInputValidity = function()
 	{
-		if(c.expenseObj && c.expenseObj.paidBy && c.expenseObj.amount > 0 && Object.keys(c.expenseMembers).length > 0)
+		if(c.isSumValid() && c.expenseObj && c.expenseObj.paidBy && c.expenseObj.amount > 0 && c.expenseObj.expenseName)
 			c.areInputsValid = true;
 		else
 			c.areInputsValid = false;
+	}
+	c.isSumValid = function()
+	{
+		if(!c.memberList) return;
+		var sum = 0;
+		for(var i=0;i<c.memberList.length;++i)
+			{
+				sum += c.memberList[i].amount;
+			}
+		if(sum!=c.expenseObj.amount)
+			{
+				var diff = c.expenseObj.amount - sum;
+				c.expenseObj.errorMsg = "Amount of Rs."+diff +" left to adjust";
+				return false;
+			}
+		else
+		{
+			c.expenseObj.errorMsg = "";
+			return true;
+		}	
 	}
 	c.clearFormValues = function(){
 		c.expenseObj.paidBy = scope.user.sys_id;
 		c.expenseObj.amount = 0;
 		c.expenseObj.expenseName = '';
 		c.expenseObj.splitEqually = true;
+		c.expenseObj.groupName = 'Vacation';
 		c.areInputsValid = false;
+		if(c.memberList)
+		{
+			for(var i=0;i<c.memberList.length;++i)
+				c.memberList[i].amount = 0;
+		}
 	}
-	
+
 	c.clearFormValues();
 };]]></client_script>
         <controller_as>c</controller_as>
@@ -151,14 +104,8 @@ table
   width:200px;
   height:25px;
 }
-.splitInput
-{
-  height:25px;
-  width:150px;
-}
-.closeBtn
-{
-  height:25px;
+#addExpenseBtn{
+  width:100%;
 }</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -200,22 +147,31 @@ table
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-04 13:31:36</sys_created_on>
         <sys_id>7cc4681a7fe60210d94a0cd10d86654b</sys_id>
-        <sys_mod_count>186</sys_mod_count>
+        <sys_mod_count>217</sys_mod_count>
         <sys_name>Add expense</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sp_widget_7cc4681a7fe60210d94a0cd10d86654b</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-06 07:38:02</sys_updated_on>
+        <sys_updated_on>2024-06-10 19:10:49</sys_updated_on>
         <template><![CDATA[<div id="parentBody">
   <!-- your widget template -->
-  <button id="addExpenseBtn" ng-click="c.onAddExpense()" ng-show="!c.showExpenseForm">
-    Add Expense
+  <button id="addExpenseBtn" ng-click="c.onAddExpense()" ng-show="!c.showExpenseForm"
+          class="btn btn-{{options.color}} m-b">
+    Add New Expense
   </button>
   <div id="expenseForm" ng-if="c.showExpenseForm">
     <form>
       <table id="expenseTable">
+        <tr>
+          <td>
+            <label>Group Name:</label>
+          </td>
+          <td>
+            <input type="text" class="expenseInput" ng-model="c.expenseObj.groupName" disabled="true">
+          </td>
+        </tr>
         <tr>
           <td>
             <label for="expenseName">Expense Name:</label>
@@ -261,16 +217,27 @@ table
           <th>Member name</th>
           <th>Amount</th>
         </tr>
+        <tr ng-repeat="x in c.data.memberList">
+          <td>{{x.name}}</td>
+          <td>
+            <input type="number" 
+                   ng-model="x.amount" 
+                   ng-disabled="c.expenseObj.splitEqually"
+                   ng-change="c.isSumValid()">
+          </td>
+        </tr>
       </table>
-      <button id="addMemberbtn" ng-click="c.onAddMember()">
-        Add member
-      </button>
-      <br>
-      <br>
+
+                       <font color="red" id="errorMsg">
+        {{c.expenseObj.errorMsg}}
+      </font>
+      <br> 
       <input type="submit" ng-disabled="!c.areInputsValid">
+
       <button ng-click="c.onCancel()">
         Cancel
       </button>
+
     </form>
   </div>
 </div>]]></template>

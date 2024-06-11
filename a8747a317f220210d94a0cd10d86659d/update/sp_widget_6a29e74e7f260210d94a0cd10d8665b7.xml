@@ -14,7 +14,7 @@
 			{
 				case c.CONST_TO_GET:
 					balanceList = c.data.balances_to_get;
-					userLabel = 'user';
+					userLabel = 'member';
 					break;
 				case c.CONST_TO_PAY:
 					balanceList = c.data.balances_to_pay;
@@ -102,8 +102,8 @@
 		var balanceObj;
 
 		var am_to_pay_record = new GlideRecord('sn_splitwise_balance');
-		am_to_pay_record.addQuery('user',gs.getUser().getID());
-		am_to_pay_record.addQuery('state','not_settled');
+		am_to_pay_record.addQuery('member',gs.getUser().getID());
+		//am_to_pay_record.addQuery('state','not_settled');
 		am_to_pay_record.query();
 
 		data.balances_to_pay = [];
@@ -115,8 +115,8 @@
 
 		var total_am_to_pay_record = new GlideAggregate('sn_splitwise_balance');
 		total_am_to_pay_record.addAggregate('SUM','amount');
-		total_am_to_pay_record.addQuery('user',gs.getUser().getID());
-		total_am_to_pay_record.addQuery('state','not_settled');
+		total_am_to_pay_record.addQuery('member',gs.getUser().getID());
+		//total_am_to_pay_record.addQuery('state','not_settled');
 		total_am_to_pay_record.setGroup(false);
 		total_am_to_pay_record.query();
 		if(total_am_to_pay_record.next())
@@ -129,13 +129,13 @@
 	{
 		var am_to_get_record = new GlideRecord('sn_splitwise_balance');
 		am_to_get_record.addQuery('owed_to',gs.getUser().getID());
-		am_to_get_record.addQuery('state','not_settled');
+		//am_to_get_record.addQuery('state','not_settled');
 		am_to_get_record.query();
 
 		data.balances_to_get = [];
 		while (am_to_get_record.next()) {
 			balanceObj = {};
-			$sp.getRecordDisplayValues(balanceObj, am_to_get_record, 'sys_id,user,amount');
+			$sp.getRecordDisplayValues(balanceObj, am_to_get_record, 'sys_id,member,amount');
 			data.balances_to_get.push(balanceObj);
 			data.total_am_to_get += balanceObj.amount;
 		}
@@ -143,7 +143,7 @@
 		var total_am_to_get_record = new GlideAggregate('sn_splitwise_balance');
 		total_am_to_get_record.addAggregate('SUM','amount');
 		total_am_to_get_record.addQuery('owed_to',gs.getUser().getID());
-		total_am_to_get_record.addQuery('state','not_settled');
+		//total_am_to_get_record.addQuery('state','not_settled');
 		total_am_to_get_record.setGroup(false);
 		total_am_to_get_record.query();
 		if(total_am_to_get_record.next())
@@ -168,19 +168,17 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-04 09:11:13</sys_created_on>
         <sys_id>6a29e74e7f260210d94a0cd10d8665b7</sys_id>
-        <sys_mod_count>147</sys_mod_count>
+        <sys_mod_count>155</sys_mod_count>
         <sys_name>Hello user</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sp_widget_6a29e74e7f260210d94a0cd10d8665b7</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-05 10:58:59</sys_updated_on>
+        <sys_updated_on>2024-06-10 17:49:36</sys_updated_on>
         <template><![CDATA[<div>
   <!-- your widget template -->
-  <h1>
-    Hello {{user.first_name}},
-  </h1>
+ 
   <br>
   <p>
     You owe 
@@ -200,11 +198,10 @@
     <tr>
       <th>User</th>
       <th>Amount</th>
-    </tr>
         <tr ng-repeat="x in data.balances_to_pay">
         <td>{{x.owed_to}}</td>
         <td><font color="red">
-          -{{x.amount}}
+          -Rs.{{x.amount}}
           </font>
           </td>
       <td>
@@ -214,9 +211,9 @@
       </td>
     </tr>
     <tr ng-repeat="x in data.balances_to_get">
-        <td>{{x.user}}</td>
+        <td>{{x.member}}</td>
         <td><font color="green">
-          +{{x.amount}}
+          +Rs.{{x.amount}}
           </font>
           </td>
       <td>
