@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[function ($scope, $location, $window, spUtil, amb, $http, spAriaUtil, $timeout, spNavStateManager, i18n) {
+        <client_script><![CDATA[function ($scope, $location, $window, spUtil, amb, $http, spAriaUtil, $timeout, spNavStateManager, i18n, spModal) {
 	var c = this;
 	/*
 	 * options:
@@ -452,10 +452,55 @@
 		return eq;
 	}
 	
+	c.onExpenseClick = function(expenseItem){
+		var shared = {};
+		shared.selectedExpense = expenseItem;
+		shared.group_id = c.data.group_id;
+		shared.action = "openExisting";
+		spModal.open({
+			title:'Group - '+$scope.data.group_name,
+			widget:'add_expense',
+			//widgetInput:{selectedExpense:expenseItem},
+			shared:shared,
+			buttons:[
+				{label:'${Cancel}', cancel: true},
+				{label:'${Update}', primary: true}
+			]
+		}).then(function(name){
+			alert(name);
+		});
+	}
+	
+	c.onAddExpenseClick = function(){
+				var shared = {};
+		shared.group_id = c.data.group_id;
+		shared.action = "createNew";
+		spModal.open({
+			title:'Group - '+$scope.data.group_name,
+			widget:'add_expense',
+			shared:shared,
+			buttons:[
+				{label:'${Cancel}', cancel: true},
+				{label:'${Create Expense}', primary: true}
+			]
+		}).then(function(){
+			console.log("Add - "+JSON.stringify(shared.result));
+		$scope.server.get({
+			action:'createExpense',
+			group_id:shared.result.group_id,
+			expense:shared.result
+		}).then(function(response){
+			c.data.list =response.data.list;
+		})
+		});
+	}
+	
 	$rootScope.$on('$sp.list.click',function(e, response) {
 		if(response && response.table=="sn_splitwise_group" &&
 			 response.sys_id)
-		{				
+		{	
+			$scope.data.group_id = response.sys_id;
+			$scope.data.group_name = response.record.display_field.display_value;
 			$scope.server.get({
 				group_id:response.sys_id
 			}).then(function(response){
@@ -742,6 +787,33 @@ tbody tr:last-child {
 	 * data.filter = the encoded query
 	 */
 	// copy to data[name] from input[name] || option[name]
+	
+	if(input.action=='createExpense' && input.expense)
+		{
+			var newGr = new GlideRecord('sn_splitwise_expense');
+newGr.initialize();
+newGr.expense_name = input.expense.expenseName;
+newGr.group_id = input.expense.group_id;
+			newGr.paid_by = input.expense.paidBy;
+			newGr.total_amount = input.expense.amount;
+//newGr.caller_id.setDisplayValue('Joe Employee');
+newGr.insert();
+			
+			var dist;
+			for(var i=0;i<input.expense.memberList.length;++i)
+				{
+					dist =  new GlideRecord('sn_splitwise_expense_distribution');
+								dist.initialize();
+			dist.group_id  = input.expense.group_id;
+			dist.expense_id = newGr.sys_id;
+			dist.paid_by = input.expense.paidBy;
+			dist.amount_owed = input.expense.memberList[i].amount;
+			dist.member = input.expense.memberList[i].sys_id
+					dist.insert();
+				}
+
+		}
+	
 	optCopy(['table', 'p', 'o', 'd', 'filter', 'fixed_query', 'filterACLs', 'fields', 'keywords', 'view']);
 	optCopy(['relationship_id', 'apply_to', 'apply_to_sys_id', 'window_size']);
 	if (!data.table) {
@@ -749,7 +821,7 @@ tbody tr:last-child {
 		data.table_label = "";
 		return;
 	}
-
+	
 	if (!data.fields) {
 		if (data.view)
 			data.fields = $sp.getListColumns(data.table, data.view);
@@ -771,7 +843,7 @@ tbody tr:last-child {
 		data.group_id = input.group_id;
 
 	var grForMetaData = new GlideRecord(data.table);
-
+	
 	if (input.setOrderUserPreferences) {
 		// update User Preferences on a manual sort for UI consistency
 		gs.getUser().savePreference(data.table + ".db.order", data.o);
@@ -970,15 +1042,22 @@ tbody tr:last-child {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-11 17:16:53</sys_created_on>
         <sys_id>057b59a47f320210d94a0cd10d8665f8</sys_id>
-        <sys_mod_count>67</sys_mod_count>
+        <sys_mod_count>90</sys_mod_count>
         <sys_name>Splitwise expense table</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sp_widget_057b59a47f320210d94a0cd10d8665f8</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-11 19:16:56</sys_updated_on>
-        <template><![CDATA[  <div class="panel panel-{{options.color}} b" ng-class="{'data-table-high-contrast': accessibilityModeEnabled}">
+        <sys_updated_on>2024-06-12 18:12:19</sys_updated_on>
+        <template><![CDATA[<div id="parentBody">
+<!-- your widget template -->
+    <button id="addGroupBtn" ng-click="c.onAddExpenseClick()"
+          class="btn btn-{{options.color}} m-b">
+    Add New Expense
+  </button>
+</div>  
+<div class="panel panel-{{options.color}} b" ng-class="{'data-table-high-contrast': accessibilityModeEnabled}">
     <div class="panel-heading form-inline" ng-hide="options.hide_header">
       <span class="dropdown m-r-xs">
         <button aria-label="{{data.title || data.table_plural}} ${Context Menu}" class="btn dropdown-toggle glyphicon glyphicon-menu-hamburger" style="line-height: 1.4em" id="optionsMenu-{{::guID}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
@@ -1027,7 +1106,7 @@ tbody tr:last-child {
         </thead>
         <tbody>
           <tr ng-repeat="item in data.list track by item.sys_id">
-            <td role="{{$first ? 'rowheader' : 'cell'}}" ng-click="go(item.targetTable, item)" ng-repeat="field in ::data.fields_array" data-field="{{::field}}" data-th="{{::data.column_labels[field]}}"><a href="javascript:void(0)" ng-if="$first" aria-label="${Open record}: {{::item[field].display_value}}"><span ng-if="item[field].type === 'user_image'"><img class="user_image" src="{{item[field].display_value}}"/></span><span ng-if="item[field].type !== 'user_image'">{{::item[field].display_value | limitTo : item[field].limit}}{{::item[field].display_value.length > item[field].limit ? '...' : ''}}</span></a><span ng-if="!$first"><span ng-if="item[field].type === 'user_image'"><img class="user_image" src="{{item[field].display_value}}"/></span><span ng-if="item[field].type !== 'user_image'">{{::item[field].display_value | limitTo : item[field].limit}}{{::item[field].display_value.length > item[field].limit ? '...' : ''}}</span></span>
+            <td role="{{$first ? 'rowheader' : 'cell'}}" ng-click="c.onExpenseClick(item)" ng-repeat="field in ::data.fields_array" data-field="{{::field}}" data-th="{{::data.column_labels[field]}}"><a href="javascript:void(0)" ng-if="$first" aria-label="${Open record}: {{::item[field].display_value}}"><span ng-if="item[field].type === 'user_image'"><img class="user_image" src="{{item[field].display_value}}"/></span><span ng-if="item[field].type !== 'user_image'">{{::item[field].display_value | limitTo : item[field].limit}}{{::item[field].display_value.length > item[field].limit ? '...' : ''}}</span></a><span ng-if="!$first"><span ng-if="item[field].type === 'user_image'"><img class="user_image" src="{{item[field].display_value}}"/></span><span ng-if="item[field].type !== 'user_image'">{{::item[field].display_value | limitTo : item[field].limit}}{{::item[field].display_value.length > item[field].limit ? '...' : ''}}</span></span>
             </td>
           </tr>
         </tbody>
