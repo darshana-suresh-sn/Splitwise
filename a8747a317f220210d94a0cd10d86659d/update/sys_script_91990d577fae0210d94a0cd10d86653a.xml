@@ -32,7 +32,7 @@
 	var deleteExpenseDistribution = function(){
 		var gr = new GlideRecord('sn_splitwise_expense_distribution');
 		gr.addQuery('group_id',current.group_id);
-		gr.addQuery('expense_id',current.expense_id);
+		gr.addQuery('expense_id',current.sys_id);
 		gr.query();
 		while(gr.next())
 		{
@@ -49,7 +49,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>91990d577fae0210d94a0cd10d86653a</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>3</sys_mod_count>
         <sys_name>Delete distribution on expense delete</sys_name>
         <sys_overrides/>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
@@ -57,7 +57,7 @@
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sys_script_91990d577fae0210d94a0cd10d86653a</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-10 06:50:16</sys_updated_on>
+        <sys_updated_on>2024-06-13 15:31:18</sys_updated_on>
         <template/>
         <when>after</when>
     </sys_script>

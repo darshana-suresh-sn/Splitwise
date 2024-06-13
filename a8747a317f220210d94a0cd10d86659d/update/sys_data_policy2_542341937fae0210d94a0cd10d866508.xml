@@ -17,7 +17,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>542341937fae0210d94a0cd10d866508</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>Validate data in Expense Distribution record</sys_name>
         <sys_overrides/>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
@@ -25,6 +25,6 @@
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sys_data_policy2_542341937fae0210d94a0cd10d866508</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-07 18:18:31</sys_updated_on>
+        <sys_updated_on>2024-06-13 15:06:45</sys_updated_on>
     </sys_data_policy2>
 </record_update>

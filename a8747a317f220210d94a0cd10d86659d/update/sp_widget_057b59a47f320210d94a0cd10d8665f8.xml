@@ -462,12 +462,11 @@
 			widget:'add_expense',
 			//widgetInput:{selectedExpense:expenseItem},
 			shared:shared,
-			buttons:[
-				{label:'${Cancel}', cancel: true},
-				{label:'${Update}', primary: true}
-			]
-		}).then(function(name){
-			alert(name);
+			buttons:[]
+		}).then(function(result){
+			console.log(JSON.stringify(result));
+				if(result.primary)
+					c.updateData();
 		});
 	}
 	
@@ -479,20 +478,21 @@
 			title:'Group - '+$scope.data.group_name,
 			widget:'add_expense',
 			shared:shared,
-			buttons:[
-				{label:'${Cancel}', cancel: true},
-				{label:'${Create Expense}', primary: true}
-			]
-		}).then(function(){
-			console.log("Add - "+JSON.stringify(shared.result));
-		$scope.server.get({
-			action:'createExpense',
-			group_id:shared.result.group_id,
-			expense:shared.result
-		}).then(function(response){
-			c.data.list =response.data.list;
-		})
+			buttons:[]
+		}).then(function(result){
+			console.log(JSON.stringify(result));
+						if(result.primary)
+					c.updateData();
 		});
+	}
+	
+	c.updateData = function(){
+					$scope.server.get({
+				group_id:$scope.data.group_id
+			}).then(function(response){
+				c.data.list = response.data.list;
+			});
+
 	}
 	
 	$rootScope.$on('$sp.list.click',function(e, response) {
@@ -501,12 +501,13 @@
 		{	
 			$scope.data.group_id = response.sys_id;
 			$scope.data.group_name = response.record.display_field.display_value;
+			console.log(response.sys_id);
 			$scope.server.get({
 				group_id:response.sys_id
 			}).then(function(response){
+				console.log(JSON.stringify(response.data));
 				c.data.list = response.data.list;
 			});
-
 		}
 	});
 }]]></client_script>
@@ -788,31 +789,6 @@ tbody tr:last-child {
 	 */
 	// copy to data[name] from input[name] || option[name]
 	
-	if(input.action=='createExpense' && input.expense)
-		{
-			var newGr = new GlideRecord('sn_splitwise_expense');
-newGr.initialize();
-newGr.expense_name = input.expense.expenseName;
-newGr.group_id = input.expense.group_id;
-			newGr.paid_by = input.expense.paidBy;
-			newGr.total_amount = input.expense.amount;
-//newGr.caller_id.setDisplayValue('Joe Employee');
-newGr.insert();
-			
-			var dist;
-			for(var i=0;i<input.expense.memberList.length;++i)
-				{
-					dist =  new GlideRecord('sn_splitwise_expense_distribution');
-								dist.initialize();
-			dist.group_id  = input.expense.group_id;
-			dist.expense_id = newGr.sys_id;
-			dist.paid_by = input.expense.paidBy;
-			dist.amount_owed = input.expense.memberList[i].amount;
-			dist.member = input.expense.memberList[i].sys_id
-					dist.insert();
-				}
-
-		}
 	
 	optCopy(['table', 'p', 'o', 'd', 'filter', 'fixed_query', 'filterACLs', 'fields', 'keywords', 'view']);
 	optCopy(['relationship_id', 'apply_to', 'apply_to_sys_id', 'window_size']);
@@ -891,7 +867,6 @@ newGr.insert();
 		ADDED QUERY HERE
 	*/
 	gr.addQuery('group_id',data.group_id);
-	gs.info("GROUUUP "+data.group_id);
 
 	if (data.keywords) {
 		gr.addQuery('123TEXTQUERY321', data.keywords);
@@ -940,8 +915,8 @@ newGr.insert();
 	data.fields_array = data.fields.split(',');
 
 	// use GlideRecord to get field labels vs. GlideRecordSecure
-	for (var i in data.fields_array) {
-		var field = data.fields_array[i];
+	for (var j in data.fields_array) {
+		var field = data.fields_array[j];
 		var ge = grForMetaData.getElement(field);
 		if (ge == null)
 			continue;
@@ -1042,18 +1017,19 @@ newGr.insert();
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-11 17:16:53</sys_created_on>
         <sys_id>057b59a47f320210d94a0cd10d8665f8</sys_id>
-        <sys_mod_count>90</sys_mod_count>
+        <sys_mod_count>100</sys_mod_count>
         <sys_name>Splitwise expense table</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sp_widget_057b59a47f320210d94a0cd10d8665f8</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-12 18:12:19</sys_updated_on>
+        <sys_updated_on>2024-06-13 10:51:23</sys_updated_on>
         <template><![CDATA[<div id="parentBody">
 <!-- your widget template -->
     <button id="addGroupBtn" ng-click="c.onAddExpenseClick()"
-          class="btn btn-{{options.color}} m-b">
+          class="btn btn-{{options.color}} m-b"
+            ng-disabled="!data.list.length">
     Add New Expense
   </button>
 </div>  

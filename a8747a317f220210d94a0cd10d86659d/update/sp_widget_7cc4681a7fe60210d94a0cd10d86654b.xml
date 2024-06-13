@@ -4,15 +4,16 @@
         <client_script><![CDATA[api.controller=function($scope) {
 	/* widget controller */
 	var c = this;
+	c.submitBtnText = "Submit";
 	c.expenseObj = {};
 	c.expenseObj.memberList = [];
-	
+
 	c.onSplitEqualChanged = function(){
 		c.splitAmount();
 	}
 	c.splitAmount = function()
 	{
-		if(c.expenseObj.splitEqually && c.expenseObj.memberList) 
+		if(c.splitEqually && c.expenseObj.memberList) 
 		{
 			var splitAmount = c.expenseObj.amount/c.expenseObj.memberList.length;
 			for(var i=0;i<c.expenseObj.memberList.length;++i)
@@ -24,9 +25,18 @@
 	{
 		c.splitAmount();
 	}
+	c.onSubmit = function(){
+		c.server.get({
+			action: c.expenseObj.expense_id == -1?'createExpense': 'updateExpense',
+			expense:c.expenseObj
+		}).then(function(response){
+					$scope.$parent.$parent.buttonClicked({ primary: true, success: response.data.result.success});
+		});
+	}
 	c.onCancel = function()
 	{
 		c.clearFormValues();
+$scope.$parent.$parent.buttonClicked({ cancel: true });
 	}
 	c.checkInputValidity = function()
 	{
@@ -41,11 +51,12 @@
 		var sum = 0;
 		for(var i=0;i<c.expenseObj.memberList.length;++i)
 		{
-			sum += c.expenseObj.memberList[i].amount;
+			sum += c.expenseObj.memberList[i].amount?
+				parseInt(c.expenseObj.memberList[i].amount) : 0;
 		}
-		if(sum!=c.expenseObj.amount)
+		if(sum!=parseInt(c.expenseObj.amount))
 		{
-			var diff = c.expenseObj.amount - sum;
+			var diff = parseInt(c.expenseObj.amount) - sum;
 			c.expenseObj.errorMsg = "Amount of Rs."+diff +" left to adjust";
 			return false;
 		}
@@ -59,7 +70,7 @@
 		c.expenseObj.paidBy = scope.user.sys_id;
 		c.expenseObj.amount = 0;
 		c.expenseObj.expenseName = '';
-		c.expenseObj.splitEqually = true;
+		c.splitEqually = true;
 		c.areInputsValid = false;
 		if(c.expenseObj.memberList)
 		{
@@ -76,27 +87,26 @@
 		{
 			var widgetData = $scope.options.shared.selectedExpense;
 			if(widgetData.expense_name)
-				c.expenseObj.expenseName = widgetData.expense_name.value;
-			if(widgetData.paid_by)
-				c.expenseObj.paidBy = widgetData.paid_by.value;
+				c.expenseObj.expenseName = widgetData.expense_name;
+			if(widgetData.paid_by_id)
+				c.expenseObj.paidBy = widgetData.paid_by_id;
 			if(widgetData.total_amount)
-				c.expenseObj.amount = widgetData.total_amount.value;
+				c.expenseObj.amount = parseInt(widgetData.total_amount);
 			c.expenseObj.group_id = $scope.options.shared.group_id;
 			c.expenseObj.expense_id = widgetData.sys_id;
-
-			console.log(JSON.stringify(widgetData));
-			console.log(JSON.stringify(c.expenseObj));
 
 			c.server.get({
 				action:'getExpenseData',
 				group_id:c.expenseObj.group_id,
 				expense_id:c.expenseObj.expense_id
 			}).then(function(result){
-				console.log(JSON.stringify(result.data));
 				c.expenseObj.memberList = result.data.memberList;
+				console.log(JSON.stringify(result.data));
 			});
+			c.submitBtnText = "Update";
+			c.areInputsValid = true;
 		}
-	else if($scope.options.shared.action=="createNew")
+		else if($scope.options.shared.action=="createNew")
 		{
 			c.expenseObj.group_id = $scope.options.shared.group_id;
 			c.clearFormValues();
@@ -106,6 +116,8 @@
 			}).then(function(result){
 				c.expenseObj.memberList = result.data.memberList;
 			});
+			c.submitBtnText = "Create Expense";
+			c.expenseObj.expense_id=-1;
 		}
 	}
 	else
@@ -159,15 +171,16 @@ table
 	var getExpenseData = function(expense_id,group_id)
 	{
 		getGroupMembers(group_id);
-		var memberAmounts = getExpenseDist(expense_id,group_id);
-		if(data.memberList && memberAmounts)
+		data.memberAmounts = getExpenseDist(expense_id,group_id);
+		if(data.memberList && data.memberAmounts)
 		{
-			data.count=0;
 			for(var i=0;i<data.memberList.length;++i)
 			{
-				data.count++;
-				if(memberAmounts[data.memberList[i].sys_id])
-					data.memberList[i].amount = memberAmounts[data.memberList[i].sys_id].amount_owed;
+				if(data.memberAmounts[data.memberList[i].sys_id])
+				{
+					data.memberList[i].amount = parseInt(data.memberAmounts[data.memberList[i].sys_id].amount_owed);
+					data.memberList[i].dist_id = data.memberAmounts[data.memberList[i].sys_id].sys_id;
+				}
 				else
 					data.memberList[i].amount = 0;
 			}
@@ -178,14 +191,14 @@ table
 		var gr = new GlideRecord('sn_splitwise_group');
 		gr.addQuery('sys_id',group_id);
 		gr.query();
-		data.memberDetails = {};
+		var groupMember = {};
 		if(gr.next())
 		{
-			$sp.getRecordValues(data.memberDetails, gr, 'sys_id,name,members');
+			$sp.getRecordValues(groupMember, gr, 'sys_id,name,members');
 		}
 
 		gr = new GlideRecord('sys_user');
-		gr.addQuery('sys_id','IN',data.memberDetails.members);
+		gr.addQuery('sys_id','IN',groupMember.members);
 		gr.query();
 		while(gr.next())
 		{
@@ -201,21 +214,111 @@ table
 		gr.addQuery('expense_id',expense_id);
 		gr.addQuery('group_id',group_id);
 		gr.query();
-		var memberAmounts = {},resObj = {};
+		var memberAmounts = {},resObj;
 		while(gr.next())
 		{
-			$sp.getRecordValues(resObj, gr, 'member,amount_owed');
-			memberAmounts[resObj.member] = resObj.amount_owed;
+			resObj = {};
+			$sp.getRecordValues(resObj, gr, 'sys_id,member,amount_owed');
+			memberAmounts[resObj.member] = resObj;
 		}
-		data.memberAmounts = memberAmounts;
 		return memberAmounts;
+	}
+	var createExpense = function(expense)
+	{
+		var newGr = new GlideRecord('sn_splitwise_expense');
+		newGr.initialize();
+		newGr.expense_name = expense.expenseName;
+		newGr.group_id = expense.group_id;
+		newGr.paid_by = expense.paidBy;
+		newGr.total_amount = expense.amount;
+		//newGr.caller_id.setDisplayValue('Joe Employee');
+		var expense_id = newGr.insert();
+		data.result.success = expense_id ? true : false;
+
+		gs.info(expense);
+		gs.info(JSON.stringify(expense));
+		if(data.result.success)
+		{
+			var dist;
+			gs.info(expense_id);
+
+			for(var i=0;i<expense.memberList.length;++i)
+			{
+
+				dist =  new GlideRecord('sn_splitwise_expense_distribution');
+				dist.initialize();
+				dist.group_id  = expense.group_id;
+				dist.expense_id = expense_id;
+				dist.paid_by = expense.paidBy;
+				dist.amount_owed = expense.memberList[i].amount;
+				dist.member = expense.memberList[i].sys_id;
+				var check = dist.insert();
+				data.result.success = data.result.success && check? true : false;
+			}
+		}
+
+
+	}
+	var updateExpense = function(expense)
+	{
+		var updateGr = new GlideRecord('sn_splitwise_expense');
+		updateGr.addQuery('sys_id',expense.expense_id);
+		updateGr.query();
+		if(updateGr.next())
+		{
+			updateGr.setValue('paid_by',expense.paidBy);
+			updateGr.setValue('expense_name',expense.expenseName);
+			updateGr.setValue('total_amount',expense.amount);
+			data.result.success = updateGr.update()? true : false;
+		}
+
+		var dist;
+		for(var i=0;i<expense.memberList.length;++i)
+		{
+			dist =  new GlideRecord('sn_splitwise_expense_distribution');
+			dist.addQuery('sys_id',expense.memberList[i].dist_id);
+			dist.query();
+			var check
+			if(dist.next())
+			{
+				dist.setValue('paid_by',expense.paidBy);
+				dist.setValue('amount_owed',expense.memberList[i].amount);
+				check = dist.update();
+				data.result.success = data.result.success && check? true: false;
+			}
+			else
+			{
+				dist =  new GlideRecord('sn_splitwise_expense_distribution');
+				dist.initialize();
+				dist.group_id  = expense.group_id;
+				dist.expense_id = expense_id;
+				dist.paid_by = expense.paidBy;
+				dist.amount_owed = expense.memberList[i].amount;
+				dist.member = expense.memberList[i].sys_id;
+				check = dist.insert();
+				data.result.success = data.result.success && check? true : false;
+			}
+
+		}
 	}
 	if(input)
 	{
-		if(input.action=='getExpenseData')
-		getExpenseData(input.expense_id,input.group_id);
-		else if(input.action=='getGroupMembers')
-			getGroupMembers(input.group_id);
+		data.result = {};
+		switch(input.action)
+		{
+			case 'getExpenseData':
+				getExpenseData(input.expense_id,input.group_id);
+				break;
+			case 'getGroupMembers':
+				getGroupMembers(input.group_id);
+				break;
+			case 'createExpense':
+				createExpense(input.expense);
+				break;
+			case 'updateExpense':
+				updateExpense(input.expense);
+		}
+
 	}
 })();]]></script>
         <servicenow>false</servicenow>
@@ -223,14 +326,14 @@ table
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-04 13:31:36</sys_created_on>
         <sys_id>7cc4681a7fe60210d94a0cd10d86654b</sys_id>
-        <sys_mod_count>289</sys_mod_count>
+        <sys_mod_count>346</sys_mod_count>
         <sys_name>Add expense</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sp_widget_7cc4681a7fe60210d94a0cd10d86654b</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-12 18:19:56</sys_updated_on>
+        <sys_updated_on>2024-06-13 15:41:05</sys_updated_on>
         <template><![CDATA[<div id="parentBody">
   <!-- your widget template
   <button id="addExpenseBtn" ng-click="c.onAddExpense()" ng-show="!c.showExpenseForm"
@@ -257,7 +360,8 @@ table
           </td>
           <td>
             <select ng-model="c.expenseObj.paidBy" class="expenseInput"
-                    ng-options='member.sys_id as member.name for member in c.expenseObj.memberList'>
+                    ng-options='member.sys_id as member.name for member in c.expenseObj.memberList'
+                    ng-change="c.checkInputValidity()">
             </select>
           </td>
         </tr>
@@ -267,6 +371,7 @@ table
           </td>
           <td>
             <input ng-model="c.expenseObj.amount" 
+                   type="number"
                    id="amount"
                    ng-change="c.onAmountChanged()"
                    class="expenseInput"><br>
@@ -277,7 +382,7 @@ table
         <tr>
           <td>
             <input type="checkbox" id="splitEqual" 
-                   ng-model="c.expenseObj.splitEqually" ng-change="c.onSplitEqualChanged()"
+                   ng-model="c.splitEqually" ng-change="c.onSplitEqualChanged()"
                    class="checkboxStyle" ng-disabled="c.areMembersEmpty()">
             <label for="splitEqual" id="splitEqualLabel" class="checkboxLabelStyle">Split equally</label>
           </td>
@@ -289,19 +394,22 @@ table
         <tr ng-repeat="x in c.expenseObj.memberList">
           <td>{{x.name}}</td>
           <td>
-            <input
-                   ng-model="x.amount" 
-                   ng-disabled="c.expenseObj.splitEqually"
-                   ng-change="c.isSumValid()">
+            <input ng-model="x.amount" 
+                   type="number"
+                   ng-disabled="c.splitEqually"
+                   ng-change="c.checkInputValidity()">
           </td>
         </tr>
       </table>
 
-                       <font color="red" id="errorMsg">
+      <font color="red" id="errorMsg">
         {{c.expenseObj.errorMsg}}
       </font>
       <br> 
-      <input type="submit" ng-disabled="!c.areInputsValid">
+      <button ng-click="c.onSubmit()" 
+              ng-disabled="!c.areInputsValid"
+              >{{c.submitBtnText}}
+      </button>
 
       <button ng-click="c.onCancel()">
         Cancel
