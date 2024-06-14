@@ -18,7 +18,7 @@
         <filter_condition/>
         <is_rest>false</is_rest>
         <message/>
-        <name>Calc bal on expense create/update</name>
+        <name>Calc balance on expense create/update</name>
         <order>200</order>
         <priority>100</priority>
         <rest_method/>
@@ -31,53 +31,77 @@
 
 	var calculateBalanceOnUpdate = function(){
 		// Get user id of person who paid for the expense
-		/*
-		var gr = new GlideRecord('sn_splitwise_expense');
-		gr.addQuery('sys_id',current.expense_id);
-		gr.addQuery('group_id',current.group_id);
-		gr.query();
-		var owed_to, amount_to_add = current.amount_owed == previous.amount_owed ? 
-			current.amount_owed : current.amount_owed - previous.amount_owed;
-		if(gr.next())
-		{
-			owed_to = gr.paid_by;		
-		}
-		*/
 		if(current.paid_by!=current.member)
 		{
-			var amount_to_add = current.amount_owed == previous.amount_owed ? 
-			current.amount_owed : current.amount_owed - previous.amount_owed;
-			var str = "member: "+current.member + "  owed to : "+current.paid_by+" amount : "+amount_to_add;
-			gs.info("Entered - "+str);
+			var total_amount_owed = current.amount_owed == previous.amount_owed ? 
+				current.amount_owed : current.amount_owed - previous.amount_owed;
 			//lock 
 
 			//get record of user's balance with the expense payer
-			var oldBalance = new GlideRecord('sn_splitwise_balance');
-			//oldBalance.addQuery('group_id',current.group_id);
+			var oldBalance = new GlideRecord('sn_splitwise_balance'), gr;
 			oldBalance.addQuery('member',current.member);
 			oldBalance.addQuery('owed_to',current.paid_by);
 			oldBalance.query();
 
 			if(oldBalance.next())
-			{ //if balance already exists, add to it
-				gs.info("balance exists");
-				oldBalance.setValue('amount',parseInt(oldBalance.amount)+amount_to_add);
-				//oldBalance.amount += amount_to_add;
+			{ 
+				//if user already owes money to this member, update the balance
+				oldBalance.setValue('amount',parseInt(oldBalance.amount)+total_amount_owed);
 				if(oldBalance.update())
-					gs.info("Updated row");
+					gs.info("Updated row ...");
 				else
-					gs.info("didnt update");
+					gs.info("didnt update ..");
 			}
 			else
 			{
 				gs.info("balance does not exist");
-				gr = new GlideRecord('sn_splitwise_balance');
-				gr.initialize();
-				//gr.group_id = current.group_id;
-				gr.member = current.member;
-				gr.amount = amount_to_add;
-				gr.owed_to = current.paid_by;		
-				gr.insert();
+				//check if the member owes money to this person
+				oldBalance  = new GlideRecord('sn_splitwise_balance');
+				oldBalance.addQuery('member',current.paid_by);
+				oldBalance.addQuery('owed_to',current.member);
+				oldBalance.query();
+				if(oldBalance.next())
+				{
+					//if member owes money to this person, subtract from money owed
+					var amount_to_get = parseInt(oldBalance.amount) - total_amount_owed;
+					if(amount_to_get >0)
+					{
+						oldBalance.setValue('amount',amount_to_get);
+						if(oldBalance.update())
+							gs.info("Updated row ...");
+						else
+							gs.info("didnt update ..");
+					}
+					else 
+					{
+						if(oldBalance.deleteRecord())
+							gs.info("deleted record");
+						else	
+							gs.info("didnt delete");
+						
+						if(amount_to_get < 0)
+						{
+							gr = new GlideRecord('sn_splitwise_balance');
+							gr.initialize();
+							//gr.group_id = current.group_id;
+							gr.member = current.paid_by;
+							gr.amount = -amount_to_get;
+							gr.owed_to = current.member;		
+							gr.insert();
+						}
+					}
+				}
+				else
+				{
+					gr = new GlideRecord('sn_splitwise_balance');
+					gr.initialize();
+					//gr.group_id = current.group_id;
+					gr.member = current.member;
+					gr.amount = total_amount_owed;
+					gr.owed_to = current.paid_by;		
+					gr.insert();
+				}
+
 			}
 			//unlock
 		}
@@ -92,15 +116,15 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>830567437fea0210d94a0cd10d8665c7</sys_id>
-        <sys_mod_count>23</sys_mod_count>
-        <sys_name>Calc bal on expense create/update</sys_name>
+        <sys_mod_count>28</sys_mod_count>
+        <sys_name>Calc balance on expense create/update</sys_name>
         <sys_overrides/>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sys_script_830567437fea0210d94a0cd10d8665c7</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-13 15:48:46</sys_updated_on>
+        <sys_updated_on>2024-06-14 07:29:42</sys_updated_on>
         <template/>
         <when>after</when>
     </sys_script>

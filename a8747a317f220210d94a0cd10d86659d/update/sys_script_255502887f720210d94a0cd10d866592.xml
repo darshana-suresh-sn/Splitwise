@@ -18,7 +18,7 @@
         <filter_condition/>
         <is_rest>false</is_rest>
         <message/>
-        <name>Validate group size</name>
+        <name>Validate group record insert/update</name>
         <order>100</order>
         <priority>100</priority>
         <rest_method/>
@@ -28,18 +28,32 @@
         <rest_variables/>
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
-	var validateMemberList = function()
+	var isGroupSizeValid = function(memberList)
 	{
-		var memberList = current.members ? current.members.split(',') : null;
-		var maxCount = gs.getProperty('sn_splitwise.max_group_size');
-		
+		var maxCount = gs.getProperty('sn_splitwise.max_group_size');	
 		if(!memberList || memberList.length ==0 || memberList.length > maxCount)
 		{
 			gs.addErrorMessage('List of members should have at least 1 member and at most '+maxCount+' members');
-			current.setAbortAction(true);
+			return false;
 		}
+		return true;
 	};
-	validateMemberList();
+	var isUserPartOfGroup = function(memberList){
+		if(!memberList || memberList.indexOf(gs.getUserID())==-1)
+		{
+			gs.addErrorMessage('List of members should include yourself');
+			return false;
+		}
+		return true;
+	};
+	var validateGroupRecord = function()
+	{
+		var memberList = current.members ? current.members.split(',') : null;
+		if(!isGroupSizeValid(memberList) || !isUserPartOfGroup(memberList))
+			current.setAbortAction(true);
+	};
+	
+	validateGroupRecord();
 })(current, previous);]]></script>
         <sys_class_name>sys_script</sys_class_name>
         <sys_created_by>admin</sys_created_by>
@@ -47,15 +61,15 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>255502887f720210d94a0cd10d866592</sys_id>
-        <sys_mod_count>5</sys_mod_count>
-        <sys_name>Validate group size</sys_name>
+        <sys_mod_count>9</sys_mod_count>
+        <sys_name>Validate group record insert/update</sys_name>
         <sys_overrides/>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sys_script_255502887f720210d94a0cd10d866592</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-10 09:16:37</sys_updated_on>
+        <sys_updated_on>2024-06-14 06:14:05</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

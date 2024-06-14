@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller=function($scope, spModal) {
+        <client_script><![CDATA[api.controller=function($scope, spModal,spUtil) {
 	/* widget controller */
 	var c = this;
 	c.group_name = "Vacation";
 	c.data.expenses = [];
+	c.onDeleteGroup = function(){
+		spModal.confirm('Are you sure you want to delete the group '+c.data.group_name+'? This will delete all expenses within the group.').then(function(confirmed) {
+			if(confirmed)
+			{
+				c.server.get({
+					action:'deleteGroup',
+					group_id:c.data.group_id
+				}).then(function(result){
+					if(result.data.success)
+						spUtil.addInfoMessage("Group "+c.data.group_name+" deleted successfully");
+					else
+						spUtil.addErrorMessage("Something went wrong. Failed to delete group "+c.data.group_name);
+				});
+			}
+		});
 
+	}
 	c.onAddExpenseClick = function(){
 		var shared = {};
 		shared.group_id = c.data.group_id;
@@ -17,21 +33,32 @@
 			shared:shared,
 			buttons:[]
 		}).then(function(result){
-			console.log(JSON.stringify(result));
 			if(!result.success)
 				alert("Something went wrong");
 			if(result.primary)
 			{
-				$scope.server.get({
-					group_id:$scope.data.group_id
-				}).then(function(response){
-					c.data.expenses = response.data.expenses;
-				});
+				c.updateData();
 			}
 		});
 	}
+	c.onExpenseDelete = function(expense){
+		spModal.confirm("Delete expense "+expense.expense_name+"?").
+		then(function(confirmed){
+			if(confirmed)
+			{
+				c.server.get({
+					expense_id:expense.sys_id,
+					group_id:c.data.group_id,
+					action:'deleteExpense'
+				}).then(function(result){
+					c.data.expenses = result.data.expenses;
+				});
+			}
+		});
+
+	}
 	c.onExpenseClick = function(expenseItem){
-				var shared = {};
+		var shared = {};
 		shared.selectedExpense = expenseItem;
 		shared.group_id = c.data.group_id;
 		shared.action = "openExisting";
@@ -42,18 +69,19 @@
 			shared:shared,
 			buttons:[]
 		}).then(function(result){
-				if(!result.success)
-					alert("Something went wrong");
-				if(result.primary)
-					c.updateData();
+			if(!result.success)
+				alert("Something went wrong");
+			if(result.primary)
+				c.updateData();
 		});
 	};
 	c.updateData = function(){
-				c.server.get({
-					group_id:c.data.group_id
-				}).then(function(response){
-					c.data.expenses = response.data.expenses;
-				});
+		c.server.get({
+			group_id:c.data.group_id,
+			action:'getExpenses'
+		}).then(function(response){
+			c.data.expenses = response.data.expenses;
+		});
 	}
 
 	$rootScope.$on('$sp.list.click',function(e, response) {
@@ -62,11 +90,14 @@
 		{	
 			c.data.group_id = response.sys_id;
 			c.data.group_name = response.record.display_field.display_value;
+			c.updateData();
+			/*
 			$scope.server.get({
-				group_id:response.sys_id
+				group_id:response.sys_id,
+				action:'getExpenses'
 			}).then(function(response){
 				c.data.expenses = response.data.expenses;
-			});
+			});*/
 		}
 	});
 };]]></client_script>
@@ -86,8 +117,8 @@
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {
-  /* populate the 'data' object */
-  /* e.g., data.table = $sp.getValue('table'); */
+	/* populate the 'data' object */
+	/* e.g., data.table = $sp.getValue('table'); */
 	var getExpensesInGroup = function(group_id)
 	{
 		var gr = new GlideRecord('sn_splitwise_expense');
@@ -97,41 +128,72 @@
 		data.expenses = [];
 		var res;
 		while(gr.next())
+		{
+			res = {};
+			//$sp.getRecordDisplayValues(res,gr,'sys_id,expense_name,paid_by,total_amount');
+			res.sys_id = gr.sys_id.getValue();
+			res.expense_name = gr.expense_name.getValue();
+			res.paid_by = gr.paid_by.getDisplayValue();
+			res.paid_by_id = gr.paid_by.getValue();
+			res.total_amount = gr.total_amount.getValue();
+			data.expenses.push(res);
+		}
+	}
+	var deleteGroup = function(group_id)
+	{
+		var gr = new GlideRecord('sn_splitwise_group');
+		gr.get(group_id);
+		data.success = gr.deleteRecord();
+	}
+		var deleteExpense = function(expense_id)
+	{
+		var gr = new GlideRecord('sn_splitwise_expense');
+		gr.addQuery('sys_id',expense_id);
+		gr.query();
+
+		if(gr.next())
 			{
-				res = {};
-				//$sp.getRecordDisplayValues(res,gr,'sys_id,expense_name,paid_by,total_amount');
-				res.sys_id = gr.sys_id.getValue();
-				res.expense_name = gr.expense_name.getValue();
-				res.paid_by = gr.paid_by.getDisplayValue();
-				res.paid_by_id = gr.paid_by.getValue();
-				res.total_amount = gr.total_amount.getValue();
-				data.expenses.push(res);
+						data.success = gr.deleteRecord();
 			}
 	}
 	if(input && input.group_id)
+	{
+		if(input.action=='getExpenses')
+			getExpensesInGroup(input.group_id);
+		else if(input.action=='deleteGroup')
+			deleteGroup(input.group_id);
+		else if(input.action=='deleteExpense')
 		{
-		getExpensesInGroup(input.group_id);
+			deleteExpense(input.expense_id);
+			if(data.success)
+				getExpensesInGroup(input.group_id);
 		}
+	}
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-13 12:30:09</sys_created_on>
         <sys_id>680dee417f360210d94a0cd10d8665de</sys_id>
-        <sys_mod_count>46</sys_mod_count>
+        <sys_mod_count>66</sys_mod_count>
         <sys_name>Expense table view</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sp_widget_680dee417f360210d94a0cd10d8665de</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-13 14:41:32</sys_updated_on>
+        <sys_updated_on>2024-06-14 05:43:13</sys_updated_on>
         <template><![CDATA[<div id="parentBody">
   <!-- your widget template -->
   <button id="addGroupBtn" ng-click="c.onAddExpenseClick()"
           class="btn btn-{{options.color}} m-b"
           ng-disabled="!data.group_id">
     Add New Expense
+  </button>
+    <button id="deleteGroupBtn" ng-click="c.onDeleteGroup()"
+          class="btn btn-{{options.color}} m-b"
+          ng-disabled="!data.group_id">
+    Delete Group
   </button>
 </div>  
 <div class="panel panel-{{options.color}} b" ng-class="{'data-table-high-contrast': accessibilityModeEnabled}">
@@ -163,6 +225,8 @@
             <th class="text-nowrap" cope="col" role="columnheader">
         <div class="th-title" tabindex="0">Amount int Rs.</div>
       </th>
+      <th class="text-nowrap" cope="col" role="columnheader">
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -173,6 +237,12 @@
       </td>
       <td>
         {{item.total_amount}}
+      </td>
+      <td>
+        <button title="Delete expense"
+                ng-click="c.onExpenseDelete(item)">
+          x
+        </button>
       </td>
     </tr>
   </tbody>
