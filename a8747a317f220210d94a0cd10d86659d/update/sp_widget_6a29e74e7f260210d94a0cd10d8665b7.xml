@@ -7,31 +7,32 @@
 	c.CONST_TO_PAY = 'toPay';
 	c.CONST_TO_GET = 'toGet';
 	
+
 	c.settleBalance = function(index,balanceType)
 	{
 		var balanceList = null, userLabel;
 		switch(balanceType)
-			{
-				case c.CONST_TO_GET:
-					balanceList = c.data.balances_to_get;
-					userLabel = 'member';
-					break;
-				case c.CONST_TO_PAY:
-					balanceList = c.data.balances_to_pay;
-					userLabel = 'owed_to';
-					break;
-			}
+		{
+			case c.CONST_TO_GET:
+				balanceList = c.data.balances_to_get;
+				userLabel = 'member';
+				break;
+			case c.CONST_TO_PAY:
+				balanceList = c.data.balances_to_pay;
+				userLabel = 'owed_to';
+				break;
+		}
 		if(!balanceList || index < 0 || index >= balanceList.length)
-			{
-				spModal.alert('Something went wrong. Please refresh the page and try again.');
-				return;
-			}
+		{
+			spModal.alert('Something went wrong. Please refresh the page and try again.');
+			return;
+		}
 		username = balanceList[index][userLabel];
 		spModal.confirm('Are you sure you want to settle the balance with '+username+'?').then(function(confirmed) {
-            if(confirmed) c.deleteBalance(balanceList[index], balanceType);
-        });
+			if(confirmed) c.deleteBalance(balanceList[index], balanceType);
+		});
 	};
-	
+
 	c.deleteBalance = function(balanceObj, balanceType)
 	{
 		c.server.get({
@@ -42,15 +43,20 @@
 			if(balanceType==c.CONST_TO_GET)
 			{
 				c.data.balances_to_get = result.data.balances_to_get;
-				c.data.total_am_to_get = result.total_am_to_get;
+				c.data.total_am_to_get = (result.total_am_to_get);
 			}
 			else if(balanceType==c.CONST_TO_PAY)
-				{
-					c.data.balances_to_pay = result.data.balances_to_pay;
-					c.data.total_am_to_pay = result.data.total_am_to_pay;
-				}
+			{
+				c.data.balances_to_pay = result.data.balances_to_pay;
+				c.data.total_am_to_pay = (result.data.total_am_to_pay);
+			}
 		});
 	}
+
+	$rootScope.$on('expenseUpdated', function(event,data) { 
+		//alert("received event"); 
+		c.server.refresh();
+	});
 };
 
 ]]></client_script>
@@ -82,8 +88,7 @@
 			record_to_update.query();
 			if(record_to_update.next())
 			{
-				record_to_update.setValue('state','settled');
-				record_to_update.update();
+				record_to_update.deleteRecord();
 
 				if(balanceType=='toPay')
 					getAmountToPayBalances();
@@ -121,7 +126,7 @@
 		total_am_to_pay_record.query();
 		if(total_am_to_pay_record.next())
 		{
-			data.total_am_to_pay = total_am_to_pay_record.getAggregate('SUM', 'amount');
+			data.total_am_to_pay = parseFloat(total_am_to_pay_record.getAggregate('SUM', 'amount'));
 		}
 		if(!data.total_am_to_pay) data.total_am_to_pay = 0;
 	}
@@ -148,7 +153,7 @@
 		total_am_to_get_record.query();
 		if(total_am_to_get_record.next())
 		{
-			data.total_am_to_get = total_am_to_get_record.getAggregate('SUM', 'amount');
+			data.total_am_to_get = parseFloat(total_am_to_get_record.getAggregate('SUM', 'amount'));
 		}
 		if(!data.total_am_to_get) data.total_am_to_get = 0;
 	}
@@ -168,14 +173,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-04 09:11:13</sys_created_on>
         <sys_id>6a29e74e7f260210d94a0cd10d8665b7</sys_id>
-        <sys_mod_count>156</sys_mod_count>
+        <sys_mod_count>178</sys_mod_count>
         <sys_name>Hello user</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sp_widget_6a29e74e7f260210d94a0cd10d8665b7</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-13 17:22:43</sys_updated_on>
+        <sys_updated_on>2024-06-16 09:12:58</sys_updated_on>
         <template><![CDATA[<div>
   <!-- your widget template -->
  
@@ -183,18 +188,18 @@
   <p>
     You owe 
     <font color="red"><b>
-      Rs.{{data.total_am_to_pay}} 
+      Rs.{{data.total_am_to_pay.toFixed(2)}} 
       </b>
     </font>in total
     <br>
     You are owed
     <font color="green" ><b>
-    Rs.{{data.total_am_to_get}} 
+    Rs.{{data.total_am_to_get.toFixed(2)}} 
       </b></font>
     in total
   </p>
   <br>
-  <table id="balanceTable">
+  <table id="balanceTable" ng-if="data.balances_to_pay.length || data.balances_to_get.length">
     <tr>
       <th>User</th>
       <th>Amount</th>

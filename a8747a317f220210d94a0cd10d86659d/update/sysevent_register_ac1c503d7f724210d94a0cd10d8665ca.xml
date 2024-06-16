@@ -3,23 +3,23 @@
         <caller_access/>
         <derived_priority>100</derived_priority>
         <description/>
-        <event_name>sn_splitwise.balance_updated</event_name>
-        <fired_by/>
+        <event_name>sn_splitwise.balance_pay_reminder</event_name>
+        <fired_by>Scheduled script execution for month-end payment reminder</fired_by>
         <priority>100</priority>
         <queue/>
-        <suffix>balance_updated</suffix>
+        <suffix>balance_pay_reminder</suffix>
         <sys_class_name>sysevent_register</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2024-06-14 07:32:53</sys_created_on>
-        <sys_id>2b62fa517ffa0210d94a0cd10d8665c6</sys_id>
+        <sys_created_on>2024-06-15 09:54:31</sys_created_on>
+        <sys_id>ac1c503d7f724210d94a0cd10d8665ca</sys_id>
         <sys_mod_count>0</sys_mod_count>
-        <sys_name>sn_splitwise.balance_updated</sys_name>
+        <sys_name>sn_splitwise.balance_pay_reminder</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
-        <sys_update_name>sysevent_register_2b62fa517ffa0210d94a0cd10d8665c6</sys_update_name>
+        <sys_update_name>sysevent_register_ac1c503d7f724210d94a0cd10d8665ca</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-14 07:32:53</sys_updated_on>
+        <sys_updated_on>2024-06-15 09:54:31</sys_updated_on>
         <table>sn_splitwise_balance</table>
     </sysevent_register>
 </record_update>

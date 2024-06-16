@@ -31,9 +31,9 @@
 	var isGroupSizeValid = function(memberList)
 	{
 		var maxCount = gs.getProperty('sn_splitwise.max_group_size');	
-		if(!memberList || memberList.length ==0 || memberList.length > maxCount)
+		if(!memberList || memberList.length < 2 || memberList.length > maxCount)
 		{
-			gs.addErrorMessage('List of members should have at least 1 member and at most '+maxCount+' members');
+			gs.addErrorMessage('List of members should have at least 2 members and at most '+maxCount+' members');
 			return false;
 		}
 		return true;
@@ -61,7 +61,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>255502887f720210d94a0cd10d866592</sys_id>
-        <sys_mod_count>9</sys_mod_count>
+        <sys_mod_count>11</sys_mod_count>
         <sys_name>Validate group record insert/update</sys_name>
         <sys_overrides/>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
@@ -69,7 +69,7 @@
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sys_script_255502887f720210d94a0cd10d866592</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-14 06:14:05</sys_updated_on>
+        <sys_updated_on>2024-06-16 17:37:01</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

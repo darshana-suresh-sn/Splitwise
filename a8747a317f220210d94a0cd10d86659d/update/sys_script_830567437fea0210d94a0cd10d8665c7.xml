@@ -38,56 +38,58 @@
 			//lock 
 
 			//get record of user's balance with the expense payer
-			var oldBalance = new GlideRecord('sn_splitwise_balance'), gr;
-			oldBalance.addQuery('member',current.member);
-			oldBalance.addQuery('owed_to',current.paid_by);
-			oldBalance.query();
+			var gr = new GlideRecord('sn_splitwise_balance');
+			gr.addQuery('member',current.member);
+			gr.addQuery('owed_to',current.paid_by);
+			gr.query();
 
-			if(oldBalance.next())
+			if(gr.next())
 			{ 
 				//if user already owes money to this member, update the balance
-				oldBalance.setValue('amount',parseInt(oldBalance.amount)+total_amount_owed);
-				if(oldBalance.update())
+				gs.info("user already owes to member");
+				gr.setValue('amount',parseInt(gr.amount.getValue())+total_amount_owed);
+				if(gr.update())
 					gs.info("Updated row ...");
 				else
 					gs.info("didnt update ..");
 			}
 			else
 			{
-				gs.info("balance does not exist");
+				gs.info("user does not owe to member");
 				//check if the member owes money to this person
-				oldBalance  = new GlideRecord('sn_splitwise_balance');
-				oldBalance.addQuery('member',current.paid_by);
-				oldBalance.addQuery('owed_to',current.member);
-				oldBalance.query();
-				if(oldBalance.next())
+				gr  = new GlideRecord('sn_splitwise_balance');
+				gr.addQuery('member',current.paid_by);
+				gr.addQuery('owed_to',current.member);
+				gr.query();
+				if(gr.next())
 				{
 					//if member owes money to this person, subtract from money owed
-					var amount_to_get = parseInt(oldBalance.amount) - total_amount_owed;
+					gs.info("member owes to user");
+					var amount_to_get = parseInt(gr.amount.getValue()) - total_amount_owed;
 					if(amount_to_get >0)
 					{
-						oldBalance.setValue('amount',amount_to_get);
-						if(oldBalance.update())
+						gr.setValue('amount',amount_to_get);
+						if(gr.update())
 							gs.info("Updated row ...");
 						else
 							gs.info("didnt update ..");
 					}
 					else 
 					{
-						if(oldBalance.deleteRecord())
-							gs.info("deleted record");
-						else	
-							gs.info("didnt delete");
-						
+						gr.deleteRecord();					
 						if(amount_to_get < 0)
 						{
+							gs.info("inserting row of member owing to user");
 							gr = new GlideRecord('sn_splitwise_balance');
 							gr.initialize();
 							//gr.group_id = current.group_id;
-							gr.member = current.paid_by;
-							gr.amount = -amount_to_get;
-							gr.owed_to = current.member;		
-							gr.insert();
+							gr.member = current.member;
+							gr.amount = 0-amount_to_get;
+							gr.owed_to = current.paid_by;		
+							if(gr.insert())
+								gs.info("inserted");
+							else
+								gs.info("not inserted");
 						}
 					}
 				}
@@ -95,7 +97,6 @@
 				{
 					gr = new GlideRecord('sn_splitwise_balance');
 					gr.initialize();
-					//gr.group_id = current.group_id;
 					gr.member = current.member;
 					gr.amount = total_amount_owed;
 					gr.owed_to = current.paid_by;		
@@ -104,6 +105,7 @@
 
 			}
 			//unlock
+
 		}
 	};
 
@@ -116,7 +118,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>830567437fea0210d94a0cd10d8665c7</sys_id>
-        <sys_mod_count>28</sys_mod_count>
+        <sys_mod_count>42</sys_mod_count>
         <sys_name>Calc balance on expense create/update</sys_name>
         <sys_overrides/>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
@@ -124,7 +126,7 @@
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sys_script_830567437fea0210d94a0cd10d8665c7</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-14 07:29:42</sys_updated_on>
+        <sys_updated_on>2024-06-16 09:21:43</sys_updated_on>
         <template/>
         <when>after</when>
     </sys_script>

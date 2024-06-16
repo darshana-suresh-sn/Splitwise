@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sysevent_register">
+    <sysevent_register action="DELETE">
+        <caller_access/>
+        <derived_priority>100</derived_priority>
+        <description/>
+        <event_name>sn_splitwise.balance_updated</event_name>
+        <fired_by/>
+        <priority>100</priority>
+        <queue/>
+        <suffix>balance_updated</suffix>
+        <sys_class_name>sysevent_register</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-14 07:32:53</sys_created_on>
+        <sys_id>2b62fa517ffa0210d94a0cd10d8665c6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sn_splitwise.balance_updated</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sysevent_register_2b62fa517ffa0210d94a0cd10d8665c6</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-14 07:32:53</sys_updated_on>
+        <table>sn_splitwise_balance</table>
+    </sysevent_register>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</application>
+        <file_path/>
+        <instance_id>909410dc0d120210958b922e05ff61a4</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sysevent_register_2b62fa517ffa0210d94a0cd10d8665c6</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sysevent_register"><sysevent_register action="INSERT_OR_UPDATE"><caller_access/><derived_priority>100</derived_priority><description/><event_name>sn_splitwise.balance_updated</event_name><fired_by/><priority>100</priority><queue/><suffix>balance_updated</suffix><sys_class_name>sysevent_register</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2024-06-14 07:32:53</sys_created_on><sys_id>2b62fa517ffa0210d94a0cd10d8665c6</sys_id><sys_mod_count>0</sys_mod_count><sys_name>sn_splitwise.balance_updated</sys_name><sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package><sys_policy/><sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope><sys_update_name>sysevent_register_2b62fa517ffa0210d94a0cd10d8665c6</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2024-06-14 07:32:53</sys_updated_on><table>sn_splitwise_balance</table></sysevent_register></record_update>]]></payload>
+        <payload_hash>-221474906</payload_hash>
+        <record_name>sn_splitwise.balance_updated</record_name>
+        <reverted_from/>
+        <source>36b4ef037fea0210d94a0cd10d8665c5</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-14 07:32:53</sys_created_on>
+        <sys_id>7f827e517ffa0210d94a0cd10d8665b5</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19015a9e3ac0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-14 07:32:53</sys_updated_on>
+        <type>Event Registration</type>
+        <update_guid>3382fa5107fa02103de3dc1d0d74ecd0</update_guid>
+        <update_guid_history>3382fa5107fa02103de3dc1d0d74ecd0:-221474906</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-14 09:11:16</sys_created_on>
+        <sys_db_object display_value="" name="sysevent_register">sysevent_register</sys_db_object>
+        <sys_id>d4850e351b8e43ca994287bd53ad97d1</sys_id>
+        <sys_metadata>2b62fa517ffa0210d94a0cd10d8665c6</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sn_splitwise.balance_updated</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_parent display_value="Balance">f565728a7f620210d94a0cd10d8665fa</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_scope_delete display_value="">1c30d6fa384846479a6e34b7ef0328a9</sys_scope_delete>
+        <sys_update_name>sysevent_register_2b62fa517ffa0210d94a0cd10d8665c6</sys_update_name>
+        <sys_update_version display_value="sysevent_register_2b62fa517ffa0210d94a0cd10d8665c6">7f827e517ffa0210d94a0cd10d8665b5</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-14 09:11:16</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

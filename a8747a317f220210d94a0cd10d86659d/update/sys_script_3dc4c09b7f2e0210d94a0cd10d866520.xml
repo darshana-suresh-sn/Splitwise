@@ -32,26 +32,58 @@
 	var calculateBalanceOnDelete = function()
 	{
 		//lock 
+		//check if group is deleted, if yes then don't update balance table
+		var groupRecord = new GlideRecord('sn_splitwise_group');
+		groupRecord.addQuery('sys_id',current.group_id);
+		groupRecord.query();
+		if(!groupRecord.next())
+			return;
 		//get record of user's balance with the expense payer
-		var oldBalance = new GlideRecord('sn_splitwise_balance');
-		oldBalance.addQuery('member',current.member);
-		oldBalance.addQuery('owed_to',current.paid_by);
-		oldBalance.query();
-		var amount_to_subtract = parseInt(current.amount_owed);
-		if(oldBalance.next())
-		{ //if balance already exists, subtract from it
-			if(parseInt(oldBalance.amount) - amount_to_subtract > 0)
-			{
-				oldBalance.setValue('amount',parseInt(oldBalance.amount)-amount_to_subtract);
-				if(oldBalance.update())
-					gs.info("Balance updated");
+		if(current.paid_by!=current.member)
+		{
+			var oldBalance = new GlideRecord('sn_splitwise_balance');
+			oldBalance.addQuery('member',current.member);
+			oldBalance.addQuery('owed_to',current.paid_by);
+			oldBalance.query();
+			var amount_to_subtract = parseInt(current.amount_owed);
+			if(oldBalance.next())
+			{ //if balance already exists, subtract from it
+				var total_amount = parseInt(oldBalance.amount) - amount_to_subtract;
+				if(total_amount > 0)
+				{
+					oldBalance.setValue('amount',parseInt(oldBalance.amount)-amount_to_subtract);
+					if(oldBalance.update())
+						gs.info("Balance updated");
+					else
+						gs.error("Balance not updated");
+				}
 				else
-					gs.error("Balance not updated");
+				{
+					oldBalance.deleteRecord();
+					if(total_amount < 0)
+					{
+						var gr = new GlideRecord('sn_splitwise_balance');
+						gr.initialize();
+						gr.member = current.paid_by;
+						gr.amount = -amount_to_get;
+						gr.owed_to = current.member;		
+						gr.insert();
+					}
+				}
 			}
 			else
-				oldBalance.deleteRecord();
-		}
+			{
+				//if no balance record
+				oldBalance = new GlideRecord('sn_splitwise_balance');
+				oldBalance.initialize();
+				oldBalance.setValue('member',current.paid_by);
+				oldBalance.setValue('owed_to',current.member);
+				oldBalance.setValue('amount',amount_to_subtract);
+				oldBalance.insert();
+			}
 		//unlock
+		}
+
 	};
 	calculateBalanceOnDelete();
 
@@ -62,7 +94,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>3dc4c09b7f2e0210d94a0cd10d866520</sys_id>
-        <sys_mod_count>8</sys_mod_count>
+        <sys_mod_count>12</sys_mod_count>
         <sys_name>Calc balance on expense delete</sys_name>
         <sys_overrides/>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
@@ -70,7 +102,7 @@
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sys_script_3dc4c09b7f2e0210d94a0cd10d866520</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-14 06:37:40</sys_updated_on>
+        <sys_updated_on>2024-06-16 06:53:40</sys_updated_on>
         <template/>
         <when>after</when>
     </sys_script>
