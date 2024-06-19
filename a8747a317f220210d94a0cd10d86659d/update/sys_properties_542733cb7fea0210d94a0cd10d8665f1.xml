@@ -15,16 +15,16 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-07 12:49:23</sys_created_on>
         <sys_id>542733cb7fea0210d94a0cd10d8665f1</sys_id>
-        <sys_mod_count>12</sys_mod_count>
+        <sys_mod_count>13</sys_mod_count>
         <sys_name>sn_splitwise.max_group_size</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sys_properties_542733cb7fea0210d94a0cd10d8665f1</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-18 09:53:44</sys_updated_on>
+        <sys_updated_by>fred.kunde</sys_updated_by>
+        <sys_updated_on>2024-06-19 15:11:51</sys_updated_on>
         <type>choicelist</type>
-        <value>25</value>
+        <value>10</value>
         <write_roles>sn_splitwise.splitwise_admin</write_roles>
     </sys_properties>
     <sys_translated_text action="delete_multiple" query="documentkey=542733cb7fea0210d94a0cd10d8665f1"/>

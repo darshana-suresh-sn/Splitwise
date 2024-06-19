@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance_vlist">
+    <sp_instance_vlist action="DELETE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <display_field>name</display_field>
+        <field_list/>
+        <filter table="sn_splitwise_group">membersLIKEjavascript:gs.getUserID()<item endquery="false" field="members" goto="false" newquery="false" operator="LIKE" or="false" value="javascript:gs.getUserID()"/>
+        </filter>
+        <glyph>user</glyph>
+        <id/>
+        <maximum_entries>100</maximum_entries>
+        <order>3</order>
+        <order_by/>
+        <order_direction>asc</order_direction>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">7ccaa4547f3a0210d94a0cd10d86652c</sp_column>
+        <sp_page/>
+        <sp_widget display_value="Simple List">5b255672cb03020000f8d856634c9c28</sp_widget>
+        <sys_class_name>sp_instance_vlist</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-18 15:01:52</sys_created_on>
+        <sys_id>6bafbc7e7ff60210d94a0cd10d8665f4</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sp_instance_vlist_6bafbc7e7ff60210d94a0cd10d8665f4</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-19 17:10:11</sys_updated_on>
+        <table>sn_splitwise_group</table>
+        <title/>
+        <url/>
+        <widget_parameters><![CDATA[{
+	"always_show": {
+		"value": "true",
+		"displayValue": "true"
+	},
+	"panel_body_height": {
+		"value": "",
+		"displayValue": ""
+	},
+	"image_field": {
+		"value": "",
+		"displayValue": ""
+	},
+	"secondary_fields": {
+		"value": "members",
+		"displayValue": "members"
+	},
+	"rounded_images": {
+		"value": "",
+		"displayValue": ""
+	},
+	"list_page": {
+		"value": "",
+		"displayValue": ""
+	},
+	"hide_footer": {
+		"value": "",
+		"displayValue": ""
+	},
+	"view": {
+		"value": "",
+		"displayValue": ""
+	},
+	"disable_record_watcher": {
+		"value": "",
+		"displayValue": ""
+	},
+	"filter_acls": {
+		"value": "false",
+		"displayValue": "false"
+	}
+}]]></widget_parameters>
+    </sp_instance_vlist>
+    <sys_translated_text action="DELETE" query="documentkey=6bafbc7e7ff60210d94a0cd10d8665f4"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</application>
+        <file_path/>
+        <instance_id>909410dc0d120210958b922e05ff61a4</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sp_instance_vlist_6bafbc7e7ff60210d94a0cd10d8665f4</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_instance_vlist"&gt;&lt;sp_instance_vlist action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;class_name/&gt;&lt;color&gt;default&lt;/color&gt;&lt;css/&gt;&lt;display_field&gt;name&lt;/display_field&gt;&lt;field_list/&gt;&lt;filter table="sn_splitwise_group"&gt;membersLIKEjavascript:gs.getUserID()&lt;item endquery="false" field="members" goto="false" newquery="false" operator="LIKE" or="false" value="javascript:gs.getUserID()"/&gt;&lt;/filter&gt;&lt;glyph&gt;user&lt;/glyph&gt;&lt;id/&gt;&lt;maximum_entries&gt;100&lt;/maximum_entries&gt;&lt;order&gt;3&lt;/order&gt;&lt;order_by/&gt;&lt;order_direction&gt;asc&lt;/order_direction&gt;&lt;roles/&gt;&lt;short_description/&gt;&lt;size&gt;md&lt;/size&gt;&lt;sp_column display_value="1"&gt;7ccaa4547f3a0210d94a0cd10d86652c&lt;/sp_column&gt;&lt;sp_page/&gt;&lt;sp_widget display_value="Simple List"&gt;5b255672cb03020000f8d856634c9c28&lt;/sp_widget&gt;&lt;sys_class_name&gt;sp_instance_vlist&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-18 15:01:52&lt;/sys_created_on&gt;&lt;sys_id&gt;6bafbc7e7ff60210d94a0cd10d8665f4&lt;/sys_id&gt;&lt;sys_mod_count&gt;7&lt;/sys_mod_count&gt;&lt;sys_name/&gt;&lt;sys_package display_value="Splitwise" source="sn_splitwise"&gt;a8747a317f220210d94a0cd10d86659d&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Splitwise"&gt;a8747a317f220210d94a0cd10d86659d&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_instance_vlist_6bafbc7e7ff60210d94a0cd10d8665f4&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-19 17:10:11&lt;/sys_updated_on&gt;&lt;table&gt;sn_splitwise_group&lt;/table&gt;&lt;title/&gt;&lt;url/&gt;&lt;widget_parameters&gt;&lt;![CDATA[{
+	"always_show": {
+		"value": "true",
+		"displayValue": "true"
+	},
+	"panel_body_height": {
+		"value": "",
+		"displayValue": ""
+	},
+	"image_field": {
+		"value": "",
+		"displayValue": ""
+	},
+	"secondary_fields": {
+		"value": "members",
+		"displayValue": "members"
+	},
+	"rounded_images": {
+		"value": "",
+		"displayValue": ""
+	},
+	"list_page": {
+		"value": "",
+		"displayValue": ""
+	},
+	"hide_footer": {
+		"value": "",
+		"displayValue": ""
+	},
+	"view": {
+		"value": "",
+		"displayValue": ""
+	},
+	"disable_record_watcher": {
+		"value": "",
+		"displayValue": ""
+	},
+	"filter_acls": {
+		"value": "false",
+		"displayValue": "false"
+	}
+}]]&gt;&lt;/widget_parameters&gt;&lt;/sp_instance_vlist&gt;&lt;sys_translated_text action="delete_multiple" query="documentkey=6bafbc7e7ff60210d94a0cd10d8665f4"/&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-241210901</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>6f8b0e037f324210d94a0cd10d866513</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-19 17:10:11</sys_created_on>
+        <sys_id>4da6e64f7f724210d94a0cd10d8665d8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>190317a376d0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-19 17:10:11</sys_updated_on>
+        <type>Instance of Simple List</type>
+        <update_guid>45a6e64faa724210dfe647ea06b2aad8</update_guid>
+        <update_guid_history>45a6e64faa724210dfe647ea06b2aad8:-241210901,d5a8c93a283a0210f80cc2e2b6ff2d84:1705514444,f098893ae83a02104c3b7ee26bb47492:22616595,7ee7cdf6863a02105f786526571f0c68:1197605048,bf9041fe94f60210e47d2fe125c02fad:-928614968,79efb4be0df60210e22c04060515265c:-435104552,4ddff0bed2f602106d9f56fb3648a920:1511620793,6bafbc7ec2f60210c398ac7f1e95e9f6:-1954662277</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">72a6e64f7f724210d94a0cd10d8665e3</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-19 17:10:18</sys_created_on>
+        <sys_db_object display_value="" name="sp_instance_vlist">sp_instance_vlist</sys_db_object>
+        <sys_id>4520223e2b074739a501afe745075e81</sys_id>
+        <sys_metadata>6bafbc7e7ff60210d94a0cd10d8665f4</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_scope_delete display_value="">1c30d6fa384846479a6e34b7ef0328a9</sys_scope_delete>
+        <sys_update_name>sp_instance_vlist_6bafbc7e7ff60210d94a0cd10d8665f4</sys_update_name>
+        <sys_update_version display_value="sp_instance_vlist_6bafbc7e7ff60210d94a0cd10d8665f4">4da6e64f7f724210d94a0cd10d8665d8</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-19 17:10:18</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

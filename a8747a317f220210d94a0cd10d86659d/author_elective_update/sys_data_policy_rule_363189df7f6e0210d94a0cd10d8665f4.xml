@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_data_policy_rule">
+    <sys_data_policy_rule action="DELETE">
+        <disabled>ignore</disabled>
+        <field>expense_id</field>
+        <mandatory>true</mandatory>
+        <sys_class_name>sys_data_policy_rule</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-07 18:10:04</sys_created_on>
+        <sys_data_policy display_value="Validate data in Expense record">db1109df7f6e0210d94a0cd10d86656d</sys_data_policy>
+        <sys_id>363189df7f6e0210d94a0cd10d8665f4</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>expense_id</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sys_data_policy_rule_363189df7f6e0210d94a0cd10d8665f4</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-07 18:10:04</sys_updated_on>
+        <table>sn_splitwise_expense</table>
+    </sys_data_policy_rule>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</application>
+        <file_path/>
+        <instance_id>909410dc0d120210958b922e05ff61a4</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sys_data_policy_rule_363189df7f6e0210d94a0cd10d8665f4</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_data_policy_rule"><sys_data_policy_rule action="INSERT_OR_UPDATE"><disabled>ignore</disabled><field>expense_id</field><mandatory>true</mandatory><sys_class_name>sys_data_policy_rule</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2024-06-07 18:10:04</sys_created_on><sys_data_policy display_value="Validate data in Expense record">db1109df7f6e0210d94a0cd10d86656d</sys_data_policy><sys_id>363189df7f6e0210d94a0cd10d8665f4</sys_id><sys_mod_count>0</sys_mod_count><sys_name>expense_id</sys_name><sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package><sys_policy/><sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope><sys_update_name>sys_data_policy_rule_363189df7f6e0210d94a0cd10d8665f4</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2024-06-07 18:10:04</sys_updated_on><table>sn_splitwise_expense</table></sys_data_policy_rule></record_update>]]></payload>
+        <payload_hash>414129947</payload_hash>
+        <record_name>expense_id</record_name>
+        <reverted_from/>
+        <source>36b4ef037fea0210d94a0cd10d8665c5</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-07 18:10:04</sys_created_on>
+        <sys_id>8541c9df7f6e0210d94a0cd10d866594</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18ff3e4b8da0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-07 18:10:04</sys_updated_on>
+        <type>Data Policy Rule</type>
+        <update_guid>8941c9df6b6e021048b583f3ccea8293</update_guid>
+        <update_guid_history>8941c9df6b6e021048b583f3ccea8293:414129947</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-19 15:50:30</sys_created_on>
+        <sys_db_object display_value="" name="sys_data_policy_rule">sys_data_policy_rule</sys_db_object>
+        <sys_id>3ec367ccbb0c4ca5a98c066ab2cca7e9</sys_id>
+        <sys_metadata>363189df7f6e0210d94a0cd10d8665f4</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>expense_id</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_parent display_value="Validate data in Expense record">db1109df7f6e0210d94a0cd10d86656d</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_scope_delete display_value="">1c30d6fa384846479a6e34b7ef0328a9</sys_scope_delete>
+        <sys_update_name>sys_data_policy_rule_363189df7f6e0210d94a0cd10d8665f4</sys_update_name>
+        <sys_update_version display_value="sys_data_policy_rule_363189df7f6e0210d94a0cd10d8665f4">8541c9df7f6e0210d94a0cd10d866594</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-19 15:50:30</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
