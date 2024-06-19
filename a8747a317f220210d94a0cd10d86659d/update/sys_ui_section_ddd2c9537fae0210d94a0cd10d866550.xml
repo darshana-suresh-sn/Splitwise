@@ -3,25 +3,25 @@
         <sys_ui_annotation action="INSERT_OR_UPDATE">
             <is_plain_text>true</is_plain_text>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2024-06-07 18:17:38</sys_created_on>
-            <sys_id>4c038d537fae0210d94a0cd10d86657c</sys_id>
+            <sys_created_on>2024-06-18 07:24:43</sys_created_on>
+            <sys_id>0b07d7267f360210d94a0cd10d8665e1</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2024-06-07 18:17:38</sys_updated_on>
+            <sys_updated_on>2024-06-18 07:24:43</sys_updated_on>
             <text>Note: To insert/update records in this table, use the Service Portal for Splitwise application.</text>
             <type display_value="Info Box Red">823f88a80f930000b12e6903cfe01209</type>
         </sys_ui_annotation>
         <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>4c038d537fae0210d94a0cd10d86657c</element>
+            <element>0b07d7267f360210d94a0cd10d8665e1</element>
             <position>0</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2024-06-07 18:17:38</sys_created_on>
-            <sys_id>84038d537fae0210d94a0cd10d86657f</sys_id>
+            <sys_created_on>2024-06-18 07:24:43</sys_created_on>
+            <sys_id>0f071b267f360210d94a0cd10d866502</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Expense Distribution" display_value="Expense Distribution" name="sn_splitwise_expense_distribution" sys_domain="global" view="Default view">ddd2c9537fae0210d94a0cd10d866550</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2024-06-07 18:17:38</sys_updated_on>
+            <sys_updated_on>2024-06-18 07:24:43</sys_updated_on>
             <sys_user/>
             <type>annotation</type>
         </sys_ui_element>
@@ -29,27 +29,27 @@
             <element>.begin_split</element>
             <position>1</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2024-06-07 18:17:38</sys_created_on>
-            <sys_id>8c038d537fae0210d94a0cd10d86657f</sys_id>
+            <sys_created_on>2024-06-18 07:24:43</sys_created_on>
+            <sys_id>0b071b267f360210d94a0cd10d866503</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Expense Distribution" display_value="Expense Distribution" name="sn_splitwise_expense_distribution" sys_domain="global" view="Default view">ddd2c9537fae0210d94a0cd10d866550</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2024-06-07 18:17:38</sys_updated_on>
+            <sys_updated_on>2024-06-18 07:24:43</sys_updated_on>
             <sys_user/>
             <type>.begin_split</type>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>expense_id</element>
+            <element>member</element>
             <position>2</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2024-06-07 18:17:38</sys_created_on>
-            <sys_id>84038d537fae0210d94a0cd10d866580</sys_id>
+            <sys_created_on>2024-06-18 07:24:43</sys_created_on>
+            <sys_id>03071b267f360210d94a0cd10d866504</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Expense Distribution" display_value="Expense Distribution" name="sn_splitwise_expense_distribution" sys_domain="global" view="Default view">ddd2c9537fae0210d94a0cd10d866550</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2024-06-07 18:17:38</sys_updated_on>
+            <sys_updated_on>2024-06-18 07:24:43</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -57,13 +57,13 @@
             <element>.split</element>
             <position>3</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2024-06-07 18:17:38</sys_created_on>
-            <sys_id>8c038d537fae0210d94a0cd10d866580</sys_id>
+            <sys_created_on>2024-06-18 07:24:43</sys_created_on>
+            <sys_id>0b071b267f360210d94a0cd10d866504</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Expense Distribution" display_value="Expense Distribution" name="sn_splitwise_expense_distribution" sys_domain="global" view="Default view">ddd2c9537fae0210d94a0cd10d866550</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2024-06-07 18:17:38</sys_updated_on>
+            <sys_updated_on>2024-06-18 07:24:43</sys_updated_on>
             <sys_user/>
             <type>.split</type>
         </sys_ui_element>
@@ -71,69 +71,13 @@
             <element>amount_owed</element>
             <position>4</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2024-06-07 18:17:38</sys_created_on>
-            <sys_id>84038d537fae0210d94a0cd10d866581</sys_id>
+            <sys_created_on>2024-06-18 07:24:43</sys_created_on>
+            <sys_id>03071b267f360210d94a0cd10d866505</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Expense Distribution" display_value="Expense Distribution" name="sn_splitwise_expense_distribution" sys_domain="global" view="Default view">ddd2c9537fae0210d94a0cd10d866550</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2024-06-07 18:17:38</sys_updated_on>
-            <sys_user/>
-            <type/>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>.end_split</element>
-            <position>5</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2024-06-07 18:17:38</sys_created_on>
-            <sys_id>8c038d537fae0210d94a0cd10d866581</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="Expense Distribution" display_value="Expense Distribution" name="sn_splitwise_expense_distribution" sys_domain="global" view="Default view">ddd2c9537fae0210d94a0cd10d866550</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2024-06-07 18:17:38</sys_updated_on>
-            <sys_user/>
-            <type>.end_split</type>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>group_id</element>
-            <position>6</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2024-06-07 18:17:38</sys_created_on>
-            <sys_id>84038d537fae0210d94a0cd10d866582</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="Expense Distribution" display_value="Expense Distribution" name="sn_splitwise_expense_distribution" sys_domain="global" view="Default view">ddd2c9537fae0210d94a0cd10d866550</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2024-06-07 18:17:38</sys_updated_on>
-            <sys_user/>
-            <type/>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>member</element>
-            <position>7</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2024-06-07 18:17:38</sys_created_on>
-            <sys_id>8c038d537fae0210d94a0cd10d866582</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="Expense Distribution" display_value="Expense Distribution" name="sn_splitwise_expense_distribution" sys_domain="global" view="Default view">ddd2c9537fae0210d94a0cd10d866550</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2024-06-07 18:17:38</sys_updated_on>
-            <sys_user/>
-            <type/>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>paid_by</element>
-            <position>8</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2024-06-10 10:57:12</sys_created_on>
-            <sys_id>b9fa7a007f360210d94a0cd10d866506</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="Expense Distribution" display_value="Expense Distribution" name="sn_splitwise_expense_distribution" sys_domain="global" view="Default view">ddd2c9537fae0210d94a0cd10d866550</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2024-06-10 10:57:12</sys_updated_on>
+            <sys_updated_on>2024-06-18 07:24:43</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>

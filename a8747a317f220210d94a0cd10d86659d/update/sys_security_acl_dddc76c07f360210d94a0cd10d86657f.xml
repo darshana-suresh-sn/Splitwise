@@ -4,35 +4,41 @@
         <admin_overrides>true</admin_overrides>
         <advanced>true</advanced>
         <condition/>
-        <description>Restrict access to users belonging to the group</description>
+        <description>User can only read groups involving themselves</description>
         <local_or_existing>Local</local_or_existing>
         <name>sn_splitwise_group.*</name>
         <operation display_value="read">read</operation>
-        <script><![CDATA[answer = false;
-var list = current.members? current.members.split(',') : null;
-if(list){
-	for(var i=0;i<list.length;++i)
-	{
-		if(list[i]==gs.getUserID())
+        <script><![CDATA[if(current.isNewRecord())
+	answer = true;
+else
+{
+	answer = false;
+	var list = current.members? current.members.split(',') : null;
+	if(list){
+		for(var i=0;i<list.length;++i)
 		{
-			answer = true;
-			break;
+			if(list[i]==gs.getUserID())
+			{
+				answer = true;
+				break;
+			}
 		}
 	}
-}]]></script>
+}
+]]></script>
         <security_attribute/>
         <sys_class_name>sys_security_acl</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-10 11:20:56</sys_created_on>
         <sys_id>dddc76c07f360210d94a0cd10d86657f</sys_id>
-        <sys_mod_count>9</sys_mod_count>
+        <sys_mod_count>15</sys_mod_count>
         <sys_name>sn_splitwise_group.*</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sys_security_acl_dddc76c07f360210d94a0cd10d86657f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-10 15:30:17</sys_updated_on>
+        <sys_updated_on>2024-06-18 10:38:21</sys_updated_on>
         <type display_value="record">record</type>
     </sys_security_acl>
 </record_update>

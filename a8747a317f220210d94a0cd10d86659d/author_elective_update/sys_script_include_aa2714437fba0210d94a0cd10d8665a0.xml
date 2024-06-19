@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="DELETE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>sn_splitwise.CalcBalanceOnExpDelete</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>Calculate balance on deletion of an expense distribution record and update balance table</description>
+        <mobile_callable>false</mobile_callable>
+        <name>CalcBalanceOnExpDelete</name>
+        <script><![CDATA[function CalcBalanceOnExpDelete(current){
+
+	//check if group is deleted, if yes then don't update balance table
+	var groupRecord = new GlideRecord('sn_splitwise_group');
+	groupRecord.addQuery('sys_id',current.group_id);
+	groupRecord.query();
+	if(!groupRecord.next())
+		return;
+	// If amount is owed to self, no change is needed
+	if(current.paid_by!=current.member)
+	{
+		//check if user currently owes this member
+		var gr = new GlideRecord('sn_splitwise_balance');
+		gr.addQuery('member',current.member);
+		gr.addQuery('owed_to',current.paid_by);
+		gr.query();
+		if(gr.next())
+		{ 
+			//user owes this member, so subtract the deleted amount
+			var updated_amount = parseFloat(gr.amount) - parseFloat(current.amount_owed);
+			if(updated_amount > 0)
+			{
+				//user still owes this member, so update amount
+				gr.setValue('amount',updated_amount);
+				gr.update();
+			}
+			else
+			{
+				//user does not owe this member anymore
+				gr.deleteRecord();
+				if(updated_amount < 0)
+				{
+					///this member owes user, so add balance record
+					gr = new GlideRecord('sn_splitwise_balance');
+					gr.initialize();
+					gr.member = current.paid_by;
+					gr.amount = -updated_amount;
+					gr.owed_to = current.member;		
+					gr.insert();
+				}
+			}
+		}
+		else
+		{
+			//check if member currently owes user
+			gr = new GlideRecord('sn_splitwise_balance');
+			gr.addQuery('member',current.paid_by);
+			gr.addQuery('owed_to',current.member);
+			gr.query();
+			if(gr.next())
+			{
+				//member owes user, so add to the amount owed
+				gr.setValue('amount',parseFloat(gr.amount)+parseFloat(current.amount_owed));
+				gr.update();
+			}
+			else{
+				//There is no balance b/w user & member, so create new record
+				oldBalance = new GlideRecord('sn_splitwise_balance');
+				oldBalance.initialize();
+				oldBalance.setValue('member',current.paid_by);
+				oldBalance.setValue('owed_to',current.member);
+				oldBalance.setValue('amount',amount_to_subtract);
+				oldBalance.insert();
+			}
+
+		}
+	}
+}]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-19 06:45:03</sys_created_on>
+        <sys_id>aa2714437fba0210d94a0cd10d8665a0</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>CalcBalanceOnExpDelete</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sys_script_include_aa2714437fba0210d94a0cd10d8665a0</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-19 07:10:44</sys_updated_on>
+    </sys_script_include>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</application>
+        <file_path/>
+        <instance_id>909410dc0d120210958b922e05ff61a4</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sys_script_include_aa2714437fba0210d94a0cd10d8665a0</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_script_include"&gt;&lt;sys_script_include action="INSERT_OR_UPDATE"&gt;&lt;access&gt;package_private&lt;/access&gt;&lt;active&gt;true&lt;/active&gt;&lt;api_name&gt;sn_splitwise.CalcBalanceOnExpDelete&lt;/api_name&gt;&lt;caller_access/&gt;&lt;client_callable&gt;false&lt;/client_callable&gt;&lt;description&gt;Calculate balance on deletion of an expense distribution record and update balance table&lt;/description&gt;&lt;mobile_callable&gt;false&lt;/mobile_callable&gt;&lt;name&gt;CalcBalanceOnExpDelete&lt;/name&gt;&lt;script&gt;&lt;![CDATA[function CalcBalanceOnExpDelete(current){
+
+	//check if group is deleted, if yes then don't update balance table
+	var groupRecord = new GlideRecord('sn_splitwise_group');
+	groupRecord.addQuery('sys_id',current.group_id);
+	groupRecord.query();
+	if(!groupRecord.next())
+		return;
+	// If amount is owed to self, no change is needed
+	if(current.paid_by!=current.member)
+	{
+		//check if user currently owes this member
+		var gr = new GlideRecord('sn_splitwise_balance');
+		gr.addQuery('member',current.member);
+		gr.addQuery('owed_to',current.paid_by);
+		gr.query();
+		if(gr.next())
+		{ 
+			//user owes this member, so subtract the deleted amount
+			var updated_amount = parseFloat(gr.amount) - parseFloat(current.amount_owed);
+			if(updated_amount &gt; 0)
+			{
+				//user still owes this member, so update amount
+				gr.setValue('amount',updated_amount);
+				gr.update();
+			}
+			else
+			{
+				//user does not owe this member anymore
+				gr.deleteRecord();
+				if(updated_amount &lt; 0)
+				{
+					///this member owes user, so add balance record
+					gr = new GlideRecord('sn_splitwise_balance');
+					gr.initialize();
+					gr.member = current.paid_by;
+					gr.amount = -updated_amount;
+					gr.owed_to = current.member;		
+					gr.insert();
+				}
+			}
+		}
+		else
+		{
+			//check if member currently owes user
+			gr = new GlideRecord('sn_splitwise_balance');
+			gr.addQuery('member',current.paid_by);
+			gr.addQuery('owed_to',current.member);
+			gr.query();
+			if(gr.next())
+			{
+				//member owes user, so add to the amount owed
+				gr.setValue('amount',parseFloat(gr.amount)+parseFloat(current.amount_owed));
+				gr.update();
+			}
+			else{
+				//There is no balance b/w user &amp; member, so create new record
+				oldBalance = new GlideRecord('sn_splitwise_balance');
+				oldBalance.initialize();
+				oldBalance.setValue('member',current.paid_by);
+				oldBalance.setValue('owed_to',current.member);
+				oldBalance.setValue('amount',amount_to_subtract);
+				oldBalance.insert();
+			}
+
+		}
+	}
+}]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_include&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-19 06:45:03&lt;/sys_created_on&gt;&lt;sys_id&gt;aa2714437fba0210d94a0cd10d8665a0&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_name&gt;CalcBalanceOnExpDelete&lt;/sys_name&gt;&lt;sys_package display_value="Splitwise" source="sn_splitwise"&gt;a8747a317f220210d94a0cd10d86659d&lt;/sys_package&gt;&lt;sys_policy&gt;read&lt;/sys_policy&gt;&lt;sys_scope display_value="Splitwise"&gt;a8747a317f220210d94a0cd10d86659d&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_include_aa2714437fba0210d94a0cd10d8665a0&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-19 07:10:44&lt;/sys_updated_on&gt;&lt;/sys_script_include&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>549963077</payload_hash>
+        <record_name>CalcBalanceOnExpDelete</record_name>
+        <reverted_from/>
+        <source>36b4ef037fea0210d94a0cd10d8665c5</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-19 07:10:44</sys_created_on>
+        <sys_id>807d90c77fba0210d94a0cd10d866560</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1902f5568bf0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-19 07:10:44</sys_updated_on>
+        <type>Script Include</type>
+        <update_guid>487d90c715ba02107f10c3cb5fafea5f</update_guid>
+        <update_guid_history>487d90c715ba02107f10c3cb5fafea5f:549963077,b787508325ba02106d2946e393b6a6e9:-48335593</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-19 07:31:14</sys_created_on>
+        <sys_db_object display_value="" name="sys_script_include">sys_script_include</sys_db_object>
+        <sys_id>5fdbde47e42a4994b1f5767297ad27e1</sys_id>
+        <sys_metadata>aa2714437fba0210d94a0cd10d8665a0</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>CalcBalanceOnExpDelete</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_parent/>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_scope_delete display_value="">1c30d6fa384846479a6e34b7ef0328a9</sys_scope_delete>
+        <sys_update_name>sys_script_include_aa2714437fba0210d94a0cd10d8665a0</sys_update_name>
+        <sys_update_version display_value="sys_script_include_aa2714437fba0210d94a0cd10d8665a0">807d90c77fba0210d94a0cd10d866560</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-19 07:31:14</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

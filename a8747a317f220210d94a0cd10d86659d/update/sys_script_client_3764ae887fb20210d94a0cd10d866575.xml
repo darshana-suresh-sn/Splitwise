@@ -27,6 +27,10 @@
 			{
 				g_form.showFieldMsg('members','A group cannot have more than '+maxSize+' members.','error');
 			}
+			else if(list && list.length < 2)
+			{
+				g_form.showFieldMsg('members','A group should have at least 2 members.','error');
+			}
 			else
 			{
 				if(list.indexOf(g_user.userID)==-1)
@@ -48,7 +52,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>3764ae887fb20210d94a0cd10d866575</sys_id>
-        <sys_mod_count>6</sys_mod_count>
+        <sys_mod_count>9</sys_mod_count>
         <sys_name>Validate group member list</sys_name>
         <sys_overrides/>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
@@ -56,7 +60,7 @@
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sys_script_client_3764ae887fb20210d94a0cd10d866575</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-16 17:41:15</sys_updated_on>
+        <sys_updated_on>2024-06-18 09:05:50</sys_updated_on>
         <table>sn_splitwise_group</table>
         <type>onChange</type>
         <ui_type>10</ui_type>

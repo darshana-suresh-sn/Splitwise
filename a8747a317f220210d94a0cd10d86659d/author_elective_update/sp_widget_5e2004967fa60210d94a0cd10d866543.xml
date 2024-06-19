@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function() {
+  /* widget controller */
+  var c = this;
+	
+	alert(c.data.records);
+
+
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>test_widget</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Test widget</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+	
+	data.records = "sdwsc" ;
+	
+	
+	
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-04 10:51:41</sys_created_on>
+        <sys_id>5e2004967fa60210d94a0cd10d866543</sys_id>
+        <sys_mod_count>25</sys_mod_count>
+        <sys_name>Test widget</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sp_widget_5e2004967fa60210d94a0cd10d866543</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-05 06:10:49</sys_updated_on>
+        <template><![CDATA[<div>
+<!-- your widget template -->
+  <h1>
+    Data: {{c.data.sample}}
+  </h1>
+</div>]]></template>
+    </sp_widget>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</application>
+        <file_path/>
+        <instance_id>909410dc0d120210958b922e05ff61a4</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sp_widget_5e2004967fa60210d94a0cd10d866543</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[api.controller=function() {
+  /* widget controller */
+  var c = this;
+	
+	alert(c.data.records);
+
+
+};]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css/&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;true&lt;/has_preview&gt;&lt;id&gt;test_widget&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;Test widget&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+	
+	data.records = "sdwsc" ;
+	
+	
+	
+	
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-04 10:51:41&lt;/sys_created_on&gt;&lt;sys_id&gt;5e2004967fa60210d94a0cd10d866543&lt;/sys_id&gt;&lt;sys_mod_count&gt;25&lt;/sys_mod_count&gt;&lt;sys_name&gt;Test widget&lt;/sys_name&gt;&lt;sys_package display_value="Splitwise" source="sn_splitwise"&gt;a8747a317f220210d94a0cd10d86659d&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Splitwise"&gt;a8747a317f220210d94a0cd10d86659d&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_5e2004967fa60210d94a0cd10d866543&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-05 06:10:49&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div&gt;
+&lt;!-- your widget template --&gt;
+  &lt;h1&gt;
+    Data: {{c.data.sample}}
+  &lt;/h1&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-373124978</payload_hash>
+        <record_name>Test widget</record_name>
+        <reverted_from/>
+        <source>2c74f2b17f220210d94a0cd10d866553</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-05 06:10:49</sys_created_on>
+        <sys_id>f1794ce27fea0210d94a0cd10d8665af</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18fe70585fd0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-05 06:10:49</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>f9794ce2b1ea021097e21058384442ae</update_guid>
+        <update_guid_history>f9794ce2b1ea021097e21058384442ae:-373124978,990984e2c8ea0210f873de0e6465f98c:-1343908733,cff840e2e8ea0210c4d63fafa33b209c:-68929281,2ad840e218ea02104418c7576e3ac06b:1870214522,e1b840e27dea02103de4d803837dfa63:860695038,bc9888a251ea02104ef6a0702922b2f7:391184953,987888a25dea021019d573e8fbfed5fc:-1952788795,b5584462e3ea0210e71d841ce83359b1:-1680222102,fca4e41adde6021088d07ae7194d92a3:443200786,52136c9668e60210e35dc089e4b6d501:1997253607,eff268562ae60210bd9f612a68efbf98:-458046679,d3026856bde602107901dc4af1ba9e88:773159729,d1e1285685e602103650ef15a15077ae:1757510929,06c1e4568fe602100d10b80c3b247716:1974366952,d4a12056ace60210c8217bbcdec2639b:467994679,7f51281642e6021082e998d160bdee53:-862006886,f4f00c961ca60210bace2ad4752ca44c:-458046679,f380889610a60210fee5d31fd41cbacd:-1912265985,7b7088965ea602109d4cf35658dbf26d:-2120505041,4f70c496b8a60210c46c0283aa268cb0:-1418256164,c170c496e4a60210d5e6a3cea8a5f1a2:1400602717,fe600896c4a60210c83d0ce1ea528f31:-1221781318,4b50849671a602108e2deca888378226:-1993891895,81500496dda602100d4f929163080099:-2052530402,5d40849652a602109ae3ab6f1b2e5510:325076408,1e20049652a602100dd8989649f5a945:1266358868</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Test widget">c3851f827fb60210d94a0cd10d866590</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-16 18:01:12</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>5d140b2b11e64eb089ef9aad38ba0900</sys_id>
+        <sys_metadata>5e2004967fa60210d94a0cd10d866543</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Test widget</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_scope_delete display_value="">1c30d6fa384846479a6e34b7ef0328a9</sys_scope_delete>
+        <sys_update_name>sp_widget_5e2004967fa60210d94a0cd10d866543</sys_update_name>
+        <sys_update_version display_value="sp_widget_5e2004967fa60210d94a0cd10d866543">f1794ce27fea0210d94a0cd10d8665af</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-16 18:01:12</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

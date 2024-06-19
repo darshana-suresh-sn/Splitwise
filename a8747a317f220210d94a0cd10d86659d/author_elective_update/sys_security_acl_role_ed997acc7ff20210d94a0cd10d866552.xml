@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="DELETE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-10 10:51:53</sys_created_on>
+        <sys_id>ed997acc7ff20210d94a0cd10d866552</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>.sn_splitwise.splitwise_admin</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_security_acl display_value="">dd997acc7ff20210d94a0cd10d866569</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_ed997acc7ff20210d94a0cd10d866552</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-10 10:51:53</sys_updated_on>
+        <sys_user_role display_value="sn_splitwise.splitwise_admin" name="sn_splitwise.splitwise_admin">18e557c37faa0210d94a0cd10d866535</sys_user_role>
+    </sys_security_acl_role>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</application>
+        <file_path/>
+        <instance_id>909410dc0d120210958b922e05ff61a4</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sys_security_acl_role_ed997acc7ff20210d94a0cd10d866552</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role"><sys_security_acl_role action="INSERT_OR_UPDATE"><sys_class_name>sys_security_acl_role</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2024-06-10 10:51:53</sys_created_on><sys_id>ed997acc7ff20210d94a0cd10d866552</sys_id><sys_mod_count>0</sys_mod_count><sys_name>.sn_splitwise.splitwise_admin</sys_name><sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package><sys_policy/><sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope><sys_security_acl display_value="">dd997acc7ff20210d94a0cd10d866569</sys_security_acl><sys_update_name>sys_security_acl_role_ed997acc7ff20210d94a0cd10d866552</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2024-06-10 10:51:53</sys_updated_on><sys_user_role display_value="sn_splitwise.splitwise_admin" name="sn_splitwise.splitwise_admin">18e557c37faa0210d94a0cd10d866535</sys_user_role></sys_security_acl_role></record_update>]]></payload>
+        <payload_hash>2108244169</payload_hash>
+        <record_name>.sn_splitwise.splitwise_admin</record_name>
+        <reverted_from/>
+        <source>36b4ef037fea0210d94a0cd10d8665c5</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-10 10:51:53</sys_created_on>
+        <sys_id>7fb9facc7ff20210d94a0cd10d8665c1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19001c6a3420000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-10 10:51:53</sys_updated_on>
+        <type>Access Roles</type>
+        <update_guid>73b9facc59f20210b3cd5928a425c7c1</update_guid>
+        <update_guid_history>73b9facc59f20210b3cd5928a425c7c1:2108244169</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value=".sn_splitwise.splitwise_admin">1c6141327f3a0210d94a0cd10d8665c4</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-18 15:09:17</sys_created_on>
+        <sys_db_object display_value="" name="sys_security_acl_role">sys_security_acl_role</sys_db_object>
+        <sys_id>0bb3516563fc4bfa80c6169ca7cb7544</sys_id>
+        <sys_metadata>ed997acc7ff20210d94a0cd10d866552</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>.sn_splitwise.splitwise_admin</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_parent display_value="sn_splitwise_balance">dd997acc7ff20210d94a0cd10d866569</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_scope_delete display_value="">1c30d6fa384846479a6e34b7ef0328a9</sys_scope_delete>
+        <sys_update_name>sys_security_acl_role_ed997acc7ff20210d94a0cd10d866552</sys_update_name>
+        <sys_update_version display_value="sys_security_acl_role_ed997acc7ff20210d94a0cd10d866552">7fb9facc7ff20210d94a0cd10d8665c1</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-18 15:09:17</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

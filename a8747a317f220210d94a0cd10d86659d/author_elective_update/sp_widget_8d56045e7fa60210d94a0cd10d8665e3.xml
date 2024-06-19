@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function() {
+  /* widget controller */
+  var c = this;
+	console.log(c.data.test);
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>splitwise_balance</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Splitwise balance</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	/* populate the 'data' object */
+	/* e.g., data.table = $sp.getValue('table'); */
+			data.test = "test";
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-04 11:18:38</sys_created_on>
+        <sys_id>8d56045e7fa60210d94a0cd10d8665e3</sys_id>
+        <sys_mod_count>8</sys_mod_count>
+        <sys_name>Splitwise balance</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sp_widget_8d56045e7fa60210d94a0cd10d8665e3</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-04 13:11:39</sys_updated_on>
+        <template><![CDATA[<div>
+  <!-- your widget template -->
+      Check: {{c.data.test}}
+
+</div>]]></template>
+    </sp_widget>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</application>
+        <file_path/>
+        <instance_id>909410dc0d120210958b922e05ff61a4</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sp_widget_8d56045e7fa60210d94a0cd10d8665e3</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[api.controller=function() {
+  /* widget controller */
+  var c = this;
+	console.log(c.data.test);
+};]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css/&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;true&lt;/has_preview&gt;&lt;id&gt;splitwise_balance&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;Splitwise balance&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+	/* populate the 'data' object */
+	/* e.g., data.table = $sp.getValue('table'); */
+			data.test = "test";
+
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-04 11:18:38&lt;/sys_created_on&gt;&lt;sys_id&gt;8d56045e7fa60210d94a0cd10d8665e3&lt;/sys_id&gt;&lt;sys_mod_count&gt;8&lt;/sys_mod_count&gt;&lt;sys_name&gt;Splitwise balance&lt;/sys_name&gt;&lt;sys_package display_value="Splitwise" source="sn_splitwise"&gt;a8747a317f220210d94a0cd10d86659d&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Splitwise"&gt;a8747a317f220210d94a0cd10d86659d&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_8d56045e7fa60210d94a0cd10d8665e3&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-04 13:11:39&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div&gt;
+  &lt;!-- your widget template --&gt;
+      Check: {{c.data.test}}
+
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-1706052716</payload_hash>
+        <record_name>Splitwise balance</record_name>
+        <reverted_from/>
+        <source>2c74f2b17f220210d94a0cd10d866553</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-04 13:11:39</sys_created_on>
+        <sys_id>a030e4d27fe60210d94a0cd10d8665e1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18fe3606f800000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-04 13:11:39</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>a830e4d2c2e6021004b551da1f9615e0</update_guid>
+        <update_guid_history>a830e4d2c2e6021004b551da1f9615e0:-1706052716,626f10d22ce60210dcc35e1e7ceb1213:-2061568076,57e7c89e18a60210c467cb13d386d4d2:1902362116,2f87c49e45a602101de4d65c757bad39:209483395,54a6085e54a60210ad6d1e1e41f1f1d8:1335708777,ae96c85e64a602108e2c9c6950eb9126:-778997237,6976085ef9a60210dd4057dbda80acd0:-1885744958,0766c45e48a602109cd6927eeed521f3:1875666432,8956045e6aa60210c8aa8840d67261e5:-590245010</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Splitwise balance">67d413827fb60210d94a0cd10d86651f</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-16 17:58:14</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>1293596981af47b4970ca0b2cb28aa64</sys_id>
+        <sys_metadata>8d56045e7fa60210d94a0cd10d8665e3</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Splitwise balance</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_scope_delete display_value="">1c30d6fa384846479a6e34b7ef0328a9</sys_scope_delete>
+        <sys_update_name>sp_widget_8d56045e7fa60210d94a0cd10d8665e3</sys_update_name>
+        <sys_update_version display_value="sp_widget_8d56045e7fa60210d94a0cd10d8665e3">a030e4d27fe60210d94a0cd10d8665e1</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-16 17:58:14</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

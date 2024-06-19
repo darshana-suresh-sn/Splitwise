@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sysevent_script_action">
+    <sysevent_script_action action="DELETE">
+        <active>true</active>
+        <condition_script/>
+        <description/>
+        <event_name>sn_splitwise.balance_pay_reminder</event_name>
+        <name>Payment reminder popup</name>
+        <order>100</order>
+        <script><![CDATA[gs.addInfoMessage("You have some pending payments to be made. Settle them before the month end");]]></script>
+        <synchronous>false</synchronous>
+        <sys_class_name>sysevent_script_action</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-17 11:10:05</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>0bd00bde7f320210d94a0cd10d8665b5</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Payment reminder popup</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sysevent_script_action_0bd00bde7f320210d94a0cd10d8665b5</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-17 11:10:46</sys_updated_on>
+    </sysevent_script_action>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</application>
+        <file_path/>
+        <instance_id>909410dc0d120210958b922e05ff61a4</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sysevent_script_action_0bd00bde7f320210d94a0cd10d8665b5</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sysevent_script_action"&gt;&lt;sysevent_script_action action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;condition_script/&gt;&lt;description/&gt;&lt;event_name&gt;sn_splitwise.balance_pay_reminder&lt;/event_name&gt;&lt;name&gt;Payment reminder popup&lt;/name&gt;&lt;order&gt;100&lt;/order&gt;&lt;script&gt;&lt;![CDATA[gs.addInfoMessage("You have some pending payments to be made. Settle them before the month end");]]&gt;&lt;/script&gt;&lt;synchronous&gt;false&lt;/synchronous&gt;&lt;sys_class_name&gt;sysevent_script_action&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-17 11:10:05&lt;/sys_created_on&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;0bd00bde7f320210d94a0cd10d8665b5&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_name&gt;Payment reminder popup&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="Splitwise" source="sn_splitwise"&gt;a8747a317f220210d94a0cd10d86659d&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Splitwise"&gt;a8747a317f220210d94a0cd10d86659d&lt;/sys_scope&gt;&lt;sys_update_name&gt;sysevent_script_action_0bd00bde7f320210d94a0cd10d8665b5&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-17 11:10:46&lt;/sys_updated_on&gt;&lt;/sysevent_script_action&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-603311582</payload_hash>
+        <record_name>Payment reminder popup</record_name>
+        <reverted_from/>
+        <source>36b4ef037fea0210d94a0cd10d8665c5</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-17 11:10:46</sys_created_on>
+        <sys_id>28310fde7f320210d94a0cd10d866513</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19025e4704c0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-17 11:10:46</sys_updated_on>
+        <type>Script Action</type>
+        <update_guid>ac310fde5032021044431f318c73c912</update_guid>
+        <update_guid_history>ac310fde5032021044431f318c73c912:-603311582,2a01cbde023202107ea2e44d50d46f9b:838533099</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-17 11:13:41</sys_created_on>
+        <sys_db_object display_value="" name="sysevent_script_action">sysevent_script_action</sys_db_object>
+        <sys_id>092ed464909f4d52b3e15e36b8297811</sys_id>
+        <sys_metadata>0bd00bde7f320210d94a0cd10d8665b5</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Payment reminder popup</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_scope_delete display_value="">1c30d6fa384846479a6e34b7ef0328a9</sys_scope_delete>
+        <sys_update_name>sysevent_script_action_0bd00bde7f320210d94a0cd10d8665b5</sys_update_name>
+        <sys_update_version display_value="sysevent_script_action_0bd00bde7f320210d94a0cd10d8665b5">28310fde7f320210d94a0cd10d866513</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-17 11:13:41</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_container">
+    <sp_container action="DELETE">
+        <background_color/>
+        <background_image/>
+        <background_style>default</background_style>
+        <bootstrap_alt>false</bootstrap_alt>
+        <class_name/>
+        <container_class_name/>
+        <name>Test widget - Test Page - Container 1</name>
+        <order>1</order>
+        <semantic_tag/>
+        <sp_page display_value="test_widget">122004967fa60210d94a0cd10d866547</sp_page>
+        <subheader>false</subheader>
+        <sys_class_name>sp_container</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-04 10:51:41</sys_created_on>
+        <sys_id>1e2004967fa60210d94a0cd10d866549</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Test widget - Test Page - Container 1</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sp_container_1e2004967fa60210d94a0cd10d866549</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-04 10:51:41</sys_updated_on>
+        <title/>
+        <width>container</width>
+    </sp_container>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</application>
+        <file_path/>
+        <instance_id>909410dc0d120210958b922e05ff61a4</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sp_container_1e2004967fa60210d94a0cd10d866549</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_container"><sp_container action="INSERT_OR_UPDATE"><background_color/><background_image/><background_style>default</background_style><bootstrap_alt>false</bootstrap_alt><class_name/><container_class_name/><name>Test widget - Test Page - Container 1</name><order>1</order><semantic_tag/><sp_page display_value="test_widget">122004967fa60210d94a0cd10d866547</sp_page><subheader>false</subheader><sys_class_name>sp_container</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2024-06-04 10:51:41</sys_created_on><sys_id>1e2004967fa60210d94a0cd10d866549</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Test widget - Test Page - Container 1</sys_name><sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package><sys_policy/><sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope><sys_update_name>sp_container_1e2004967fa60210d94a0cd10d866549</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2024-06-04 10:51:41</sys_updated_on><title/><width>container</width></sp_container></record_update>]]></payload>
+        <payload_hash>1186868591</payload_hash>
+        <record_name>Test widget - Test Page - Container 1</record_name>
+        <reverted_from/>
+        <source>2c74f2b17f220210d94a0cd10d866553</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-04 10:51:41</sys_created_on>
+        <sys_id>de2004967fa60210d94a0cd10d86654b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18fe2e04d5c0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-04 10:51:41</sys_updated_on>
+        <type>Container</type>
+        <update_guid>d220049663a6021004366142c759ff4b</update_guid>
+        <update_guid_history>d220049663a6021004366142c759ff4b:1186868591</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Test widget - Test Page - Container 1">75cc7c0f7ffa0210d94a0cd10d866586</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-19 09:27:40</sys_created_on>
+        <sys_db_object display_value="" name="sp_container">sp_container</sys_db_object>
+        <sys_id>dc8f11c32a7c45b888fa9de589489a40</sys_id>
+        <sys_metadata>1e2004967fa60210d94a0cd10d866549</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Test widget - Test Page - Container 1</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_scope_delete display_value="">1c30d6fa384846479a6e34b7ef0328a9</sys_scope_delete>
+        <sys_update_name>sp_container_1e2004967fa60210d94a0cd10d866549</sys_update_name>
+        <sys_update_version display_value="sp_container_1e2004967fa60210d94a0cd10d866549">de2004967fa60210d94a0cd10d86654b</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-19 09:27:40</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

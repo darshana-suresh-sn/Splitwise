@@ -7,7 +7,7 @@
 	c.submitBtnText = "Submit";
 	c.expenseObj = {};
 	c.expenseObj.memberList = [];
-
+	console.log("reached");
 	c.onSplitEqualChanged = function(){
 		c.splitAmount();
 	}
@@ -30,14 +30,14 @@
 			action: c.expenseObj.expense_id == -1?'createExpense': 'updateExpense',
 			expense:c.expenseObj
 		}).then(function(response){
-					$scope.$parent.$parent.buttonClicked({ primary: true, success: response.data.result.success});
-						$rootScope.$emit('expenseUpdated',c.expenseObj.expense_id);
+			$scope.$parent.$parent.buttonClicked({ primary: true, success: response.data.result.success});
+			$rootScope.$emit('expenseUpdated',c.expenseObj.expense_id);
 		});
 	}
 	c.onCancel = function()
 	{
 		c.clearFormValues();
-$scope.$parent.$parent.buttonClicked({ cancel: true });
+		$scope.$parent.$parent.buttonClicked({ cancel: true });
 	}
 	c.checkInputValidity = function()
 	{
@@ -48,17 +48,31 @@ $scope.$parent.$parent.buttonClicked({ cancel: true });
 	}
 	c.isSumValid = function()
 	{
-		if(!c.expenseObj.memberList) return;
+		if(!c.expenseObj.memberList) return false;
+		c.expenseObj.errorMsg = "";
+		if(c.expenseObj.amount < 0)
+		{
+			c.expenseObj.errorMsg = "Amount cannot be negative";
+			return false;
+		}
 		var sum = 0;
 		for(var i=0;i<c.expenseObj.memberList.length;++i)
 		{
+			if(c.expenseObj.memberList[i].amount < 0)
+			{
+				c.expenseObj.errorMsg = "Amount cannot be negative";
+				return false;
+			}
 			sum += c.expenseObj.memberList[i].amount?
-				parseInt(c.expenseObj.memberList[i].amount) : 0;
+				parseFloat(c.expenseObj.memberList[i].amount) : 0;
 		}
-		if(sum!=parseInt(c.expenseObj.amount))
+		if(sum!=parseFloat(c.expenseObj.amount))
 		{
-			var diff = parseInt(c.expenseObj.amount) - sum;
-			c.expenseObj.errorMsg = "Amount of Rs."+diff +" left to adjust";
+			var diff = parseFloat(c.expenseObj.amount) - sum;
+			if(diff > 0)
+				c.expenseObj.errorMsg = "Amount of Rs."+diff +" left to adjust";
+			else if(diff < 0)
+				c.expenseObj.errorMsg = "Amount of -Rs."+(-diff)+" left to adjust";
 			return false;
 		}
 		else
@@ -92,7 +106,7 @@ $scope.$parent.$parent.buttonClicked({ cancel: true });
 			if(widgetData.paid_by_id)
 				c.expenseObj.paidBy = widgetData.paid_by_id;
 			if(widgetData.total_amount)
-				c.expenseObj.amount = parseInt(widgetData.total_amount);
+				c.expenseObj.amount = parseFloat(widgetData.total_amount);
 			c.expenseObj.group_id = $scope.options.shared.group_id;
 			c.expenseObj.expense_id = widgetData.sys_id;
 
@@ -102,7 +116,6 @@ $scope.$parent.$parent.buttonClicked({ cancel: true });
 				expense_id:c.expenseObj.expense_id
 			}).then(function(result){
 				c.expenseObj.memberList = result.data.memberList;
-				console.log(JSON.stringify(result.data));
 			});
 			c.submitBtnText = "Update";
 			c.areInputsValid = true;
@@ -153,15 +166,25 @@ table
   width:100%;
 }</css>
         <data_table>sp_instance</data_table>
-        <demo_data/>
+        <demo_data>{
+	"data":{
+		"memberList":[
+			{
+				"sys_id":1,
+				"name":"Darshana Suresh",
+				"amount":0
+			}
+		]
+	}
+}</demo_data>
         <description/>
         <docs/>
         <field_list/>
         <has_preview>true</has_preview>
-        <id>add_expense</id>
+        <id>add_expense_form</id>
         <internal>false</internal>
         <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
-        <name>Add expense</name>
+        <name>Add expense form</name>
         <option_schema/>
         <public>true</public>
         <roles/>
@@ -172,15 +195,15 @@ table
 	var getExpenseData = function(expense_id,group_id)
 	{
 		getGroupMembers(group_id);
-		data.memberAmounts = getExpenseDist(expense_id,group_id);
-		if(data.memberList && data.memberAmounts)
+		var memberAmounts = getExpenseDist(expense_id,group_id);
+		if(data.memberList && memberAmounts)
 		{
 			for(var i=0;i<data.memberList.length;++i)
 			{
-				if(data.memberAmounts[data.memberList[i].sys_id])
+				if(memberAmounts[data.memberList[i].sys_id])
 				{
-					data.memberList[i].amount = parseInt(data.memberAmounts[data.memberList[i].sys_id].amount_owed);
-					data.memberList[i].dist_id = data.memberAmounts[data.memberList[i].sys_id].sys_id;
+					data.memberList[i].amount = parseFloat(memberAmounts[data.memberList[i].sys_id].amount_owed);
+					data.memberList[i].dist_id = memberAmounts[data.memberList[i].sys_id].sys_id;
 				}
 				else
 					data.memberList[i].amount = 0;
@@ -236,13 +259,9 @@ table
 		var expense_id = newGr.insert();
 		data.result.success = expense_id ? true : false;
 
-		gs.info(expense);
-		gs.info(JSON.stringify(expense));
 		if(data.result.success)
 		{
 			var dist;
-			gs.info(expense_id);
-
 			for(var i=0;i<expense.memberList.length;++i)
 			{
 
@@ -279,7 +298,7 @@ table
 			dist =  new GlideRecord('sn_splitwise_expense_distribution');
 			dist.addQuery('sys_id',expense.memberList[i].dist_id);
 			dist.query();
-			var check
+			var check;
 			if(dist.next())
 			{
 				dist.setValue('paid_by',expense.paidBy);
@@ -327,21 +346,15 @@ table
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-04 13:31:36</sys_created_on>
         <sys_id>7cc4681a7fe60210d94a0cd10d86654b</sys_id>
-        <sys_mod_count>347</sys_mod_count>
-        <sys_name>Add expense</sys_name>
+        <sys_mod_count>361</sys_mod_count>
+        <sys_name>Add expense form</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sp_widget_7cc4681a7fe60210d94a0cd10d86654b</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-14 09:04:56</sys_updated_on>
+        <sys_updated_on>2024-06-19 09:06:44</sys_updated_on>
         <template><![CDATA[<div id="parentBody">
-  <!-- your widget template
-  <button id="addExpenseBtn" ng-click="c.onAddExpense()" ng-show="!c.showExpenseForm"
-          class="btn btn-{{options.color}} m-b">
-    Add New Expense
-  </button>
-  -->
   <div id="expenseForm">
     <form>
       <table id="expenseTable">
@@ -411,7 +424,6 @@ table
               ng-disabled="!c.areInputsValid"
               >{{c.submitBtnText}}
       </button>
-
       <button ng-click="c.onCancel()">
         Cancel
       </button>
