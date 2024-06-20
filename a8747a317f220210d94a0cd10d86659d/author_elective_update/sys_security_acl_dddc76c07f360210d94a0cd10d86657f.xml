@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl">
+    <sys_security_acl action="DELETE">
+        <active>false</active>
+        <admin_overrides>true</admin_overrides>
+        <advanced>true</advanced>
+        <condition/>
+        <description>User can only read groups involving themselves</description>
+        <local_or_existing>Local</local_or_existing>
+        <name>sn_splitwise_group.*</name>
+        <operation display_value="read">read</operation>
+        <script><![CDATA[if(current.isNewRecord())
+	answer = true;
+else
+{
+	answer = false;
+	var list = current.members? current.members.split(',') : null;
+	if(list){
+		for(var i=0;i<list.length;++i)
+		{
+			if(list[i]==gs.getUserID())
+			{
+				answer = true;
+				break;
+			}
+		}
+	}
+}
+]]></script>
+        <security_attribute/>
+        <sys_class_name>sys_security_acl</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-10 11:20:56</sys_created_on>
+        <sys_id>dddc76c07f360210d94a0cd10d86657f</sys_id>
+        <sys_mod_count>16</sys_mod_count>
+        <sys_name>sn_splitwise_group.*</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sys_security_acl_dddc76c07f360210d94a0cd10d86657f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-19 14:59:29</sys_updated_on>
+        <type display_value="record">record</type>
+    </sys_security_acl>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</application>
+        <file_path/>
+        <instance_id>909410dc0d120210958b922e05ff61a4</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sys_security_acl_dddc76c07f360210d94a0cd10d86657f</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_security_acl"&gt;&lt;sys_security_acl action="INSERT_OR_UPDATE"&gt;&lt;active&gt;false&lt;/active&gt;&lt;admin_overrides&gt;true&lt;/admin_overrides&gt;&lt;advanced&gt;true&lt;/advanced&gt;&lt;condition/&gt;&lt;description&gt;User can only read groups involving themselves&lt;/description&gt;&lt;local_or_existing&gt;Local&lt;/local_or_existing&gt;&lt;name&gt;sn_splitwise_group.*&lt;/name&gt;&lt;operation display_value="read"&gt;read&lt;/operation&gt;&lt;script&gt;&lt;![CDATA[if(current.isNewRecord())
+	answer = true;
+else
+{
+	answer = false;
+	var list = current.members? current.members.split(',') : null;
+	if(list){
+		for(var i=0;i&lt;list.length;++i)
+		{
+			if(list[i]==gs.getUserID())
+			{
+				answer = true;
+				break;
+			}
+		}
+	}
+}
+]]&gt;&lt;/script&gt;&lt;security_attribute/&gt;&lt;sys_class_name&gt;sys_security_acl&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-10 11:20:56&lt;/sys_created_on&gt;&lt;sys_id&gt;dddc76c07f360210d94a0cd10d86657f&lt;/sys_id&gt;&lt;sys_mod_count&gt;16&lt;/sys_mod_count&gt;&lt;sys_name&gt;sn_splitwise_group.*&lt;/sys_name&gt;&lt;sys_package display_value="Splitwise" source="sn_splitwise"&gt;a8747a317f220210d94a0cd10d86659d&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Splitwise"&gt;a8747a317f220210d94a0cd10d86659d&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_security_acl_dddc76c07f360210d94a0cd10d86657f&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-19 14:59:29&lt;/sys_updated_on&gt;&lt;type display_value="record"&gt;record&lt;/type&gt;&lt;/sys_security_acl&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>2005226175</payload_hash>
+        <record_name>sn_splitwise_group.*</record_name>
+        <reverted_from/>
+        <source>36b4ef037fea0210d94a0cd10d8665c5</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-19 14:59:29</sys_created_on>
+        <sys_id>d6b8464f7ffe0210d94a0cd10d8665bf</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19031028e1f0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-19 14:59:29</sys_updated_on>
+        <type>Access Control</type>
+        <update_guid>deb8464f58fe0210102aa9f975ddeebe</update_guid>
+        <update_guid_history>deb8464f58fe0210102aa9f975ddeebe:2005226175,a753883683b60210025405e1c5500049:1838515416,4323443648b60210631f1e162f7e51b6:2005226175,3fa20cf215b60210d603455d80bb2ba2:1610403044,f482c4f20ab60210acd160dfc16c8afb:1730823933,4ca08072bfb602104a82eadb10558e2c:1610403044,8f6113aefbf20210877e6325f2555e42:1730823933,067937c80176021033e7d0b5e64868e2:971258669,f3d77348077602105b188c4bb7429f54:1533178406,a5d5fb848a76021019d35b2ce117a627:971258669,4ba8cfcc0c36021046fd0699353db3c7:-1720679713,4d780fcccc3602102d54808b158d1b1e:1103473217,b2778b8cf43602106cd8535014ded189:-477168105,e3b60b4c04360210cd0671f089c0f700:789982691,2d148b88c9360210be8269afadb10a61:-1896729396,56624348c43602101cbd6e1389bfc139:-397398420,25604f840536021018c427ab4f68ea3f:-821421800</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-20 09:40:08</sys_created_on>
+        <sys_db_object display_value="" name="sys_security_acl">sys_security_acl</sys_db_object>
+        <sys_id>b2c057e5cd6e45d096e8f77d531a5100</sys_id>
+        <sys_metadata>dddc76c07f360210d94a0cd10d86657f</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sn_splitwise_group.*</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_parent display_value="sn_splitwise_group">9e7d3a077f2a0210d94a0cd10d866571</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_scope_delete display_value="">1c30d6fa384846479a6e34b7ef0328a9</sys_scope_delete>
+        <sys_update_name>sys_security_acl_dddc76c07f360210d94a0cd10d86657f</sys_update_name>
+        <sys_update_version display_value="sys_security_acl_dddc76c07f360210d94a0cd10d86657f">d6b8464f7ffe0210d94a0cd10d8665bf</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-20 09:40:08</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

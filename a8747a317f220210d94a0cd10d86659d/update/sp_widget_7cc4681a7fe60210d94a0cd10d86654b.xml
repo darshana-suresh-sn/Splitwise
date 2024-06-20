@@ -264,7 +264,8 @@ table
 			var dist;
 			for(var i=0;i<expense.memberList.length;++i)
 			{
-
+				if(expense.memberList[i].amount <=0)
+					continue;
 				dist =  new GlideRecord('sn_splitwise_expense_distribution');
 				dist.initialize();
 				dist.group_id  = expense.group_id;
@@ -290,6 +291,7 @@ table
 			updateGr.setValue('expense_name',expense.expenseName);
 			updateGr.setValue('total_amount',expense.amount);
 			data.result.success = updateGr.update()? true : false;
+			console.log("Updated expense "+data);
 		}
 
 		var dist;
@@ -301,6 +303,7 @@ table
 			var check;
 			if(dist.next())
 			{
+				console.log("updating dist ");
 				dist.setValue('paid_by',expense.paidBy);
 				dist.setValue('amount_owed',expense.memberList[i].amount);
 				check = dist.update();
@@ -346,14 +349,14 @@ table
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-04 13:31:36</sys_created_on>
         <sys_id>7cc4681a7fe60210d94a0cd10d86654b</sys_id>
-        <sys_mod_count>361</sys_mod_count>
+        <sys_mod_count>364</sys_mod_count>
         <sys_name>Add expense form</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sp_widget_7cc4681a7fe60210d94a0cd10d86654b</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-19 09:06:44</sys_updated_on>
+        <sys_updated_on>2024-06-20 07:25:19</sys_updated_on>
         <template><![CDATA[<div id="parentBody">
   <div id="expenseForm">
     <form>
@@ -385,7 +388,7 @@ table
           </td>
           <td>
             <input ng-model="c.expenseObj.amount" 
-                   type="number"
+                   type="number" step=".01"
                    id="amount"
                    ng-change="c.onAmountChanged()"
                    class="expenseInput"><br>
@@ -409,7 +412,7 @@ table
           <td>{{x.name}}</td>
           <td>
             <input ng-model="x.amount" 
-                   type="number"
+                   type="number" step=".01"
                    ng-disabled="c.splitEqually"
                    ng-change="c.checkInputValidity()">
           </td>
