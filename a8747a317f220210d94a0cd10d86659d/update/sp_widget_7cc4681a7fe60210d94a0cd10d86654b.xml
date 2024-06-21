@@ -5,26 +5,32 @@
 	/* widget controller */
 	var c = this;
 	c.submitBtnText = "Submit";
+	c.cancelBtnText = "Cancel";
 	c.expenseObj = {};
+	c.expenseObj.amount = 0;
 	c.expenseObj.memberList = [];
-	console.log("reached");
 	c.onSplitEqualChanged = function(){
 		c.splitAmount();
+	};
+	
+	c.onAmountBlur = function()
+	{
+		c.expenseObj.amount = parseFloat(c.expenseObj.amount).toFixed(2);
 	}
 	c.splitAmount = function()
 	{
 		if(c.splitEqually && c.expenseObj.memberList) 
 		{
-			var splitAmount = c.expenseObj.amount/c.expenseObj.memberList.length;
+			var splitAmount = parseFloat(c.expenseObj.amount/c.expenseObj.memberList.length);
 			for(var i=0;i<c.expenseObj.memberList.length;++i)
-				c.expenseObj.memberList[i].amount = splitAmount;
+				c.expenseObj.memberList[i].amount = splitAmount.toFixed(2);
 		}
 		c.checkInputValidity();
-	}
+	};
 	c.onAmountChanged = function()
 	{
 		c.splitAmount();
-	}
+	};
 	c.onSubmit = function(){
 		c.server.get({
 			action: c.expenseObj.expense_id == -1?'createExpense': 'updateExpense',
@@ -33,12 +39,12 @@
 			$scope.$parent.$parent.buttonClicked({ primary: true, success: response.data.result.success});
 			$rootScope.$emit('expenseUpdated',c.expenseObj.expense_id);
 		});
-	}
+	};
 	c.onCancel = function()
 	{
 		c.clearFormValues();
 		$scope.$parent.$parent.buttonClicked({ cancel: true });
-	}
+	};
 	c.checkInputValidity = function()
 	{
 		if(c.isSumValid() && c.expenseObj && c.expenseObj.paidBy && c.expenseObj.amount > 0 && c.expenseObj.expenseName)
@@ -68,7 +74,8 @@
 		}
 		if(sum!=parseFloat(c.expenseObj.amount))
 		{
-			var diff = parseFloat(c.expenseObj.amount) - sum;
+			var diff = parseFloat(c.expenseObj.amount - sum).toFixed(2);
+			if(Math.abs(diff)<0.1) return true;
 			if(diff > 0)
 				c.expenseObj.errorMsg = "Amount of Rs."+diff +" left to adjust";
 			else if(diff < 0)
@@ -80,7 +87,7 @@
 			c.expenseObj.errorMsg = "";
 			return true;
 		}	
-	}
+	};
 	c.clearFormValues = function(){
 		c.expenseObj.paidBy = scope.user.sys_id;
 		c.expenseObj.amount = 0;
@@ -94,7 +101,7 @@
 		}
 		else
 			c.expenseObj.memberList = [];
-	}
+	};
 	if($scope.options && $scope.options.shared)
 	{	
 		$scope.options.shared.result = c.expenseObj;
@@ -118,6 +125,7 @@
 				c.expenseObj.memberList = result.data.memberList;
 			});
 			c.submitBtnText = "Update";
+			c.cancelBtnText = "Close";
 			c.areInputsValid = true;
 		}
 		else if($scope.options.shared.action=="createNew")
@@ -131,6 +139,7 @@
 				c.expenseObj.memberList = result.data.memberList;
 			});
 			c.submitBtnText = "Create Expense";
+			c.cancelBtnText = "Cancel";
 			c.expenseObj.expense_id=-1;
 		}
 	}
@@ -142,7 +151,7 @@
 {
   margin:10px;
 }
-td,th{
+td,th, font{
   padding:5px;
 }
 table
@@ -153,17 +162,17 @@ table
 {
   margin:0px 5px 0px 0px;
 }
-#addMemberbtn
-{
-  margin:0 0 0 5px;
-}
 .expenseInput,th
 {
   width:200px;
   height:25px;
 }
-#addExpenseBtn{
-  width:100%;
+.dialogButton
+{
+  margin:0 0px 0 10px;
+}
+.buttonContainer{
+  margin-top:40px;
 }</css>
         <data_table>sp_instance</data_table>
         <demo_data>{
@@ -202,11 +211,11 @@ table
 			{
 				if(memberAmounts[data.memberList[i].sys_id])
 				{
-					data.memberList[i].amount = parseFloat(memberAmounts[data.memberList[i].sys_id].amount_owed);
+					data.memberList[i].amount = parseFloat(memberAmounts[data.memberList[i].sys_id].amount_owed).toFixed(2);
 					data.memberList[i].dist_id = memberAmounts[data.memberList[i].sys_id].sys_id;
 				}
 				else
-					data.memberList[i].amount = 0;
+					data.memberList[i].amount = 0.00;
 			}
 		}
 	}
@@ -228,7 +237,7 @@ table
 		{
 			var memberDetails = {};
 			$sp.getRecordDisplayValues(memberDetails, gr, 'sys_id,name');
-			memberDetails.amount = 0;
+			memberDetails.amount = 0.00;
 			data.memberList.push(memberDetails);
 		}
 	};
@@ -349,21 +358,20 @@ table
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-04 13:31:36</sys_created_on>
         <sys_id>7cc4681a7fe60210d94a0cd10d86654b</sys_id>
-        <sys_mod_count>364</sys_mod_count>
+        <sys_mod_count>420</sys_mod_count>
         <sys_name>Add expense form</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sp_widget_7cc4681a7fe60210d94a0cd10d86654b</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-20 07:25:19</sys_updated_on>
+        <sys_updated_on>2024-06-21 12:04:03</sys_updated_on>
         <template><![CDATA[<div id="parentBody">
   <div id="expenseForm">
-    <form>
       <table id="expenseTable">
         <tr>
           <td>
-            <label for="expenseName">Expense Name:</label>
+            <label for="expenseName">Expense Name</label>
           </td>
           <td>
             <input type="text" id="expenseName" 
@@ -373,7 +381,7 @@ table
         </tr>
         <tr>
           <td>
-            <label for="paidBy">Paid by:</label>
+            <label for="paidBy">Paid by</label>
           </td>
           <td>
             <select ng-model="c.expenseObj.paidBy" class="expenseInput"
@@ -384,12 +392,13 @@ table
         </tr>
         <tr>
           <td>
-            <label for="amount">Amount:</label>
+            <label for="amount">Amount (₹)</label>
           </td>
           <td>
             <input ng-model="c.expenseObj.amount" 
-                   type="number" step=".01"
-                   id="amount"
+                   type="number"
+                   id="amount" step="0.01"
+                   ng-blur="c.onAmountBlur()"
                    ng-change="c.onAmountChanged()"
                    class="expenseInput"><br>
           </td>
@@ -406,13 +415,13 @@ table
         </tr>
         <tr>
           <th>Member name</th>
-          <th>Amount</th>
+          <th>Amount (₹)</th>
         </tr>
         <tr ng-repeat="x in c.expenseObj.memberList">
           <td>{{x.name}}</td>
           <td>
             <input ng-model="x.amount" 
-                   type="number" step=".01"
+                 
                    ng-disabled="c.splitEqually"
                    ng-change="c.checkInputValidity()">
           </td>
@@ -423,15 +432,17 @@ table
         {{c.expenseObj.errorMsg}}
       </font>
       <br> 
-      <button ng-click="c.onSubmit()" 
-              ng-disabled="!c.areInputsValid"
-              >{{c.submitBtnText}}
-      </button>
-      <button ng-click="c.onCancel()">
-        Cancel
-      </button>
-
-    </form>
+      <div class="pull-right buttonContainer">
+        <button class="btn btn-primary btn-{{options.color}} m-b dialogButton"
+                ng-click="c.onSubmit()" 
+                ng-disabled="!c.areInputsValid"
+                >{{c.submitBtnText}}
+        </button>
+        <button class="btn btn-{{options.color}} m-b dialogButton btn-secondary"
+                ng-click="c.onCancel()">
+          {{c.cancelBtnText}}
+        </button>
+      </div>
   </div>
 </div>]]></template>
     </sp_widget>

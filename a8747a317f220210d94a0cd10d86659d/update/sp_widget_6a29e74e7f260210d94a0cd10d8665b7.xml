@@ -115,6 +115,7 @@
 		while (am_to_pay_record.next()) {
 			balanceObj = {};
 			$sp.getRecordDisplayValues(balanceObj, am_to_pay_record, 'sys_id,owed_to,amount');
+			balanceObj.amount = parseFloat(balanceObj.amount).toFixed(2);
 			data.balances_to_pay.push(balanceObj);
 		}
 
@@ -139,6 +140,7 @@
 		while (am_to_get_record.next()) {
 			balanceObj = {};
 			$sp.getRecordDisplayValues(balanceObj, am_to_get_record, 'sys_id,member,amount');
+			balanceObj.amount = parseFloat(balanceObj.amount).toFixed(2);
 			data.balances_to_get.push(balanceObj);
 			data.total_am_to_get += balanceObj.amount;
 		}
@@ -170,28 +172,27 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-04 09:11:13</sys_created_on>
         <sys_id>6a29e74e7f260210d94a0cd10d8665b7</sys_id>
-        <sys_mod_count>198</sys_mod_count>
+        <sys_mod_count>213</sys_mod_count>
         <sys_name>Balance list</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sp_widget_6a29e74e7f260210d94a0cd10d8665b7</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-20 06:55:52</sys_updated_on>
+        <sys_updated_on>2024-06-21 10:18:19</sys_updated_on>
         <template><![CDATA[<div>
-  <!-- your widget template -->
 
   <br>
   <p style="font-size:16px">
     You owe 
     <font color="red"><b>
-      Rs.{{data.total_am_to_pay.toFixed(2)}} 
+      ₹{{data.total_am_to_pay.toFixed(2)}} 
       </b>
     </font>in total
     <br>
     You are owed
     <font color="green" ><b>
-      Rs.{{data.total_am_to_get.toFixed(2)}} 
+      ₹{{data.total_am_to_get.toFixed(2)}} 
       </b></font>
     in total
   </p>
@@ -216,12 +217,12 @@
         </td>
         <td>
           <font color="red">
-            -Rs.{{item.amount}}
+            -₹{{item.amount}}
           </font>
         </td>
         <td>
           <button 
-                  ng-click="c.settleBalance($index, c.CONST_TO_GET)">
+                  ng-click="c.settleBalance($index, c.CONST_TO_PAY)">
             settle
           </button>
         </td>
@@ -231,7 +232,7 @@
         </td>
         <td>
           <font color="green">
-            +Rs.{{item.amount}}
+            +₹{{item.amount}}
           </font>
         </td>
         <td>

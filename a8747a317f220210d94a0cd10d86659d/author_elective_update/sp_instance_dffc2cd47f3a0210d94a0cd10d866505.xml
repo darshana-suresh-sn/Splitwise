@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="DELETE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">7ccaa4547f3a0210d94a0cd10d86652c</sp_column>
+        <sp_widget display_value="Add expense group button">90bcac947f3a0210d94a0cd10d866589</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-10 19:15:23</sys_created_on>
+        <sys_id>dffc2cd47f3a0210d94a0cd10d866505</sys_id>
+        <sys_mod_count>8</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sp_instance_dffc2cd47f3a0210d94a0cd10d866505</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-18 15:02:50</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance>
+    <sys_translated_text action="DELETE" query="documentkey=dffc2cd47f3a0210d94a0cd10d866505"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</application>
+        <file_path/>
+        <instance_id>909410dc0d120210958b922e05ff61a4</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sp_instance_dffc2cd47f3a0210d94a0cd10d866505</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance"><sp_instance action="INSERT_OR_UPDATE"><active>true</active><class_name/><color>default</color><css/><glyph/><id/><order>1</order><roles/><short_description/><size>md</size><sp_column display_value="1">7ccaa4547f3a0210d94a0cd10d86652c</sp_column><sp_widget display_value="Add expense group button">90bcac947f3a0210d94a0cd10d866589</sp_widget><sys_class_name>sp_instance</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2024-06-10 19:15:23</sys_created_on><sys_id>dffc2cd47f3a0210d94a0cd10d866505</sys_id><sys_mod_count>8</sys_mod_count><sys_name/><sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package><sys_policy/><sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope><sys_update_name>sp_instance_dffc2cd47f3a0210d94a0cd10d866505</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2024-06-18 15:02:50</sys_updated_on><title/><url/><widget_parameters/></sp_instance><sys_translated_text action="delete_multiple" query="documentkey=dffc2cd47f3a0210d94a0cd10d866505"/></record_update>]]></payload>
+        <payload_hash>1657650834</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>36b4ef037fea0210d94a0cd10d8665c5</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-18 15:02:50</sys_created_on>
+        <sys_id>35ef74be7ff60210d94a0cd10d86656d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1902bdf440a0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-18 15:02:50</sys_updated_on>
+        <type>Instance</type>
+        <update_guid>f9ef74bee5f60210cdee8ca0bbdd726c</update_guid>
+        <update_guid_history>f9ef74bee5f60210cdee8ca0bbdd726c:1657650834,2fafb0be2df6021030897e0e2041632f:-860580687,1dbc9fd12a7e021043daf5e7d111ba22:981264496,669c5fd14b7e02108fde194a35361fc3:-856217807,228c1fd1b27e021092e5c7e070548f1d:981264496,c93c57d1c87e021053b7e4e69b2d6842:-856217807,0e2c17d15b7e021092cb93856fbdfc9a:981264496,007bd7911c7e02101f0785290abb44b1:-856217807,5bfc2cd4e53a0210c358835f64c0eb07:981264496</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">c2c6817f7f3e4210d94a0cd10d866558</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-21 18:06:49</sys_created_on>
+        <sys_db_object display_value="" name="sp_instance">sp_instance</sys_db_object>
+        <sys_id>3fe3e8d5b93f4357a47234cebfd32eb9</sys_id>
+        <sys_metadata>dffc2cd47f3a0210d94a0cd10d866505</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_scope_delete display_value="">1c30d6fa384846479a6e34b7ef0328a9</sys_scope_delete>
+        <sys_update_name>sp_instance_dffc2cd47f3a0210d94a0cd10d866505</sys_update_name>
+        <sys_update_version display_value="sp_instance_dffc2cd47f3a0210d94a0cd10d866505">35ef74be7ff60210d94a0cd10d86656d</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-21 18:06:49</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
