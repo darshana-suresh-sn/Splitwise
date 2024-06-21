@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_container">
+    <sp_container action="DELETE">
+        <background_color/>
+        <background_image/>
+        <background_style>default</background_style>
+        <bootstrap_alt>false</bootstrap_alt>
+        <class_name/>
+        <container_class_name/>
+        <name>Splitwise home - Container 4</name>
+        <order>4</order>
+        <semantic_tag/>
+        <sp_page display_value="splitwise_home">7808670e7f260210d94a0cd10d8665c6</sp_page>
+        <subheader>false</subheader>
+        <sys_class_name>sp_container</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-10 16:46:50</sys_created_on>
+        <sys_id>dffa48547fb60210d94a0cd10d866595</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>Splitwise home - Container 4</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sp_container_dffa48547fb60210d94a0cd10d866595</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-21 18:52:54</sys_updated_on>
+        <title/>
+        <width>container</width>
+    </sp_container>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</application>
+        <file_path/>
+        <instance_id>909410dc0d120210958b922e05ff61a4</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sp_container_dffa48547fb60210d94a0cd10d866595</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_container"><sp_container action="INSERT_OR_UPDATE"><background_color/><background_image/><background_style>default</background_style><bootstrap_alt>false</bootstrap_alt><class_name/><container_class_name/><name>Splitwise home - Container 4</name><order>4</order><semantic_tag/><sp_page display_value="splitwise_home">7808670e7f260210d94a0cd10d8665c6</sp_page><subheader>false</subheader><sys_class_name>sp_container</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2024-06-10 16:46:50</sys_created_on><sys_id>dffa48547fb60210d94a0cd10d866595</sys_id><sys_mod_count>6</sys_mod_count><sys_name>Splitwise home - Container 4</sys_name><sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package><sys_policy/><sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope><sys_update_name>sp_container_dffa48547fb60210d94a0cd10d866595</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2024-06-21 18:52:54</sys_updated_on><title/><width>container</width></sp_container></record_update>]]></payload>
+        <payload_hash>-1698526013</payload_hash>
+        <record_name>Splitwise home - Container 4</record_name>
+        <reverted_from/>
+        <source>ff1616577fb64210d94a0cd10d86658c</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-21 18:52:54</sys_created_on>
+        <sys_id>1d51913b7f7e4210d94a0cd10d8665a1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1903c24fab80000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-21 18:52:54</sys_updated_on>
+        <type>Container</type>
+        <update_guid>d151913b8b7e4210a36201bbc368fea1</update_guid>
+        <update_guid_history>d151913b8b7e4210a36201bbc368fea1:-1698526013,8a06b4066c320210ec2e99b4d4e9e4f3:1908118498,9c7aac14b63a021077fa4214f1f31784:194105925,ec5a6c140c3a02100c32f3ffbf910a2b:-1219836380,3699acd0363a0210a35854d8ec0fbd97:194105925,e2dc0cd47ab60210e59d1db2cf1269bf:-1219836380,d7fa4854eeb602102b7cd61b85e24397:1219795713</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Splitwise home - Container 4">2fa1193b7f7e4210d94a0cd10d866561</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-21 18:54:27</sys_created_on>
+        <sys_db_object display_value="" name="sp_container">sp_container</sys_db_object>
+        <sys_id>9797a99793f0410085d40734917b9000</sys_id>
+        <sys_metadata>dffa48547fb60210d94a0cd10d866595</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Splitwise home - Container 4</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_scope_delete display_value="">1c30d6fa384846479a6e34b7ef0328a9</sys_scope_delete>
+        <sys_update_name>sp_container_dffa48547fb60210d94a0cd10d866595</sys_update_name>
+        <sys_update_version display_value="sp_container_dffa48547fb60210d94a0cd10d866595">1d51913b7f7e4210d94a0cd10d8665a1</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-21 18:54:27</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

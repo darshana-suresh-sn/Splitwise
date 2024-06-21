@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_column">
     <sp_column action="INSERT_OR_UPDATE">
         <class_name/>
-        <order>1</order>
+        <order>3</order>
         <semantic_tag/>
-        <size>12</size>
+        <size>4</size>
         <size_lg/>
         <size_sm/>
         <size_xs/>
-        <sp_row display_value="1">fffac8547fb60210d94a0cd10d86656b</sp_row>
+        <sp_row display_value="2">8c00adf77fbe4210d94a0cd10d8665f4</sp_row>
         <sys_class_name>sp_column</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2024-06-10 16:46:53</sys_created_on>
-        <sys_id>c40bc8547fb60210d94a0cd10d86656e</sys_id>
+        <sys_created_on>2024-06-21 19:57:00</sys_created_on>
+        <sys_id>c000213b7fbe4210d94a0cd10d8665e0</sys_id>
         <sys_mod_count>0</sys_mod_count>
-        <sys_name>1</sys_name>
+        <sys_name>3</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
-        <sys_update_name>sp_column_c40bc8547fb60210d94a0cd10d86656e</sys_update_name>
+        <sys_update_name>sp_column_c000213b7fbe4210d94a0cd10d8665e0</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-10 16:46:53</sys_updated_on>
+        <sys_updated_on>2024-06-21 19:57:00</sys_updated_on>
     </sp_column>
 </record_update>

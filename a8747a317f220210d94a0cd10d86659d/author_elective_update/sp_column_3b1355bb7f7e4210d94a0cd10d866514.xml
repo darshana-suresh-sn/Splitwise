@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_column">
+    <sp_column action="DELETE">
+        <class_name/>
+        <order>1</order>
+        <semantic_tag/>
+        <size>12</size>
+        <size_lg/>
+        <size_sm/>
+        <size_xs/>
+        <sp_row display_value="1">771355bb7f7e4210d94a0cd10d866512</sp_row>
+        <sys_class_name>sp_column</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-21 19:00:44</sys_created_on>
+        <sys_id>3b1355bb7f7e4210d94a0cd10d866514</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>1</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sp_column_3b1355bb7f7e4210d94a0cd10d866514</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-21 19:00:44</sys_updated_on>
+    </sp_column>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</application>
+        <file_path/>
+        <instance_id>909410dc0d120210958b922e05ff61a4</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sp_column_3b1355bb7f7e4210d94a0cd10d866514</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_column"><sp_column action="INSERT_OR_UPDATE"><class_name/><order>1</order><semantic_tag/><size>12</size><size_lg/><size_sm/><size_xs/><sp_row display_value="1">771355bb7f7e4210d94a0cd10d866512</sp_row><sys_class_name>sp_column</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2024-06-21 19:00:44</sys_created_on><sys_id>3b1355bb7f7e4210d94a0cd10d866514</sys_id><sys_mod_count>0</sys_mod_count><sys_name>1</sys_name><sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package><sys_policy/><sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope><sys_update_name>sp_column_3b1355bb7f7e4210d94a0cd10d866514</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2024-06-21 19:00:44</sys_updated_on></sp_column></record_update>]]></payload>
+        <payload_hash>698518529</payload_hash>
+        <record_name>1</record_name>
+        <reverted_from/>
+        <source>ff1616577fb64210d94a0cd10d86658c</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-21 19:00:44</sys_created_on>
+        <sys_id>f31355bb7f7e4210d94a0cd10d866516</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1903c2c25fa0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-21 19:00:44</sys_updated_on>
+        <type>Column</type>
+        <update_guid>f71355bbb87e4210f6bbed7e08f8c315</update_guid>
+        <update_guid_history>f71355bbb87e4210f6bbed7e08f8c315:698518529</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="1">405319bb7f7e4210d94a0cd10d866502</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-21 19:01:34</sys_created_on>
+        <sys_db_object display_value="" name="sp_column">sp_column</sys_db_object>
+        <sys_id>251766e9a74b43de99a4fe40a47332c4</sys_id>
+        <sys_metadata>3b1355bb7f7e4210d94a0cd10d866514</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>1</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_scope_delete display_value="">1c30d6fa384846479a6e34b7ef0328a9</sys_scope_delete>
+        <sys_update_name>sp_column_3b1355bb7f7e4210d94a0cd10d866514</sys_update_name>
+        <sys_update_version display_value="sp_column_3b1355bb7f7e4210d94a0cd10d866514">f31355bb7f7e4210d94a0cd10d866516</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-21 19:01:34</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

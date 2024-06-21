@@ -10,20 +10,20 @@
         <roles/>
         <short_description/>
         <size>md</size>
-        <sp_column display_value="1">e4ba60547f3a0210d94a0cd10d86657b</sp_column>
-        <sp_widget display_value="Hello user">6a29e74e7f260210d94a0cd10d8665b7</sp_widget>
+        <sp_column display_value="1">8000213b7fbe4210d94a0cd10d8665dc</sp_column>
+        <sp_widget display_value="Balance list">6a29e74e7f260210d94a0cd10d8665b7</sp_widget>
         <sys_class_name>sp_instance</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-04 14:59:57</sys_created_on>
         <sys_id>43f8b49e7f2a0210d94a0cd10d8665e9</sys_id>
-        <sys_mod_count>14</sys_mod_count>
+        <sys_mod_count>16</sys_mod_count>
         <sys_name/>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sp_instance_43f8b49e7f2a0210d94a0cd10d8665e9</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-10 19:16:50</sys_updated_on>
+        <sys_updated_on>2024-06-21 19:57:06</sys_updated_on>
         <title/>
         <url/>
         <widget_parameters/>

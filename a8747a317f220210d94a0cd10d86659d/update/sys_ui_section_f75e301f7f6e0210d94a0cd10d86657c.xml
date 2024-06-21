@@ -95,6 +95,20 @@
             <sys_user/>
             <type/>
         </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>date</element>
+            <position>6</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2024-06-21 20:50:41</sys_created_on>
+            <sys_id>a64c29777ffe4210d94a0cd10d8665f7</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Expense" display_value="Expense" name="sn_splitwise_expense" sys_domain="global" view="Default view">f75e301f7f6e0210d94a0cd10d86657c</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2024-06-21 20:50:41</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
         <sys_ui_section action="INSERT_OR_UPDATE">
             <caption>Expense</caption>
             <header>false</header>
