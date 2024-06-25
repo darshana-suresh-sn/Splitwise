@@ -12,11 +12,18 @@
 	c.onSplitEqualChanged = function(){
 		c.splitAmount();
 	};
-	
+	c.onAmountKeydown = function($event){
+		if(($event.key>="0" && $event.key<="9")|| $event.key=="."|| $event.key=="Backspace" ||$event.key=="Tab")
+			return;
+		else
+			{
+				$event.preventDefault();
+			}
+	};
 	c.onAmountBlur = function()
 	{
 		c.expenseObj.amount = parseFloat(c.expenseObj.amount).toFixed(2);
-	}
+	};
 	c.splitAmount = function()
 	{
 		if(c.splitEqually && c.expenseObj.memberList) 
@@ -40,19 +47,22 @@
 			$rootScope.$emit('expenseUpdated',c.expenseObj.expense_id);
 		});
 	};
+	c.onDateChange = function(event)
+	{
+				c.checkInputValidity();
+	};
 	c.onCancel = function()
 	{
-		alert(c.expenseObj.date);
 		c.clearFormValues();
 		$scope.$parent.$parent.buttonClicked({ cancel: true });
 	};
 	c.checkInputValidity = function()
 	{
-		if(c.isSumValid() && c.expenseObj && c.expenseObj.paidBy && c.expenseObj.amount > 0 && c.expenseObj.expenseName)
+		if(c.isSumValid() && c.expenseObj && c.expenseObj.paidBy && c.expenseObj.date && c.expenseObj.amount > 0 && c.expenseObj.expenseName)
 			c.areInputsValid = true;
 		else
 			c.areInputsValid = false;
-	}
+	};
 	c.isSumValid = function()
 	{
 		if(!c.expenseObj.memberList) return false;
@@ -115,7 +125,7 @@
 			if(widgetData.paid_by_id)
 				c.expenseObj.paidBy = widgetData.paid_by_id;
 			if(widgetData.total_amount)
-				c.expenseObj.amount = parseFloat(widgetData.total_amount);
+				c.expenseObj.amount = parseFloat(widgetData.total_amount).toFixed(2);
 			if(widgetData.date)
 				c.expenseObj.date = widgetData.date;
 			c.expenseObj.group_id = $scope.options.shared.group_id;
@@ -131,7 +141,6 @@
 			c.submitBtnText = "Update";
 			c.cancelBtnText = "Close";
 			c.areInputsValid = true;
-			alert(c.expenseObj.date);
 		}
 		else if($scope.options.shared.action=="createNew")
 		{
@@ -144,7 +153,7 @@
 				c.expenseObj.memberList = result.data.memberList;
 			});
 			c.submitBtnText = "Create Expense";
-			c.cancelBtnText = "Cancel";
+			c.cancelBtnText = "Close";
 			c.expenseObj.expense_id=-1;
 		}
 	}
@@ -167,10 +176,14 @@ table
 {
   margin:0px 5px 0px 0px;
 }
-.expenseInput,th
+.expenseInput
 {
-  width:200px;
-  height:25px;
+  width:250px;
+  //height:25px;
+}
+.expenseLabel
+{
+  width:150px;
 }
 .dialogButton
 {
@@ -180,10 +193,16 @@ table
   margin-top:40px;
 }
 #cancelButton{
-  background-color:white;
-  border-color:grey;
-  color:black;
-}</css>
+  background-color:#fff;
+  border-color:#939393;
+  color:#333;
+}
+#cancelButton:hover{
+  background-color:#e6e6e6;
+  color:#333;
+  border-color:#747474;
+}
+</css>
         <data_table>sp_instance</data_table>
         <demo_data>{
 	"data":{
@@ -370,43 +389,47 @@ table
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-04 13:31:36</sys_created_on>
         <sys_id>7cc4681a7fe60210d94a0cd10d86654b</sys_id>
-        <sys_mod_count>433</sys_mod_count>
+        <sys_mod_count>486</sys_mod_count>
         <sys_name>Add expense form</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sp_widget_7cc4681a7fe60210d94a0cd10d86654b</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-21 21:06:42</sys_updated_on>
+        <sys_updated_on>2024-06-23 05:21:48</sys_updated_on>
         <template><![CDATA[<div id="parentBody">
   <div id="expenseForm">
     <table id="expenseTable">
       <tr>
         <td>
-          <label for="expenseName">Expense Name</label>
+          <label for="expenseName" class="expenseLabel">Expense Name</label>
         </td>
         <td>
           <input type="text" id="expenseName" 
                  ng-model="c.expenseObj.expenseName" ng-change="c.checkInputValidity()"
-                 class="expenseInput"><br>
+                 class="expenseInput form-control">
         </td>
       </tr>
       <tr>
         <td>
-          Date of Expense
+          <label for="dateOfExpense" class="expenseLabel">
+            Date of Expense
+          </label>
         </td>
         <td>
-          <input type="Date"
-                 ng-model="c.expenseObj.date"
-                 class="expenseInput">
+          <sp-date-picker  id="dateOfExpense" class="expenseInput"
+                          field="c.expenseObj.date" 
+                          ng-model="c.expenseObj.date"
+                          ng-change="c.onDateChange()" sn-include-time="false"/>
         </td>
       </tr>
       <tr>
         <td>
-          <label for="paidBy">Paid by</label>
+          <label for="paidBy" class="expenseLabel">Paid by</label>
         </td>
         <td>
-          <select ng-model="c.expenseObj.paidBy" class="expenseInput"
+          <select id="paidBy"
+                  ng-model="c.expenseObj.paidBy" class="expenseInput form-control"
                   ng-options='member.sys_id as member.name for member in c.expenseObj.memberList'
                   ng-change="c.checkInputValidity()">
           </select>
@@ -414,18 +437,42 @@ table
       </tr>
       <tr>
         <td>
-          <label for="amount">Amount (₹)</label>
+          <label for="amount" class="expenseLabel">Amount (₹)</label>
         </td>
         <td>
           <input ng-model="c.expenseObj.amount" 
-                 type="number"
-                 id="amount" step="0.01"
+                 id="amount" type="float"
                  ng-blur="c.onAmountBlur()"
                  ng-change="c.onAmountChanged()"
-                 class="expenseInput"><br>
+                 ng-keydown="c.onAmountKeydown($event)"
+                 class="expenseInput form-control"><br>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input type="checkbox" id="splitEqual" 
+                 ng-model="c.splitEqually" ng-change="c.onSplitEqualChanged()"
+                 class="checkboxStyle" ng-disabled="c.areMembersEmpty()">
+          <label for="splitEqual" id="splitEqualLabel" class="checkboxLabelStyle">Split equally</label>
+        </td>
+      </tr>
+      <tr>
+        <th>Member name</th>
+        <th>Amount (₹)</th>
+      </tr>
+      <tr ng-repeat="x in c.expenseObj.memberList">
+        <td>{{x.name}}</td>
+        <td>
+          <input ng-model="x.amount" 
+                 type="float"
+                 class="form-control"
+                 ng-disabled="c.splitEqually"
+                 ng-keydown="c.onAmountKeydown($event)"
+                 ng-change="c.checkInputValidity()">
         </td>
       </tr>
     </table>
+    <!--
     <table id="splittingTable">
       <tr>
         <td>
@@ -443,13 +490,13 @@ table
         <td>{{x.name}}</td>
         <td>
           <input ng-model="x.amount" 
-
+         class="form-control"
                  ng-disabled="c.splitEqually"
                  ng-change="c.checkInputValidity()">
         </td>
       </tr>
     </table>
-
+-->
     <font color="red" id="errorMsg">
       {{c.expenseObj.errorMsg}}
     </font>
@@ -461,7 +508,7 @@ table
               >{{c.submitBtnText}}
       </button>
       <button id="cancelButton"
-              class="btn btn-{{options.color}} m-b dialogButton btn-secondary"
+              class="btn btn-{{options.color}} m-b dialogButton"
               ng-click="c.onCancel()">
         {{c.cancelBtnText}}
       </button>

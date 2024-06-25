@@ -71,18 +71,95 @@
 		}
 
 	}
+
+	//Update payments table
+	if(paid_by!=member && amount_owed!=0)
+	{
+		//check if user already owes this member
+		var py = new GlideRecord('sn_splitwise_payments');
+		py.addQuery('payer',member);
+		py.addQuery('owed_to',paid_by);
+		py.addQuery('approval','not requested');
+		py.query();
+
+		if(py.next())
+		{ 
+			//User already owes money to this member, so add to the balance
+			py.setValue('amount_owed',parseFloat(py.amount_owed.getValue())+parseFloat(amount_owed));
+			py.update();
+		}
+		else
+		{
+			//User does not owe this member. Check if member owes user
+			py  = new GlideRecord('sn_splitwise_payments');
+			py.addQuery('payer',paid_by);
+			py.addQuery('owed_to',member);
+			py.addQuery('approval','not requested');
+			py.query();
+			if(py.next())
+			{
+				//Member owes user, so subtract money to be paid from money owed
+				var amount_to_get = parseFloat(py.amount_owed.getValue()) - parseFloat(amount_owed);
+				if(amount_to_get >0)
+				{
+					//Member still owes user, update the amount owed
+					py.setValue('amount_owed',amount_to_get);
+					py.update();
+				}
+				else 
+				{
+					//Member does not owe user anymore
+					//py.deleteRecord();	
+					py.setValue('approval','not_required');
+					py.setValue('comments','Value adjusted in a new expense');	
+					py.setValue('state',3);	
+					py.update();		
+					if(amount_to_get < 0)
+					{
+						//User owes member, so add balance record
+						py = new GlideRecord('sn_splitwise_payments');
+						py.initialize();
+						py.payer = member;
+						py.amount_owed = 0-amount_to_get;
+						py.opened_by = gs.getUserID();
+						py.assigned_to = member;
+						py.owed_to = paid_by;		
+						py.approval = 'not requested';
+						py.short_description = 'Payment request of ₹'+py.amount_owed;	
+						py.insert();
+					}
+				}
+			}
+			else
+			{
+				//There is no balance b/w user & member, so create new record
+				py = new GlideRecord('sn_splitwise_payments');
+				py.initialize();
+				py.payer = member;
+				py.amount_owed = amount_owed;
+				py.assigned_to = member;
+				py.owed_to = paid_by;
+				py.opened_by = gs.getUserID();
+				py.approval = 'not requested';	
+				py.short_description = 'Payment request of ₹'+amount_owed;	
+				py.insert();
+			}
+
+		}
+
+	}
 }]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 06:42:51</sys_created_on>
         <sys_id>5866dc037fba0210d94a0cd10d86652c</sys_id>
-        <sys_mod_count>4</sys_mod_count>
+        <sys_mod_count>11</sys_mod_count>
         <sys_name>CalcBalanceOnExpense</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sys_script_include_5866dc037fba0210d94a0cd10d86652c</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-20 07:29:59</sys_updated_on>
+        <sys_updated_on>2024-06-25 14:47:47</sys_updated_on>
     </sys_script_include>
 </record_update>

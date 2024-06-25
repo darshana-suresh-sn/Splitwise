@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function(spModal) {
+	/* widget controller */
+	var c = this;
+	c.CONST_TO_PAY = 'toPay';
+	c.CONST_TO_GET = 'toGet';
+
+	c.onPaymentClick = function(item)
+	{
+				var shared = {};
+		shared.sys_id = item.sys_id;
+		shared.action = "openPayment";
+		spModal.open({
+			title:'Payment - '+(item.payer ? item.payer:item.owed_to)+': ₹'+item.amount_owed,
+			widget:'payment_task',
+			shared:shared,
+			buttons:[{
+				label:'Close'
+			}]
+		}).then(function(result){
+				if(result.refresh)
+					{
+						c.server.refresh();
+					}
+		});
+	}
+	c.settleBalance = function(index,balanceType)
+	{
+		var balanceList = null, userLabel = '',approvePay = false;
+		switch(balanceType)
+		{
+			case c.CONST_TO_GET:
+				balanceList = c.data.balances_to_get;
+				userLabel = 'payer';
+				approvePay = true;
+				break;
+			case c.CONST_TO_PAY:
+				balanceList = c.data.balances_to_pay;
+				userLabel = 'owed_to';
+				break;
+		}
+		if(!balanceList || index < 0 || index >= balanceList.length)
+		{
+			spModal.alert('Something went wrong. Please refresh the page and try again.');
+			return;
+		}
+		username = balanceList[index][userLabel];
+		spModal.confirm('Are you sure you want to settle the balance with '+username+'?').then(function(confirmed) {
+			if(confirmed) 
+			{
+				if(approvePay)
+					c.approvePayment(c.data.balances_to_get[index], c.CONST_TO_GET);
+				else
+					c.requestPaymentApproval(c.data.balances_to_pay[index], c.CONST_TO_PAY);
+			}
+		});
+	};
+	c.approvePayment = function(balance, balanceType)
+	{
+		c.server.get({
+			action:'approvePayment',
+			balance:balance
+		}).then(function(result){
+			if(balanceType==c.CONST_TO_GET)
+			{
+				c.data.balances_to_get = result.data.balances_to_get;
+				c.data.total_am_to_get = parseFloat(result.data.total_am_to_get) || 0;
+			}
+			else if(balanceType==c.CONST_TO_PAY)
+			{
+				c.data.balances_to_pay = result.data.balances_to_pay;
+				c.data.total_am_to_pay = parseFloat(result.data.total_am_to_pay) || 0;
+			}
+		});
+	};
+	c.requestPaymentApproval = function(balance,balanceType)
+	{
+		c.server.get({
+			action:'requestApproval',
+			balance:balance
+		}).then(function(result){
+			if(balanceType==c.CONST_TO_GET)
+			{
+				c.data.balances_to_get = result.data.balances_to_get;
+				c.data.total_am_to_get = parseFloat(result.data.total_am_to_get) || 0;
+			}
+			else if(balanceType==c.CONST_TO_PAY)
+			{
+				c.data.balances_to_pay = result.data.balances_to_pay;
+				c.data.total_am_to_pay = parseFloat(result.data.total_am_to_pay) || 0;
+			}
+		})
+	}
+	c.getButtonText = function(approval)
+	{
+		if(approval=="Not Yet Requested")
+			return "Pending";
+		else
+			return "Approve";
+	}
+
+	$rootScope.$on('expenseUpdated', function(event,data) { 
+		c.server.refresh();
+	});
+};
+
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>td,th{
+  padding:5px;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>payment_list</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Payment list</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+
+	//method definitions
+	var getBalances = function()
+	{
+		getAmountToPayBalances();
+		getAmountToGetBalances();
+	}
+	var getAmountToPayBalances = function()
+	{
+		var balanceObj;
+
+		var am_to_pay_record = new GlideRecord('sn_splitwise_payments');
+		am_to_pay_record.addQuery('payer',gs.getUser().getID());
+		am_to_pay_record.addEncodedQuery('approval=requested^ORapproval=not requested');
+		am_to_pay_record.addQuery('approval','not requested');
+		am_to_pay_record.query();
+
+		data.balances_to_pay = [];
+		while (am_to_pay_record.next()) {
+			balanceObj = {};
+			$sp.getRecordDisplayValues(balanceObj, am_to_pay_record, 'sys_id,owed_to,amount_owed, approval, short_description');
+			balanceObj.amount = parseFloat(balanceObj.amount).toFixed(2);
+			data.balances_to_pay.push(balanceObj);
+		}
+
+		var total_am_to_pay_record = new GlideAggregate('sn_splitwise_payments');
+		total_am_to_pay_record.addAggregate('SUM','amount_owed');
+		total_am_to_pay_record.addQuery('payer',gs.getUser().getID());
+		total_am_to_pay_record.addQuery('approval','not requested');
+		total_am_to_pay_record.setGroup(false);
+		total_am_to_pay_record.query();
+		if(total_am_to_pay_record.next())
+		{
+			data.total_am_to_pay = parseFloat(total_am_to_pay_record.getAggregate('SUM', 'amount_owed'));
+		}
+		if(!data.total_am_to_pay) data.total_am_to_pay = 0;
+	}
+	var getAmountToGetBalances = function()
+	{
+		var am_to_get_record = new GlideRecord('sn_splitwise_payments');
+		am_to_get_record.addQuery('owed_to',gs.getUser().getID());
+		am_to_get_record.addEncodedQuery('approval=requested^ORapproval=not requested');
+		am_to_get_record.query();
+
+		data.balances_to_get = [];
+		while (am_to_get_record.next()) {
+			balanceObj = {};
+			$sp.getRecordDisplayValues(balanceObj, am_to_get_record, 'sys_id,payer,amount_owed,approval, short_description');
+			balanceObj.amount = parseFloat(balanceObj.amount).toFixed(2);
+			data.balances_to_get.push(balanceObj);
+			data.total_am_to_get += balanceObj.amount;
+		}
+
+		var total_am_to_get_record = new GlideAggregate('sn_splitwise_payments');
+		total_am_to_get_record.addAggregate('SUM','amount_owed');
+		total_am_to_get_record.addQuery('owed_to',gs.getUser().getID());
+		total_am_to_get_record.setGroup(false);
+		total_am_to_get_record.query();
+		if(total_am_to_get_record.next())
+		{
+			data.total_am_to_get = parseFloat(total_am_to_get_record.getAggregate('SUM', 'amount_owed'));
+		}
+		if(!data.total_am_to_get) data.total_am_to_get = 0;
+	}
+	var approvePayment = function(balance)
+	{
+		var gr = new GlideRecord('sn_splitwise_payments');
+		gr.addQuery('sys_id',balance.sys_id);
+		gr.query();
+		var desc = '',short;
+		if(gr.next())
+			{
+					gr.setValue('approval','approved');
+					short =  'Payment recorded by '+gr.payer.getDisplayValue()+' approved.';
+					desc += '\n '+short;
+					gr.setValue('description',desc);
+					gr.setValue('state',3);//closed
+				gr.update();
+			}
+		getAmountToGetBalances();
+	}
+	var requestPaymentApproval = function(balance)
+	{
+		var gr = new GlideRecord('sn_splitwise_payments');
+		gr.addQuery('sys_id',balance.sys_id);
+		gr.query();
+		var short,desc;
+		if(gr.next())
+			{
+				gr.setValue('approval','requested');
+					short = 'Payment recorded from '+gr.payer.getDisplayValue()+'. Awaiting approval from '+gr.owed_to.getDisplayValue()+'.';
+					desc += '\n '+short;
+					gr.setValue('description',desc);
+					gr.setValue('state',2);//in progress
+					gr.setValue('assigned_to',gr.owed_to.getValue());
+				gr.update();
+			}
+		getAmountToPayBalances();
+	}
+	//main section
+
+	if(input && input.action=='approvePayment')
+	{
+		approvePayment(input.balance)
+	}
+	else if(input && input.action=='requestApproval')
+	{
+		requestPaymentApproval(input.balance);
+	}
+	else
+		getBalances();
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-24 09:21:39</sys_created_on>
+        <sys_id>9a5beaac7fc78210d94a0cd10d8665e5</sys_id>
+        <sys_mod_count>37</sys_mod_count>
+        <sys_name>Payment list</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sp_widget_9a5beaac7fc78210d94a0cd10d8665e5</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-25 15:45:03</sys_updated_on>
+        <template><![CDATA[<div class="containerBody">
+
+  <br>
+  <p style="font-size:16px">
+    You owe 
+    <font color="red"><b>
+      ₹{{data.total_am_to_pay.toFixed(2)}} 
+      </b>
+    </font>in total
+    <br>
+    You are owed
+    <font color="green" ><b>
+      ₹{{data.total_am_to_get.toFixed(2)}} 
+      </b></font>
+    in total
+  </p>
+  <br>
+
+  <table class="table table-striped table-responsive" ng-if="data.balances_to_get.length || data.balances_to_pay.length">
+    <thead>
+      <tr>
+        <th class="text-nowrap" cope="col" role="columnheader">
+          <div class="th-title" tabindex="0">User</div>
+        </th>
+        <th class="text-nowrap" cope="col" role="columnheader">
+          <div class="th-title" tabindex="0">Amount</div>
+        </th>
+        <th class="text-nowrap" cope="col" role="columnheader">
+                    <div class="th-title" tabindex="0">State</div>
+        </th>
+  
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="item in c.data.balances_to_pay">
+        <td>
+          <a  href="javascript:void(0)" ng-click="c.onPaymentClick(item)">{{item.owed_to}}</a>
+        </td>
+        <td>
+          <font color="red">
+            -₹{{item.amount_owed}}
+          </font>
+        </td>
+        <td>
+            {{item.approval}}
+        </td>
+      </tr>
+            <tr ng-repeat="item in c.data.balances_to_get">
+        <td >{{item.payer}}
+        </td>
+        <td>
+          <font color="green">
+            +₹{{item.amount_owed}}
+          </font>
+        </td>
+        <td>
+          {{item.approval}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!--
+  <table id="balanceTable" ng-if="data.balances_to_pay.length || data.balances_to_get.length">
+    <tr>
+      <th>User</th>
+      <th>Amount</th>
+        <tr ng-repeat="x in data.balances_to_pay">
+        <td>{{x.owed_to}}</td>
+        <td><font color="red">
+          -Rs.{{x.amount}}
+          </font>
+          </td>
+      <td>
+        <button ng-click="c.settleBalance($index,c.CONST_TO_PAY)">
+          settle
+        </button>
+      </td>
+    </tr>
+    <tr ng-repeat="x in data.balances_to_get">
+        <td>{{x.member}}</td>
+        <td><font color="green">
+          +Rs.{{x.amount}}
+          </font>
+          </td>
+      <td>
+        <button class="btn" ng-click="c.settleBalance($index, c.CONST_TO_GET)">
+          settle
+        </button>
+      </td>
+    </tr>
+  </table>
+    -->
+</div>]]></template>
+    </sp_widget>
+</record_update>

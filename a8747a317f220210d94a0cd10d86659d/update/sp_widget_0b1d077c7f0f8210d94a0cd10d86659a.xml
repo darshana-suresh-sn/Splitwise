@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function todosApprovalController($scope,spModal, spUtil) {
+	/* widget controller */
+	var c =this;
+	c.data.newComment = '';	
+	c.onActionClick = function($event,action)
+	{
+		if(action=='settle')
+			spModal.confirm('Are you sure you want to settle the balance with '+c.data.task.owed_to+'?').then(function(confirmed) {
+				if(confirmed)
+				{
+					c.updateState($event,action);
+				}
+			});
+		else
+			c.updateState($event,action);
+
+	}
+	c.updateState = function($event,action)
+	{
+		$event.stopPropagation();
+		c.server.get({
+			sys_id:c.sys_id,
+			action: action
+		}).then(function(result){
+			c.data = result.data;
+			c.addDescriptions();
+		});
+	}
+	c.addDescriptions = function()
+	{
+		if(c.data.isApprover)
+		{
+			c.data.title = c.data.task.payer + ' paid  ₹'+c.data.task.amount_owed+' to you.';			
+			if(c.data.showApprovalForm)
+			{
+				c.data.title += ' Approve payment?';
+				c.data.PLACEHOLDER_MESSAGE = 'Add comments for approval request';
+			}
+		}
+		else if(c.data.isPayer)
+		{
+			c.data.title = 'Pay  ₹'+c.data.task.amount_owed+' to '+c.data.task.owed_to;
+		}
+	}
+	c.startup = function()
+	{
+		if($scope.options && $scope.options.sysId)
+			c.sys_id = $scope.options.sysId;
+		else if($scope.options && $scope.options.shared)
+			c.sys_id = $scope.options.shared.sys_id;
+		
+		   spUtil.get("widget-form", {table:'sn_splitwise_payments',sys_id: c.sys_id}).then(function(response) {
+            c.activityWidget = response;
+    });
+
+		c.formOptions = {"table": "sn_splitwise_payments","sys_id": c.sys_id};
+		c.server.get({
+			sys_id:c.sys_id,
+		}).then(function(result)
+						{
+			c.data= result.data;
+			c.addDescriptions();
+
+		});
+	}
+	c.startup();
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>#todo-approval-panel {
+   border: none;
+   box-shadow: none;
+}
+#todo-approval-panel-reject{
+  padding-top:15px;
+}
+
+#approval-message{
+  font-size: 1.071em;
+  line-height: 1.8em;
+}
+
+.form-control{
+    max-width: 500px;
+    height: 100px;
+    resize:none;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>payment_task</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+
+}]]></link>
+        <name>Payment task</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+
+	var getTaskData = function(sys_id)
+	{
+		var gr = new GlideRecord('sn_splitwise_payments');
+		gr.addQuery('sys_id',sys_id);
+		gr.query();
+		if(gr.next())
+		{
+			var obj = {};
+			$sp.getRecordDisplayValues(obj,gr,'owed_to,payer,amount_owed, approval, description');
+			data.task = obj;
+			if(gs.getUserID()==gr.owed_to.getValue())
+			{
+				data.isApprover = true;
+				if(gr.approval.getValue()=='requested')
+					data.showApprovalForm = true;
+			}
+			else if(gs.getUserID()==gr.payer.getValue())
+			{
+				data.isPayer = true;
+				if(gr.approval.getValue()!='requested')
+					data.showPaymentForm = true;
+			}
+		}
+	}
+	var updateSettleState = function(sys_id, action){
+		var gr = new GlideRecord('sn_splitwise_payments');
+		gr.addQuery('sys_id',sys_id);
+		gr.query();
+		if(gr.next())
+		{
+			var desc = gr.description.getValue()+ '';
+			var short;
+			switch(input.action)
+			{
+				case 'settle':
+					gr.setValue('approval','requested');
+					short = 'Payment recorded from '+gr.payer.getDisplayValue()+'. Awaiting approval from '+gr.owed_to.getDisplayValue()+'.';
+					gr.setValue('state',2);//in progress
+					gr.setValue('assigned_to',gr.owed_to.getValue());
+					break;
+				case 'approve':		
+					gr.setValue('approval','approved');
+					short =  'Payment recorded by '+gr.payer.getDisplayValue()+' approved.';
+					gr.setValue('state',3);//closed
+					break;
+				case 'reject':
+					gr.setValue('approval','rejected');
+					short = 'Payment recorded by '+gr.payer.getDisplayValue()+'rejected with comment - "".';
+					gr.setValue('assigned_to',gr.payer.getValue());
+					break;
+			}
+			gr['comments'] = short;
+			gr.update();
+		}
+
+	};
+
+	if (input && input.sys_id) {
+		if(input.action)
+		{
+			updateSettleState(input.sys_id,input.action);
+		}
+		getTaskData(input.sys_id);
+	}
+
+})();
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-25 06:27:37</sys_created_on>
+        <sys_id>0b1d077c7f0f8210d94a0cd10d86659a</sys_id>
+        <sys_mod_count>66</sys_mod_count>
+        <sys_name>Payment task</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sp_widget_0b1d077c7f0f8210d94a0cd10d86659a</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-25 16:03:22</sys_updated_on>
+        <template><![CDATA[<div id="todo-approval-actions" ng-if="data.isApprover">
+  <label>{{data.title}}</label>
+  <div ng-if="data.showApprovalForm">
+    <div class="textbox" id="todo-acceptance-panel-textboxdiv" >
+      <textarea class="form-control" aria-label=${comments} type="text" id="comments" name="comments" ng-model="c.data.newComment" placeholder='{{data.PLACEHOLDER_MESSAGE}}'></textarea>
+    </div>
+    <div id="todo-approval-panel-reject" class="approval-buttons btn-toolbar">
+      <button aria-label="${Reject}" class="btn btn-default button-width" name="submit" value=${Submit} ng-click="c.onActionClick($event,'reject')">
+        ${Reject}
+      </button>
+      <button aria-label="${Approve}" class="btn btn-primary button-width" name="accept" ng-click="c.onActionClick($event,'approve')" type="button"  id="hr-acceptance-panel-Acceptance">
+        ${Approve}
+      </button>
+    </div>
+  </div>
+
+</div>
+<div ng-if="data.isPayer">
+  <label>{{data.title}}</label>
+  <div ng-if="data.showPaymentForm">
+    <div id="todo-approval-panel-reject" class="approval-buttons btn-toolbar">
+      <button aria-label="${Record Payment}" class="btn btn-primary button-width" name="accept" ng-click="c.onActionClick($event,'settle')" type="button"  id="hr-acceptance-panel-Acceptance">
+        ${Record payment}
+      </button>
+    </div>
+  </div>
+  <div ng-if="!data.showPaymentForm">
+        <div id="todo-approval-panel-reject" class="approval-buttons btn-toolbar">
+      <button aria-label="${Payment made}" disabled="true" class="btn btn-primary button-width" name="accept" type="button"  id="hr-acceptance-panel-Acceptance">
+        ${Payment made}
+      </button>
+    </div>
+  </div>
+</div>
+<div>
+    <sp-widget widget="c.activityWidget"></sp-widget>
+</div>]]></template>
+    </sp_widget>
+</record_update>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="INSERT_OR_UPDATE">
+        <child display_value="Payment task">0b1d077c7f0f8210d94a0cd10d86659a</child>
+        <cloned>2024-06-25 06:27:37</cloned>
+        <last_validated>2024-06-25 06:27:37</last_validated>
+        <parent display_value="Todos Approval">b6cb80e45b582300f1eaefe5f0f91a85</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function todosApprovalController($scope) {
+    /* widget controller */
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;#todo-approval-panel {
+   border: none;
+   box-shadow: none;
+}
+#todo-approval-panel-reject{
+  padding-top:15px;
+}
+
+#approval-message{
+  font-size: 1.071em;
+  line-height: 1.8em;
+}
+
+.form-control{
+    max-width: 500px;
+    height: 100px;
+    resize:none;
+}
+&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description&gt;This widget is used to approve or reject the todo. In case of a rejection appropriate reason should be provided .&lt;/description&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;todo-approval&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {
+
+}]]&gt;&lt;/link&gt;&lt;name&gt;Todos Approval&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+    var REQUESTED_STATE = "requested";
+
+    if (options &amp;&amp; options.sysId) {
+        data.approvalId = options.sysId;
+        getApprovalInfo(data.approvalId);
+        options.useCommentBox = true;
+        data.approvalActionsWidget = $sp.getWidget("todo-approval-actions", options);
+   }
+
+    //This function gets ShortDescription of the parent case.
+    function getApprovalInfo(sysId) {
+        var sysApprovalRecord = new GlideRecordSecure('sysapproval_approver');
+        data.shortDescription = "";
+        if (sysApprovalRecord.get(sysId)) {
+            data.isPosted = false;
+            if (sysApprovalRecord.state.toString() !== REQUESTED_STATE)
+                data.isPosted = true;
+            if (!gs.nil(sysApprovalRecord.sysapproval) &amp;&amp; !gs.nil(sysApprovalRecord.sysapproval.short_description))
+                data.shortDescription = sysApprovalRecord.sysapproval.short_description;
+            else if (!gs.nil(sysApprovalRecord.document_id))
+                data.shortDescription = !gs.nil(sysApprovalRecord.document_id.short_description) ? (sysApprovalRecord.document_id.number + " - "+ sysApprovalRecord.document_id.short_description) : sysApprovalRecord.document_id.number;
+            else
+                data.shortDescription = !gs.nil(sysApprovalRecord.sysapproval) ? sysApprovalRecord.sysapproval.number: "";
+        data.approvalText = gs.getMessage("Do you want to approve the following: {0}?", data.shortDescription);
+        } else
+            gs.addErrorMessage(gs.getMessage("Unexpected action occurred"));
+        return sysApprovalRecord;
+   }
+
+})();
+]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2018-08-29 19:01:52&lt;/sys_created_on&gt;&lt;sys_id&gt;b6cb80e45b582300f1eaefe5f0f91a85&lt;/sys_id&gt;&lt;sys_mod_count&gt;115&lt;/sys_mod_count&gt;&lt;sys_name&gt;Todos Approval&lt;/sys_name&gt;&lt;sys_package display_value="Employee Center Core" source="sn_hr_sp"&gt;3d1da2705b021200a4656ede91f91ab6&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Employee Center Core"&gt;3d1da2705b021200a4656ede91f91ab6&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_b6cb80e45b582300f1eaefe5f0f91a85&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2023-09-06 13:36:05&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div class="panel" id="todo-approval-panel"&gt;
+    &lt;div class="panel-body"  id="todo-approval-panel-heading" ng-class="approval-requested"&gt;
+        &lt;h4 id="approval-message" ng-if="!data.isPosted"&gt;{{data.approvalText}}&lt;/h4&gt;
+        &lt;sp-widget widget="data.approvalActionsWidget"&gt;&lt;/sp-widget&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-25 06:27:37</sys_created_on>
+        <sys_id>c31dc77c7f0f8210d94a0cd10d8665bd</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>0b1d077c7f0f8210d94a0cd10d86659a</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_c31dc77c7f0f8210d94a0cd10d8665bd</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-25 06:27:37</sys_updated_on>
+    </sp_rel_widget_clone>
+</record_update>

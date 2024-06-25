@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="INSERT_OR_UPDATE">
+        <child display_value="Payment list">9a5beaac7fc78210d94a0cd10d8665e5</child>
+        <cloned>2024-06-24 09:21:39</cloned>
+        <last_validated>2024-06-24 09:21:39</last_validated>
+        <parent display_value="Balance list">6a29e74e7f260210d94a0cd10d8665b7</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[api.controller=function(spModal) {
+	/* widget controller */
+	var c = this;
+	c.CONST_TO_PAY = 'toPay';
+	c.CONST_TO_GET = 'toGet';
+	
+
+	c.settleBalance = function(index,balanceType)
+	{
+		var balanceList = null, userLabel;
+		switch(balanceType)
+		{
+			case c.CONST_TO_GET:
+				balanceList = c.data.balances_to_get;
+				userLabel = 'member';
+				break;
+			case c.CONST_TO_PAY:
+				balanceList = c.data.balances_to_pay;
+				userLabel = 'owed_to';
+				break;
+		}
+		if(!balanceList || index &lt; 0 || index &gt;= balanceList.length)
+		{
+			spModal.alert('Something went wrong. Please refresh the page and try again.');
+			return;
+		}
+		username = balanceList[index][userLabel];
+		spModal.confirm('Are you sure you want to settle the balance with '+username+'?').then(function(confirmed) {
+			if(confirmed) c.deleteBalance(balanceList[index], balanceType);
+		});
+	};
+
+	c.deleteBalance = function(balanceObj, balanceType)
+	{
+		c.server.get({
+			data: balanceObj,
+			action: 'markAsSettled',
+			balanceType: balanceType
+		}).then(function(result){
+			if(balanceType==c.CONST_TO_GET)
+			{
+				c.data.balances_to_get = result.data.balances_to_get;
+				c.data.total_am_to_get = parseFloat(result.data.total_am_to_get) || 0;
+			}
+			else if(balanceType==c.CONST_TO_PAY)
+			{
+				c.data.balances_to_pay = result.data.balances_to_pay;
+				c.data.total_am_to_pay = parseFloat(result.data.total_am_to_pay) || 0;
+			}
+		});
+	}
+
+	$rootScope.$on('expenseUpdated', function(event,data) { 
+		//alert("received event"); 
+		c.server.refresh();
+	});
+};
+
+]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;td,th{
+  padding:5px;
+}&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;true&lt;/has_preview&gt;&lt;id&gt;balance_list&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;Balance list&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+	
+	//method definitions
+	var deleteBalance = function(balanceObj, balanceType){
+		if(balanceObj &amp;&amp; balanceObj.sys_id)
+		{
+			var record_to_update = new GlideRecord('sn_splitwise_balance');
+			record_to_update.addQuery('sys_id',balanceObj.sys_id);
+			record_to_update.query();
+			if(record_to_update.next())
+			{
+				record_to_update.deleteRecord();
+
+				if(balanceType=='toPay')
+					getAmountToPayBalances();
+				else if(balanceType=='toGet')
+					getAmountToGetBalances();
+			}
+		}
+	}
+	var getBalances = function()
+	{
+		getAmountToPayBalances();
+		getAmountToGetBalances();
+	}
+	var getAmountToPayBalances = function()
+	{
+		var balanceObj;
+
+		var am_to_pay_record = new GlideRecord('sn_splitwise_balance');
+		am_to_pay_record.addQuery('member',gs.getUser().getID());
+		//am_to_pay_record.addQuery('state','not_settled');
+		am_to_pay_record.query();
+
+		data.balances_to_pay = [];
+		while (am_to_pay_record.next()) {
+			balanceObj = {};
+			$sp.getRecordDisplayValues(balanceObj, am_to_pay_record, 'sys_id,owed_to,amount');
+			balanceObj.amount = parseFloat(balanceObj.amount).toFixed(2);
+			data.balances_to_pay.push(balanceObj);
+		}
+
+		var total_am_to_pay_record = new GlideAggregate('sn_splitwise_balance');
+		total_am_to_pay_record.addAggregate('SUM','amount');
+		total_am_to_pay_record.addQuery('member',gs.getUser().getID());
+		total_am_to_pay_record.setGroup(false);
+		total_am_to_pay_record.query();
+		if(total_am_to_pay_record.next())
+		{
+			data.total_am_to_pay = parseFloat(total_am_to_pay_record.getAggregate('SUM', 'amount'));
+		}
+		if(!data.total_am_to_pay) data.total_am_to_pay = 0;
+	}
+	var getAmountToGetBalances = function()
+	{
+		var am_to_get_record = new GlideRecord('sn_splitwise_balance');
+		am_to_get_record.addQuery('owed_to',gs.getUser().getID());
+		am_to_get_record.query();
+
+		data.balances_to_get = [];
+		while (am_to_get_record.next()) {
+			balanceObj = {};
+			$sp.getRecordDisplayValues(balanceObj, am_to_get_record, 'sys_id,member,amount');
+			balanceObj.amount = parseFloat(balanceObj.amount).toFixed(2);
+			data.balances_to_get.push(balanceObj);
+			data.total_am_to_get += balanceObj.amount;
+		}
+
+		var total_am_to_get_record = new GlideAggregate('sn_splitwise_balance');
+		total_am_to_get_record.addAggregate('SUM','amount');
+		total_am_to_get_record.addQuery('owed_to',gs.getUser().getID());
+		total_am_to_get_record.setGroup(false);
+		total_am_to_get_record.query();
+		if(total_am_to_get_record.next())
+		{
+			data.total_am_to_get = parseFloat(total_am_to_get_record.getAggregate('SUM', 'amount'));
+		}
+		if(!data.total_am_to_get) data.total_am_to_get = 0;
+	}
+
+	//main section
+	
+	if(input &amp;&amp; input.action=='markAsSettled')
+	{
+		deleteBalance(input.data,input.balanceType);
+	}
+	else
+		getBalances();
+
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-04 09:11:13&lt;/sys_created_on&gt;&lt;sys_id&gt;6a29e74e7f260210d94a0cd10d8665b7&lt;/sys_id&gt;&lt;sys_mod_count&gt;221&lt;/sys_mod_count&gt;&lt;sys_name&gt;Balance list&lt;/sys_name&gt;&lt;sys_package display_value="Splitwise" source="sn_splitwise"&gt;a8747a317f220210d94a0cd10d86659d&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Splitwise"&gt;a8747a317f220210d94a0cd10d86659d&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_6a29e74e7f260210d94a0cd10d8665b7&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-21 19:46:10&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div class="containerBody"&gt;
+
+  &lt;br&gt;
+  &lt;p style="font-size:16px"&gt;
+    You owe 
+    &lt;font color="red"&gt;&lt;b&gt;
+      ₹{{data.total_am_to_pay.toFixed(2)}} 
+      &lt;/b&gt;
+    &lt;/font&gt;in total
+    &lt;br&gt;
+    You are owed
+    &lt;font color="green" &gt;&lt;b&gt;
+      ₹{{data.total_am_to_get.toFixed(2)}} 
+      &lt;/b&gt;&lt;/font&gt;
+    in total
+  &lt;/p&gt;
+  &lt;br&gt;
+
+  &lt;table class="table table-striped table-responsive" ng-if="data.balances_to_get.length || data.balances_to_pay.length"&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th class="text-nowrap" cope="col" role="columnheader"&gt;
+          &lt;div class="th-title" tabindex="0"&gt;User&lt;/div&gt;
+        &lt;/th&gt;
+        &lt;th class="text-nowrap" cope="col" role="columnheader"&gt;
+          &lt;div class="th-title" tabindex="0"&gt;Amount&lt;/div&gt;
+        &lt;/th&gt;
+        &lt;th class="text-nowrap" cope="col" role="columnheader"&gt;
+        &lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr ng-repeat="item in c.data.balances_to_pay"&gt;
+        &lt;td &gt;{{item.owed_to}}
+        &lt;/td&gt;
+        &lt;td&gt;
+          &lt;font color="red"&gt;
+            -₹{{item.amount}}
+          &lt;/font&gt;
+        &lt;/td&gt;
+        &lt;td&gt;
+          &lt;button 
+                  ng-click="c.settleBalance($index, c.CONST_TO_PAY)"&gt;
+            settle
+          &lt;/button&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+            &lt;tr ng-repeat="item in c.data.balances_to_get"&gt;
+        &lt;td &gt;{{item.member}}
+        &lt;/td&gt;
+        &lt;td&gt;
+          &lt;font color="green"&gt;
+            +₹{{item.amount}}
+          &lt;/font&gt;
+        &lt;/td&gt;
+        &lt;td&gt;
+          &lt;button 
+                  ng-click="c.settleBalance($index, c.CONST_TO_GET)"&gt;
+            settle
+          &lt;/button&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+  &lt;!--
+  &lt;table id="balanceTable" ng-if="data.balances_to_pay.length || data.balances_to_get.length"&gt;
+    &lt;tr&gt;
+      &lt;th&gt;User&lt;/th&gt;
+      &lt;th&gt;Amount&lt;/th&gt;
+        &lt;tr ng-repeat="x in data.balances_to_pay"&gt;
+        &lt;td&gt;{{x.owed_to}}&lt;/td&gt;
+        &lt;td&gt;&lt;font color="red"&gt;
+          -Rs.{{x.amount}}
+          &lt;/font&gt;
+          &lt;/td&gt;
+      &lt;td&gt;
+        &lt;button ng-click="c.settleBalance($index,c.CONST_TO_PAY)"&gt;
+          settle
+        &lt;/button&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr ng-repeat="x in data.balances_to_get"&gt;
+        &lt;td&gt;{{x.member}}&lt;/td&gt;
+        &lt;td&gt;&lt;font color="green"&gt;
+          +Rs.{{x.amount}}
+          &lt;/font&gt;
+          &lt;/td&gt;
+      &lt;td&gt;
+        &lt;button class="btn" ng-click="c.settleBalance($index, c.CONST_TO_GET)"&gt;
+          settle
+        &lt;/button&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+    --&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-24 09:21:39</sys_created_on>
+        <sys_id>9a5beaac7fc78210d94a0cd10d8665e8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>9a5beaac7fc78210d94a0cd10d8665e5</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_9a5beaac7fc78210d94a0cd10d8665e8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-24 09:21:39</sys_updated_on>
+    </sp_rel_widget_clone>
+</record_update>

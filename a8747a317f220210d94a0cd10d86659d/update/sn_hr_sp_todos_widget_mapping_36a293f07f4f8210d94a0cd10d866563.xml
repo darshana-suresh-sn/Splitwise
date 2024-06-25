@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sn_hr_sp_todos_widget_mapping">
+    <sn_hr_sp_todos_widget_mapping action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <condition/>
+        <sys_class_name>sn_hr_sp_todos_widget_mapping</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-25 06:52:23</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>36a293f07f4f8210d94a0cd10d866563</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sn_hr_sp_todos_widget_mapping_36a293f07f4f8210d94a0cd10d866563</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-25 06:52:23</sys_updated_on>
+        <table>sn_splitwise_payments</table>
+        <to_dos_configuration display_value="Payment tasks">2e3d752c7f478210d94a0cd10d8665c3</to_dos_configuration>
+        <widget display_value="Payment task">0b1d077c7f0f8210d94a0cd10d86659a</widget>
+    </sn_hr_sp_todos_widget_mapping>
+</record_update>

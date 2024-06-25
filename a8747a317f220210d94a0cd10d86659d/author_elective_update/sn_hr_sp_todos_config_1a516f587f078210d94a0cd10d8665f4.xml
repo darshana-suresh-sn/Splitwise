@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sn_hr_sp_todos_config">
+    <sn_hr_sp_todos_config action="DELETE">
+        <active>true</active>
+        <applies_to>0</applies_to>
+        <condition table="x_58872_needit_needit_task">active=true^assigned_toDYNAMIC90d1921e5f510100a9ad2572f2b477fe^EQ<item endquery="false" field="active" goto="false" newquery="false" operator="=" or="false" value="true"/>
+            <item endquery="false" field="assigned_to" goto="false" newquery="false" operator="DYNAMIC" or="false" value="90d1921e5f510100a9ad2572f2b477fe"/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </condition>
+        <custom_detail/>
+        <custom_title/>
+        <detail_fields>state,description</detail_fields>
+        <detail_type>fields</detail_type>
+        <display_priority/>
+        <link_to_parent>false</link_to_parent>
+        <link_to_task>true</link_to_task>
+        <name>Needit tasks</name>
+        <parent_fields/>
+        <parent_table/>
+        <sys_class_name>sn_hr_sp_todos_config</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-23 18:40:28</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>1a516f587f078210d94a0cd10d8665f4</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Needit tasks</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_update_name>sn_hr_sp_todos_config_1a516f587f078210d94a0cd10d8665f4</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-23 18:45:01</sys_updated_on>
+        <tab>open</tab>
+        <table>x_58872_needit_needit_task</table>
+        <title_field>short_description</title_field>
+        <title_type>fields</title_type>
+    </sn_hr_sp_todos_config>
+    <sys_translated_text action="DELETE" query="documentkey=1a516f587f078210d94a0cd10d8665f4"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</application>
+        <file_path/>
+        <instance_id>909410dc0d120210958b922e05ff61a4</instance_id>
+        <instance_name>glide_db_dump</instance_name>
+        <name>sn_hr_sp_todos_config_1a516f587f078210d94a0cd10d8665f4</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sn_hr_sp_todos_config"><sn_hr_sp_todos_config action="INSERT_OR_UPDATE"><active>true</active><applies_to>0</applies_to><condition table="x_58872_needit_needit_task">active=true^assigned_toDYNAMIC90d1921e5f510100a9ad2572f2b477fe^EQ<item endquery="false" field="active" goto="false" newquery="false" operator="=" or="false" value="true"/><item endquery="false" field="assigned_to" goto="false" newquery="false" operator="DYNAMIC" or="false" value="90d1921e5f510100a9ad2572f2b477fe"/><item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/></condition><custom_detail/><custom_title/><detail_fields>state,description</detail_fields><detail_type>fields</detail_type><display_priority/><link_to_parent>false</link_to_parent><link_to_task>true</link_to_task><name>Needit tasks</name><parent_fields/><parent_table/><sys_class_name>sn_hr_sp_todos_config</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2024-06-23 18:40:28</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>1a516f587f078210d94a0cd10d8665f4</sys_id><sys_mod_count>2</sys_mod_count><sys_name>Needit tasks</sys_name><sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package><sys_policy/><sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope><sys_update_name>sn_hr_sp_todos_config_1a516f587f078210d94a0cd10d8665f4</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2024-06-23 18:45:01</sys_updated_on><tab>open</tab><table>x_58872_needit_needit_task</table><title_field>short_description</title_field><title_type>fields</title_type></sn_hr_sp_todos_config><sys_translated_text action="delete_multiple" query="documentkey=1a516f587f078210d94a0cd10d8665f4"/></record_update>]]></payload>
+        <payload_hash>-547649396</payload_hash>
+        <record_name>Needit tasks</record_name>
+        <reverted_from/>
+        <source>ff1616577fb64210d94a0cd10d86658c</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-23 18:45:02</sys_created_on>
+        <sys_id>ddb2e7d87f078210d94a0cd10d866573</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>190466a7bb90000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-23 18:45:02</sys_updated_on>
+        <type>To-dos Configuration</type>
+        <update_guid>95b2e7d8030782100395686ce31c0773</update_guid>
+        <update_guid_history>95b2e7d8030782100395686ce31c0773:-547649396,7642ef984907821090cbdf1484e89d45:-1412190253,16a1a398210782107fb2756a6094f9fe:2133311719</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Needit tasks">57adfd2c7f478210d94a0cd10d866590</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-24 06:02:06</sys_created_on>
+        <sys_db_object display_value="" name="sn_hr_sp_todos_config">sn_hr_sp_todos_config</sys_db_object>
+        <sys_id>78ec1cb85e11421094ce50394f31c900</sys_id>
+        <sys_metadata>1a516f587f078210d94a0cd10d8665f4</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Needit tasks</sys_name>
+        <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
+        <sys_scope_delete display_value="">1c30d6fa384846479a6e34b7ef0328a9</sys_scope_delete>
+        <sys_update_name>sn_hr_sp_todos_config_1a516f587f078210d94a0cd10d8665f4</sys_update_name>
+        <sys_update_version display_value="sn_hr_sp_todos_config_1a516f587f078210d94a0cd10d8665f4">ddb2e7d87f078210d94a0cd10d866573</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-24 06:02:06</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
