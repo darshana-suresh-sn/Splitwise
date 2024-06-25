@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller=function(spModal) {
+        <client_script><![CDATA[api.controller=function($scope, spModal, spUtil) {
 	/* widget controller */
 	var c = this;
 	c.CONST_TO_PAY = 'toPay';
@@ -13,7 +13,7 @@
 		shared.sys_id = item.sys_id;
 		shared.action = "openPayment";
 		spModal.open({
-			title:'Payment - '+(item.payer ? item.payer:item.owed_to)+': ₹'+item.amount_owed,
+			title:'Payment - '+(item.payer ? item.payer:item.owed_to)+': ₹'+item.amount_owed +' ('+item.state+')',
 			widget:'payment_task',
 			shared:shared,
 			buttons:[{
@@ -100,10 +100,12 @@
 		else
 			return "Approve";
 	}
+	spUtil.recordWatch($scope, 'sn_splitwise_payments', null);
 
 	$rootScope.$on('expenseUpdated', function(event,data) { 
 		c.server.refresh();
 	});
+	
 };
 
 ]]></client_script>
@@ -138,8 +140,7 @@
 
 		var am_to_pay_record = new GlideRecord('sn_splitwise_payments');
 		am_to_pay_record.addQuery('payer',gs.getUser().getID());
-		am_to_pay_record.addEncodedQuery('approval=requested^ORapproval=not requested');
-		am_to_pay_record.addQuery('approval','not requested');
+		am_to_pay_record.addEncodedQuery('stateNOT IN3,4,7');
 		am_to_pay_record.query();
 
 		data.balances_to_pay = [];
@@ -147,6 +148,7 @@
 			balanceObj = {};
 			$sp.getRecordDisplayValues(balanceObj, am_to_pay_record, 'sys_id,owed_to,amount_owed, approval, short_description');
 			balanceObj.amount = parseFloat(balanceObj.amount).toFixed(2);
+			balanceObj.state = getState(am_to_pay_record.approval.getValue());
 			data.balances_to_pay.push(balanceObj);
 		}
 
@@ -166,7 +168,7 @@
 	{
 		var am_to_get_record = new GlideRecord('sn_splitwise_payments');
 		am_to_get_record.addQuery('owed_to',gs.getUser().getID());
-		am_to_get_record.addEncodedQuery('approval=requested^ORapproval=not requested');
+		am_to_get_record.addEncodedQuery('stateNOT IN3,4,7');
 		am_to_get_record.query();
 
 		data.balances_to_get = [];
@@ -174,6 +176,7 @@
 			balanceObj = {};
 			$sp.getRecordDisplayValues(balanceObj, am_to_get_record, 'sys_id,payer,amount_owed,approval, short_description');
 			balanceObj.amount = parseFloat(balanceObj.amount).toFixed(2);
+			balanceObj.state = getState(am_to_get_record.approval.getValue());
 			data.balances_to_get.push(balanceObj);
 			data.total_am_to_get += balanceObj.amount;
 		}
@@ -181,6 +184,7 @@
 		var total_am_to_get_record = new GlideAggregate('sn_splitwise_payments');
 		total_am_to_get_record.addAggregate('SUM','amount_owed');
 		total_am_to_get_record.addQuery('owed_to',gs.getUser().getID());
+		total_am_to_get_record.addQuery('approval','not requested');
 		total_am_to_get_record.setGroup(false);
 		total_am_to_get_record.query();
 		if(total_am_to_get_record.next())
@@ -224,6 +228,18 @@
 			}
 		getAmountToPayBalances();
 	}
+	var getState = function(value)
+	{
+		switch(value)
+			{
+				case 'not requested': return 'Pending payment';
+				case 'requested': return 'Pending approval';
+				case 'rejected': return 'Payment rejected';
+				default:
+					return '-';
+					
+			}
+	}
 	//main section
 
 	if(input && input.action=='approvePayment')
@@ -243,14 +259,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-24 09:21:39</sys_created_on>
         <sys_id>9a5beaac7fc78210d94a0cd10d8665e5</sys_id>
-        <sys_mod_count>37</sys_mod_count>
+        <sys_mod_count>44</sys_mod_count>
         <sys_name>Payment list</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sp_widget_9a5beaac7fc78210d94a0cd10d8665e5</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-25 15:45:03</sys_updated_on>
+        <sys_updated_on>2024-06-25 18:42:13</sys_updated_on>
         <template><![CDATA[<div class="containerBody">
 
   <br>
@@ -295,11 +311,12 @@
           </font>
         </td>
         <td>
-            {{item.approval}}
+            {{item.state}}
         </td>
       </tr>
             <tr ng-repeat="item in c.data.balances_to_get">
-        <td >{{item.payer}}
+        <td >
+          <a  href="javascript:void(0)" ng-click="c.onPaymentClick(item)">{{item.payer}}</a>
         </td>
         <td>
           <font color="green">
@@ -307,7 +324,7 @@
           </font>
         </td>
         <td>
-          {{item.approval}}
+          {{item.state}}
         </td>
       </tr>
     </tbody>

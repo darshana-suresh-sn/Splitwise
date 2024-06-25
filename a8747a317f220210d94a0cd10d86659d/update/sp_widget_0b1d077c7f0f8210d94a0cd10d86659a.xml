@@ -4,9 +4,14 @@
         <client_script><![CDATA[function todosApprovalController($scope,spModal, spUtil) {
 	/* widget controller */
 	var c =this;
-	c.data.newComment = '';	
+		c.showCommentBox = false;
+
+	c.showHistory = false;
+	c.historyButton = "Show Task History";
+
 	c.onActionClick = function($event,action)
 	{
+		c.showCommentBox = false;
 		if(action=='settle')
 			spModal.confirm('Are you sure you want to settle the balance with '+c.data.task.owed_to+'?').then(function(confirmed) {
 				if(confirmed)
@@ -14,35 +19,64 @@
 					c.updateState($event,action);
 				}
 			});
+		else if(action=='reject')
+			{
+				if(c.comments)
+				{
+					c.showCommentBox = false;
+											c.updateState($event,action);
+				}
+				else
+					{
+										c.showCommentBox = true;
+				c.PLACEHOLDER_MESSAGE = "Please provide a reason for rejecting the request";
+					}
+			}
 		else
 			c.updateState($event,action);
 
+	}
+	c.onViewHistory = function()
+	{
+		c.showHistory = !c.showHistory;
+		if(c.showHistory)
+			c.historyButton = "Hide Task History";
+		else
+			c.historyButton = "Show Task History";
 	}
 	c.updateState = function($event,action)
 	{
 		$event.stopPropagation();
 		c.server.get({
 			sys_id:c.sys_id,
-			action: action
+			action: action,
+			comments: c.comments
 		}).then(function(result){
 			c.data = result.data;
 			c.addDescriptions();
+			spUtil.get("widget-form", {table:'sn_splitwise_payments',sys_id: c.sys_id, view:'activity'}).then(function(response) {
+				c.activityWidget = response;
+			});
 		});
 	}
 	c.addDescriptions = function()
 	{
 		if(c.data.isApprover)
 		{
-			c.data.title = c.data.task.payer + ' paid  ₹'+c.data.task.amount_owed+' to you.';			
 			if(c.data.showApprovalForm)
 			{
+				c.data.title = c.data.task.payer + ' paid  ₹'+c.data.task.amount_owed+' to you.';			
 				c.data.title += ' Approve payment?';
 				c.data.PLACEHOLDER_MESSAGE = 'Add comments for approval request';
+			}
+			else
+			{
+				c.data.title = c.data.task.payer + ' owes you ₹'+c.data.task.amount_owed;
 			}
 		}
 		else if(c.data.isPayer)
 		{
-			c.data.title = 'Pay  ₹'+c.data.task.amount_owed+' to '+c.data.task.owed_to;
+			c.data.title = 'You owe ₹'+c.data.task.amount_owed+' to '+c.data.task.owed_to;
 		}
 	}
 	c.startup = function()
@@ -51,12 +85,11 @@
 			c.sys_id = $scope.options.sysId;
 		else if($scope.options && $scope.options.shared)
 			c.sys_id = $scope.options.shared.sys_id;
-		
-		   spUtil.get("widget-form", {table:'sn_splitwise_payments',sys_id: c.sys_id}).then(function(response) {
-            c.activityWidget = response;
-    });
 
-		c.formOptions = {"table": "sn_splitwise_payments","sys_id": c.sys_id};
+		spUtil.get("widget-form", {table:'sn_splitwise_payments',sys_id: c.sys_id, view:'activity'}).then(function(response) {
+			c.activityWidget = response;
+		});
+
 		c.server.get({
 			sys_id:c.sys_id,
 		}).then(function(result)
@@ -87,7 +120,15 @@
     height: 100px;
     resize:none;
 }
-</css>
+.activityMargin{
+  margin:20px 0px;
+}
+.titleAlign{
+  text-align:center;
+}
+td{
+  padding-bottom:10px;
+}</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -136,7 +177,7 @@
 		if(gr.next())
 		{
 			var desc = gr.description.getValue()+ '';
-			var short;
+			var short = '';
 			switch(input.action)
 			{
 				case 'settle':
@@ -152,7 +193,7 @@
 					break;
 				case 'reject':
 					gr.setValue('approval','rejected');
-					short = 'Payment recorded by '+gr.payer.getDisplayValue()+'rejected with comment - "".';
+					short = 'Payment recorded by '+gr.payer.getDisplayValue()+' rejected with comment - "'+input.comments+'".';
 					gr.setValue('assigned_to',gr.payer.getValue());
 					break;
 			}
@@ -177,50 +218,88 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 06:27:37</sys_created_on>
         <sys_id>0b1d077c7f0f8210d94a0cd10d86659a</sys_id>
-        <sys_mod_count>66</sys_mod_count>
+        <sys_mod_count>148</sys_mod_count>
         <sys_name>Payment task</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sp_widget_0b1d077c7f0f8210d94a0cd10d86659a</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-25 16:03:22</sys_updated_on>
-        <template><![CDATA[<div id="todo-approval-actions" ng-if="data.isApprover">
-  <label>{{data.title}}</label>
-  <div ng-if="data.showApprovalForm">
-    <div class="textbox" id="todo-acceptance-panel-textboxdiv" >
-      <textarea class="form-control" aria-label=${comments} type="text" id="comments" name="comments" ng-model="c.data.newComment" placeholder='{{data.PLACEHOLDER_MESSAGE}}'></textarea>
-    </div>
-    <div id="todo-approval-panel-reject" class="approval-buttons btn-toolbar">
-      <button aria-label="${Reject}" class="btn btn-default button-width" name="submit" value=${Submit} ng-click="c.onActionClick($event,'reject')">
-        ${Reject}
-      </button>
-      <button aria-label="${Approve}" class="btn btn-primary button-width" name="accept" ng-click="c.onActionClick($event,'approve')" type="button"  id="hr-acceptance-panel-Acceptance">
-        ${Approve}
-      </button>
-    </div>
-  </div>
+        <sys_updated_on>2024-06-25 19:11:16</sys_updated_on>
+        <template><![CDATA[
+<div>
+  <table style="width:100%">
+    <tr>
+      <td>
+        <h4>        
+              ${Transaction: }{{data.title}}
+          </h4>
 
-</div>
-<div ng-if="data.isPayer">
-  <label>{{data.title}}</label>
-  <div ng-if="data.showPaymentForm">
-    <div id="todo-approval-panel-reject" class="approval-buttons btn-toolbar">
-      <button aria-label="${Record Payment}" class="btn btn-primary button-width" name="accept" ng-click="c.onActionClick($event,'settle')" type="button"  id="hr-acceptance-panel-Acceptance">
+      </td>
+      
+    </tr>
+        <tr ng-if="data.showApprovalForm && data.isApprover && c.showCommentBox">
+      <td>
+        <div class="textbox" id="todo-acceptance-panel-textboxdiv" ng-if="c.showCommentBox">
+      <textarea class="form-control"  aria-label="${comments}" type="text" id="comments" name="comments" ng-model="c.comments" placeholder='{{c.PLACEHOLDER_MESSAGE}}'></textarea>
+    </div>
+        </td>
+
+    </tr>
+    <tr >
+      <td>
+        <div class="approval-buttons btn-toolbar">
+                <button  ng-if="data.isPayer && data.showPaymentForm" 
+                        aria-label="${Record Payment}" class="btn btn-primary button-width" name="accept" ng-click="c.onActionClick($event,'settle')" type="button"  id="hr-acceptance-panel-Acceptance">
         ${Record payment}
       </button>
-    </div>
-  </div>
-  <div ng-if="!data.showPaymentForm">
-        <div id="todo-approval-panel-reject" class="approval-buttons btn-toolbar">
-      <button aria-label="${Payment made}" disabled="true" class="btn btn-primary button-width" name="accept" type="button"  id="hr-acceptance-panel-Acceptance">
-        ${Payment made}
+                <button ng-if="data.showApprovalForm && data.isApprover"
+              aria-label="${Approve}" class="btn btn-primary button-width" name="accept" ng-click="c.onActionClick($event,'approve')" type="button"  id="hr-acceptance-panel-Acceptance">
+        ${Approve}
       </button>
+                <button ng-if="data.showApprovalForm && data.isApprover"
+                        aria-label="${Reject}" class="btn btn-default button-width" name="submit" value=${Submit} ng-click="c.onActionClick($event,'reject')">
+        ${Reject}
+      </button>
+
+                              <button class="btn btn-default button-width" name="accept" ng-click="c.onViewHistory()" type="button"  id="hr-acceptance-panel-Acceptance">
+        {{c.historyButton}}
+      </button>
+        </div>
+
+              </td>
+    </tr>
+
+    <tr ng-if="c.showHistory">
+      <td>
+      <div class="activityMargin">
+        <sp-widget widget="c.activityWidget"></sp-widget>
+      </div>
+        
+      </td>
+    </tr>
+  </table>
+  <!--
+  <div ng-if="data.showPaymentForm">
+    <div style="display:flex;justify-content: space-between;">
+
     </div>
+    <table style="width:100%">
+      <tr>
+        <td class="titleAlign">
+          <h3>{{data.title}}</h3>
+        </td>
+        <td class="">
+                <button aria-label="${Record Payment}" class="btn btn-primary buttonRight" name="accept" ng-click="c.onActionClick($event,'settle')" type="button"  id="hr-acceptance-panel-Acceptance">
+        ${Record payment}
+      </button>
+        </td>
+      </tr>
+    </table>
+
   </div>
+  -->
 </div>
-<div>
-    <sp-widget widget="c.activityWidget"></sp-widget>
-</div>]]></template>
+]]></template>
     </sp_widget>
 </record_update>
