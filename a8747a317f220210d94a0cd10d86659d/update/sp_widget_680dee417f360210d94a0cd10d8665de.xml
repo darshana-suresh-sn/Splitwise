@@ -139,7 +139,9 @@
         <css>.glyphMargin{
   margin:0 5px 0 0;
 }
-
+tbody tr:hover{
+  background-color:#e2e0ef !important;
+}
 </css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -161,7 +163,7 @@
 	{
 		var gr = new GlideRecord('sn_splitwise_expense');
 		gr.query('group_id',group_id);
-		gr.orderByDesc('sys_created_on');
+		gr.orderByDesc('date');
 		gr.query();
 		data.expenses = [];
 		var res;
@@ -238,14 +240,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-13 12:30:09</sys_created_on>
         <sys_id>680dee417f360210d94a0cd10d8665de</sys_id>
-        <sys_mod_count>202</sys_mod_count>
+        <sys_mod_count>207</sys_mod_count>
         <sys_name>Expense table view</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sp_widget_680dee417f360210d94a0cd10d8665de</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-21 21:04:43</sys_updated_on>
+        <sys_updated_on>2024-06-26 09:10:09</sys_updated_on>
         <template><![CDATA[<div class="containerBody">
                               
 <div>
@@ -259,12 +261,13 @@
           class="btn btn-{{options.color}} m-b btn-secondary"
           ng-disabled="!data.group_id">
     Delete Group
-  </button>-->
+  </button>
   <button id="editGroupBtn" ng-click="c.onEditGroup()"
           class="btn btn-{{options.color}} m-b"
           ng-disabled="!data.group_id">
     View Group
   </button>
+  -->
 </div>  
 <div class="panel panel-{{options.color}} b" ng-class="{'data-table-high-contrast': accessibilityModeEnabled}">
   <div class="panel-heading form-inline" ng-hide="options.hide_header">
@@ -303,8 +306,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="item in c.data.expenses">
-          <td ><a  href="javascript:void(0)" ng-click="c.onExpenseClick(item)">{{item.expense_name}}</a>
+        <tr ng-repeat="item in c.data.expenses" ng-click="c.onExpenseClick(item)">
+          <td >{{item.expense_name}}
           </td>
           <td>{{item.paid_by}}
           </td>

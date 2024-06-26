@@ -34,15 +34,18 @@
 			}
 		else
 			c.updateState($event,action);
-
+		
 	}
 	c.onViewHistory = function()
 	{
 		c.showHistory = !c.showHistory;
 		if(c.showHistory)
+		{
 			c.historyButton = "Hide Task History";
+		}
 		else
 			c.historyButton = "Show Task History";
+
 	}
 	c.updateState = function($event,action)
 	{
@@ -128,6 +131,9 @@
 }
 td{
   padding-bottom:10px;
+}
+.action-btn {
+  display: none !important;
 }</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -218,14 +224,14 @@ td{
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-25 06:27:37</sys_created_on>
         <sys_id>0b1d077c7f0f8210d94a0cd10d86659a</sys_id>
-        <sys_mod_count>148</sys_mod_count>
+        <sys_mod_count>171</sys_mod_count>
         <sys_name>Payment task</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sp_widget_0b1d077c7f0f8210d94a0cd10d86659a</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-25 19:11:16</sys_updated_on>
+        <sys_updated_on>2024-06-26 06:57:27</sys_updated_on>
         <template><![CDATA[
 <div>
   <table style="width:100%">
@@ -262,7 +268,7 @@ td{
         ${Reject}
       </button>
 
-                              <button class="btn btn-default button-width" name="accept" ng-click="c.onViewHistory()" type="button"  id="hr-acceptance-panel-Acceptance">
+                              <button id="historyButton" class="btn btn-default button-width" name="accept" ng-click="c.onViewHistory()" type="button"  id="hr-acceptance-panel-Acceptance">
         {{c.historyButton}}
       </button>
         </div>

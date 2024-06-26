@@ -112,6 +112,9 @@
         <controller_as>c</controller_as>
         <css>td,th{
   padding:5px;
+}
+tbody tr:hover{
+  background-color:#e2e0ef !important;
 }</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -163,6 +166,19 @@
 			data.total_am_to_pay = parseFloat(total_am_to_pay_record.getAggregate('SUM', 'amount_owed'));
 		}
 		if(!data.total_am_to_pay) data.total_am_to_pay = 0;
+		
+		total_am_to_pay_record = new GlideAggregate('sn_splitwise_payments');
+		total_am_to_pay_record.addAggregate('SUM','amount_owed');
+		total_am_to_pay_record.addQuery('payer',gs.getUser().getID());
+		//total_am_to_pay_record.addQuery('approval','requested');
+		total_am_to_pay_record.addEncodedQuery('approvalINnot requested,rejected');
+		total_am_to_pay_record.setGroup(false);
+		total_am_to_pay_record.query();
+		if(total_am_to_pay_record.next())
+		{
+			data.total_am_to_pay_requested = parseFloat(total_am_to_pay_record.getAggregate('SUM', 'amount_owed'));
+		}
+		if(!data.total_am_to_pay_requested) data.total_am_to_pay_requested = 0;
 	}
 	var getAmountToGetBalances = function()
 	{
@@ -184,7 +200,8 @@
 		var total_am_to_get_record = new GlideAggregate('sn_splitwise_payments');
 		total_am_to_get_record.addAggregate('SUM','amount_owed');
 		total_am_to_get_record.addQuery('owed_to',gs.getUser().getID());
-		total_am_to_get_record.addQuery('approval','not requested');
+		//total_am_to_get_record.addQuery('approval','not requested');
+		total_am_to_get_record.addEncodedQuery('approvalINnot requested,rejected');
 		total_am_to_get_record.setGroup(false);
 		total_am_to_get_record.query();
 		if(total_am_to_get_record.next())
@@ -192,6 +209,18 @@
 			data.total_am_to_get = parseFloat(total_am_to_get_record.getAggregate('SUM', 'amount_owed'));
 		}
 		if(!data.total_am_to_get) data.total_am_to_get = 0;
+		
+		total_am_to_get_record = new GlideAggregate('sn_splitwise_payments');
+		total_am_to_get_record.addAggregate('SUM','amount_owed');
+		total_am_to_get_record.addQuery('owed_to',gs.getUser().getID());
+		total_am_to_get_record.addQuery('approval','requested');
+		total_am_to_get_record.setGroup(false);
+		total_am_to_get_record.query();
+		if(total_am_to_get_record.next())
+		{
+			data.total_am_to_get_requested = parseFloat(total_am_to_get_record.getAggregate('SUM', 'amount_owed'));
+		}
+		if(!data.total_am_to_get_requested) data.total_am_to_get_requested = 0;
 	}
 	var approvePayment = function(balance)
 	{
@@ -259,14 +288,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-24 09:21:39</sys_created_on>
         <sys_id>9a5beaac7fc78210d94a0cd10d8665e5</sys_id>
-        <sys_mod_count>44</sys_mod_count>
+        <sys_mod_count>52</sys_mod_count>
         <sys_name>Payment list</sys_name>
         <sys_package display_value="Splitwise" source="sn_splitwise">a8747a317f220210d94a0cd10d86659d</sys_package>
         <sys_policy/>
         <sys_scope display_value="Splitwise">a8747a317f220210d94a0cd10d86659d</sys_scope>
         <sys_update_name>sp_widget_9a5beaac7fc78210d94a0cd10d8665e5</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-25 18:42:13</sys_updated_on>
+        <sys_updated_on>2024-06-26 09:09:41</sys_updated_on>
         <template><![CDATA[<div class="containerBody">
 
   <br>
@@ -282,6 +311,20 @@
       ₹{{data.total_am_to_get.toFixed(2)}} 
       </b></font>
     in total
+    <!--
+    <br>
+    You have paid
+        <font color="red"><b>
+      ₹{{data.total_am_to_pay_requested.toFixed(2)}} 
+      </b>
+    </font>in total pending approval
+    <br>
+    You have been paid
+        <font color="green" ><b>
+      ₹{{data.total_am_to_get_requested.toFixed(2)}} 
+      </b></font>
+    in total pending approval
+    -->
   </p>
   <br>
 
@@ -301,9 +344,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="item in c.data.balances_to_pay">
+      <tr ng-repeat="item in c.data.balances_to_pay" ng-click="c.onPaymentClick(item)">
         <td>
-          <a  href="javascript:void(0)" ng-click="c.onPaymentClick(item)">{{item.owed_to}}</a>
+          {{item.owed_to}}
         </td>
         <td>
           <font color="red">
@@ -314,9 +357,9 @@
             {{item.state}}
         </td>
       </tr>
-            <tr ng-repeat="item in c.data.balances_to_get">
+            <tr ng-repeat="item in c.data.balances_to_get" ng-click="c.onPaymentClick(item)">
         <td >
-          <a  href="javascript:void(0)" ng-click="c.onPaymentClick(item)">{{item.payer}}</a>
+          {{item.payer}}
         </td>
         <td>
           <font color="green">
